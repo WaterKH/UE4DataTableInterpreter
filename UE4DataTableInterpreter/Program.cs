@@ -1,0 +1,424 @@
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text.Json;
+using UE4DataTableInterpreter.Enums;
+using UE4DataTableInterpreter.Gameflows;
+
+namespace UE4DataTableInterpreter
+{
+    public class Program
+    {
+        public static Dictionary<DataTableEnum, Dictionary<string, Dictionary<string, string>>> Data = new Dictionary<DataTableEnum, Dictionary<string, Dictionary<string, string>>>()
+        {
+            //{ DataTableEnum.ChrInit, new Dictionary<string, Dictionary<string, string>> { } },
+            //{ DataTableEnum.EquipItem, new Dictionary<string, Dictionary<string, string>> { } },
+            //{ DataTableEnum.Event, new Dictionary<string, Dictionary<string, string>> { } },
+            //{ DataTableEnum.FullcourseAbility, new Dictionary<string, Dictionary<string, string>> { } },
+            //{ DataTableEnum.LevelUp, new Dictionary<string, Dictionary<string, string>> { } },
+            //{ DataTableEnum.LuckyMark, new Dictionary<string, Dictionary<string, string>> { } },
+            //{ DataTableEnum.TreasureBT, new Dictionary<string, Dictionary<string, string>> { } },
+            //{ DataTableEnum.TreasureBX, new Dictionary<string, Dictionary<string, string>> { } },
+            //{ DataTableEnum.TreasureCA, new Dictionary<string, Dictionary<string, string>> { } },
+            //{ DataTableEnum.TreasureEW, new Dictionary<string, Dictionary<string, string>> { } },
+            //{ DataTableEnum.TreasureFZ, new Dictionary<string, Dictionary<string, string>> { } },
+            //{ DataTableEnum.TreasureHE, new Dictionary<string, Dictionary<string, string>> { } },
+            //{ DataTableEnum.TreasureKG, new Dictionary<string, Dictionary<string, string>> { } },
+            //{ DataTableEnum.TreasureMI, new Dictionary<string, Dictionary<string, string>> { } },
+            //{ DataTableEnum.TreasureRA, new Dictionary<string, Dictionary<string, string>> { } },
+            //{ DataTableEnum.TreasureTS, new Dictionary<string, Dictionary<string, string>> { } },
+            //{ DataTableEnum.TreasureTT, new Dictionary<string, Dictionary<string, string>> { } },
+            { DataTableEnum.VBonus, new Dictionary<string, Dictionary<string, string>> { } },
+            //{ DataTableEnum.WeaponEnhance, new Dictionary<string, Dictionary<string, string>> { } }
+        };
+
+        public static Dictionary<string, long> uAssetIds = new Dictionary<string, long>();
+
+        public static void Main(string[] args)
+        {
+            using var writer = new StreamWriter("uAssetIds_v2.json");
+            
+            string[] filePaths = Directory.GetFiles(@"D:\WaterKH\Repositories\UE4DataTableInterpreter\UE4DataTableInterpreter\Content\", "*.uasset", SearchOption.AllDirectories);
+            foreach (var path in filePaths)
+            {
+                using var reader = new FileStream(path, FileMode.Open);
+
+                var uAsset = new uAsset();
+                uAsset.Decompile(reader);
+
+                // Add to DataToWrite
+                foreach (var asset in uAsset.AssetStrings)
+                {
+                    if (!uAssetIds.ContainsKey(asset.AssetName))
+                        uAssetIds.Add(asset.AssetName, asset.Id);
+                }
+            }
+
+
+            var temp = JsonSerializer.Serialize(uAssetIds);
+
+            writer.WriteLine(temp);
+            writer.Flush();
+
+
+
+            
+
+            //Console.WriteLine(umap.AssetStrings.IndexOf(umap.AssetStrings.FirstOrDefault(x => x.AssetName.Contains("BP_TresConvertItemIDtoKeyNameWeapon"))));
+
+            //Console.WriteLine(umap.AssetStrings[0xc].AssetName);
+            //Console.WriteLine(umap.AssetStrings[0x40].AssetName);
+            //Console.WriteLine(umap.AssetStrings[0x18].AssetName);
+            //Console.WriteLine(umap.AssetStrings[0x04].AssetName);
+            
+            //Console.WriteLine(umap.AssetStrings[0x01].AssetName);
+            //Console.WriteLine(umap.AssetStrings[0x24].AssetName);
+            //Console.WriteLine(umap.AssetStrings[0x38f].AssetName);
+            //Console.WriteLine(umap.AssetStrings[0xf].AssetName);
+            //Console.WriteLine(umap.AssetStrings[0x394].AssetName);
+            //Console.WriteLine(umap.AssetStrings[0x04].AssetName);
+            //Console.WriteLine(umap.AssetStrings[0x32e].AssetName);
+            //Console.WriteLine(umap.AssetStrings[0x38f].AssetName);
+            //Console.WriteLine(umap.AssetStrings[0x379].AssetName);
+            //Console.WriteLine(umap.AssetStrings[0x38d].AssetName);
+            //Console.WriteLine(umap.AssetStrings[0x39e].AssetName);
+            //Console.WriteLine(umap.AssetStrings[0x37a].AssetName);
+            //Console.WriteLine(umap.AssetStrings[0x37c].AssetName);
+            //using var uexpReader = new FileStream(@"D:\WaterKH\Repositories\UE4DataTableInterpreter\UE4DataTableInterpreter\Content\GameFlows\tt_01_gameflow.uexp", FileMode.Open);
+
+
+            //var uexp = new uExp();
+            //uexp.Decompile<GameflowTT>(reader, umap.AssetStrings);
+
+            var dataTableManager = new DataTableManager();
+            var randomizedData = new Dictionary<DataTableEnum, Dictionary<string, Dictionary<string, string>>>
+            {
+                { DataTableEnum.ChrInit, new Dictionary<string, Dictionary<string, string>> { } },
+                { DataTableEnum.EquipItem, new Dictionary<string, Dictionary<string, string>> { } },
+                { DataTableEnum.Event, new Dictionary<string, Dictionary<string, string>> {
+                    { "TresUIMobilePortalDataAsset", new Dictionary<string, string> { { "Reward", "WEP_GOOFY_01\u0000" } } } } },
+                { DataTableEnum.FullcourseAbility, new Dictionary<string, Dictionary<string, string>> { } },
+                { DataTableEnum.LevelUp, new Dictionary<string, Dictionary<string, string>> { } },
+                { DataTableEnum.LuckyMark, new Dictionary<string, Dictionary<string, string>> { } },
+                { DataTableEnum.TreasureBT, new Dictionary<string, Dictionary<string, string>> { } },
+                { DataTableEnum.TreasureBX, new Dictionary<string, Dictionary<string, string>> { } },
+                { DataTableEnum.TreasureCA, new Dictionary<string, Dictionary<string, string>> { } },
+                { DataTableEnum.TreasureEW, new Dictionary<string, Dictionary<string, string>> { } },
+                { DataTableEnum.TreasureFZ, new Dictionary<string, Dictionary<string, string>> { } },
+                { DataTableEnum.TreasureHE, new Dictionary<string, Dictionary<string, string>> { } },
+                { DataTableEnum.TreasureKG, new Dictionary<string, Dictionary<string, string>> { } },
+                { DataTableEnum.TreasureMI, new Dictionary<string, Dictionary<string, string>> { } },
+                { DataTableEnum.TreasureRA, new Dictionary<string, Dictionary<string, string>> { } },
+                { DataTableEnum.TreasureTS, new Dictionary<string, Dictionary<string, string>> { } },
+                { DataTableEnum.TreasureTT, new Dictionary<string, Dictionary<string, string>> { } },
+                { DataTableEnum.VBonus, new Dictionary<string, Dictionary<string, string>> { } },
+                { DataTableEnum.WeaponEnhance, new Dictionary<string, Dictionary<string, string>> { } }
+            };
+
+            #region Decompiling
+
+            dataTableManager.RandomizeDataTables(randomizedData);
+            Console.WriteLine("Test");
+            //foreach (var (key, value) in Data)
+            //{
+            //    foreach (var (rowName, value2) in value)
+            //    {
+            //        writer.WriteLine(rowName);
+            //    }
+            //}
+            
+
+            //var treasures = new Dictionary<string, DataTable>
+            //{
+            //    { "TresTreasureDataBT", new DataTable() },
+            //    { "TresTreasureDataBX", new DataTable() },
+            //    { "TresTreasureDataCA", new DataTable() },
+            //    //{ "TresTreasureDataDW", new TreasureDataTableEntry() },
+            //    { "TresTreasureDataEW", new DataTable() },
+            //    { "TresTreasureDataFZ", new DataTable() },
+            //    { "TresTreasureDataHE", new DataTable() },
+            //    { "TresTreasureDataKG", new DataTable() },
+            //    { "TresTreasureDataMI", new DataTable() },
+            //    { "TresTreasureDataRA", new DataTable() },
+            //    { "TresTreasureDataTS", new DataTable() },
+            //    { "TresTreasureDataTT", new DataTable() }
+            //};
+
+            //foreach (var treasure in treasures)
+            //{
+            //    var uAsset = new uAsset();
+
+            //    using var reader = File.OpenRead($"{treasure.Key}.uasset");
+
+            //    treasure.Value.uAsset = uAsset.Decompile(reader);
+
+            //    //for (int i = 0; i < treasure.Value.uAsset.AssetStrings.Count; ++i)
+            //    //{
+            //    //    Console.WriteLine($"{i} ({i.ToString("X")}): {treasure.Value.uAsset.AssetStrings[i].AssetName}");
+            //    //}
+
+            //    Console.WriteLine();
+
+            //    var uExp = new uExp();
+
+            //    using var readerExp = File.OpenRead($"{treasure.Key}.uexp");
+
+            //    treasure.Value.uExp = uExp.Decompile<TreasureDataTableEntry>(readerExp);
+
+            //    foreach (TreasureDataTableEntry treasureEntry in treasure.Value.uExp.DataTableEntries)
+            //    {
+            //        Console.WriteLine($"TreasureBox: {treasure.Value.uAsset.AssetStrings[(int)treasureEntry.Id].AssetName} - TreasureName: {treasure.Value.uAsset.AssetStrings[(int)treasureEntry.Treasure].AssetName}");
+            //    }
+
+            //    Console.WriteLine();
+            //}
+
+            //var vbonuses = new Dictionary<string, DataTable>
+            //{
+            //    { "TresVBonusData", new DataTable() }
+            //};
+
+            //foreach (var vbonus in vbonuses)
+            //{
+            //    var uAsset = new uAsset();
+
+            //    using var reader = File.OpenRead($"{vbonus.Key}.uasset");
+
+            //    vbonus.Value.uAsset = uAsset.Decompile(reader);
+
+            //    for (int i = 0; i < vbonus.Value.uAsset.AssetStrings.Count; ++i)
+            //    {
+            //        Console.WriteLine($"{i} ({i.ToString("X")}): {vbonus.Value.uAsset.AssetStrings[i].AssetName}");
+            //    }
+
+            //    Console.WriteLine();
+
+            //    var uExp = new uExp();
+
+            //    using var readerExp = File.OpenRead($"{vbonus.Key}.uexp");
+
+            //    vbonus.Value.uExp = uExp.Decompile<VBonusDataTableEntry>(readerExp);
+
+            //    foreach (VBonusDataTableEntry vbonusEntry in vbonus.Value.uExp.DataTableEntries)
+            //    {
+            //        Console.WriteLine($"VBonus: {vbonus.Value.uAsset.AssetStrings[(int)vbonusEntry.Id].AssetName} - Abilities: {vbonus.Value.uAsset.AssetStrings[(int)vbonusEntry.m_Sora1.ETresVictoryAbilityType].AssetName}");
+            //    }
+
+            //    Console.WriteLine();
+            //}
+
+            //var levelUpData = new Dictionary<string, DataTable>
+            //{
+            //    { "p_ex001_LevelUpData", new DataTable() }
+            //};
+
+            //foreach (var levelUp in levelUpData)
+            //{
+            //    var uAsset = new uAsset();
+
+            //    using var reader = File.OpenRead($"{levelUp.Key}.uasset");
+
+            //    levelUp.Value.uAsset = uAsset.Decompile(reader);
+
+            //    for (int i = 0; i < levelUp.Value.uAsset.AssetStrings.Count; ++i)
+            //    {
+            //        Console.WriteLine($"{i} ({i.ToString("X")}): {levelUp.Value.uAsset.AssetStrings[i].AssetName}");
+            //    }
+
+            //    Console.WriteLine();
+
+            //    var uExp = new uExp();
+
+            //    using var readerExp = File.OpenRead($"{levelUp.Key}.uexp");
+
+            //    levelUp.Value.uExp = uExp.Decompile<LevelUpDataTableEntry>(readerExp);
+
+            //    foreach (LevelUpDataTableEntry levelUpEntry in levelUp.Value.uExp.DataTableEntries)
+            //    {
+            //        Console.WriteLine($"LevelUp: {levelUp.Value.uAsset.AssetStrings[(int)levelUpEntry.Id].AssetName} - LevelUp Ability: {levelUp.Value.uAsset.AssetStrings[(int)levelUpEntry.AbilityValue_1].AssetName}");
+            //    }
+
+            //    Console.WriteLine();
+            //}
+
+            //var equipItemData = new Dictionary<string, DataTable>
+            //{
+            //    { "TresEquipItemData", new DataTable() }
+            //};
+
+            //foreach (var equipItem in equipItemData)
+            //{
+            //    var uAsset = new uAsset();
+
+            //    using var reader = File.OpenRead($"{equipItem.Key}.uasset");
+
+            //    equipItem.Value.uAsset = uAsset.Decompile(reader);
+
+            //    for (int i = 0; i < equipItem.Value.uAsset.AssetStrings.Count; ++i)
+            //    {
+            //        Console.WriteLine($"{i} ({i.ToString("X")}): {equipItem.Value.uAsset.AssetStrings[i].AssetName}");
+            //    }
+
+            //    Console.WriteLine();
+
+            //    var uExp = new uExp();
+
+            //    using var readerExp = File.OpenRead($"{equipItem.Key}.uexp");
+
+            //    equipItem.Value.uExp = uExp.Decompile<EquipItemDataTableEntry>(readerExp);
+
+            //    foreach (EquipItemDataTableEntry equipItemEntry in equipItem.Value.uExp.DataTableEntries)
+            //    {
+            //        Console.WriteLine($"EquipItem: {equipItem.Value.uAsset.AssetStrings[(int)equipItemEntry.Id].AssetName} - EquipItem Name: {equipItem.Value.uAsset.AssetStrings[(int)equipItemEntry.KeyName].AssetName}");
+            //    }
+
+            //    Console.WriteLine();
+            //}
+
+            //var fullcourseAbilityData = new Dictionary<string, DataTable>
+            //{
+            //    { "TresFullcourseAbilityList", new DataTable() }
+            //};
+
+            //foreach (var fullcourseAbility in fullcourseAbilityData)
+            //{
+            //    var uAsset = new uAsset();
+
+            //    using var reader = File.OpenRead($"{fullcourseAbility.Key}.uasset");
+
+            //    fullcourseAbility.Value.uAsset = uAsset.Decompile(reader);
+
+            //    for (int i = 0; i < fullcourseAbility.Value.uAsset.AssetStrings.Count; ++i)
+            //    {
+            //        Console.WriteLine($"{i} ({i.ToString("X")}): {fullcourseAbility.Value.uAsset.AssetStrings[i].AssetName}");
+            //    }
+
+            //    Console.WriteLine();
+
+            //    var uExp = new uExp();
+
+            //    using var readerExp = File.OpenRead($"{fullcourseAbility.Key}.uexp");
+
+            //    fullcourseAbility.Value.uExp = uExp.Decompile<FullcourseAbilityDataTableEntry>(readerExp);
+
+            //    foreach (FullcourseAbilityDataTableEntry abilityEntry in fullcourseAbility.Value.uExp.DataTableEntries)
+            //    {
+            //        Console.WriteLine($"FullcourseAbility: {fullcourseAbility.Value.uAsset.AssetStrings[(int)abilityEntry.Id].AssetName} - FullcourseAbility Name: {fullcourseAbility.Value.uAsset.AssetStrings[(int)abilityEntry.Ability].AssetName}");
+            //    }
+
+            //    Console.WriteLine();
+            //}
+
+            //var luckyMarkData = new Dictionary<string, DataTable>
+            //{
+            //    { "TresLuckyMarkMilestoneRewardData", new DataTable() }
+            //};
+
+            //foreach (var luckyMark in luckyMarkData)
+            //{
+            //    var uAsset = new uAsset();
+
+            //    using var reader = File.OpenRead($"{luckyMark.Key}.uasset");
+
+            //    luckyMark.Value.uAsset = uAsset.Decompile(reader);
+
+            //    for (int i = 0; i < luckyMark.Value.uAsset.AssetStrings.Count; ++i)
+            //    {
+            //        Console.WriteLine($"{i} ({i.ToString("X")}): {luckyMark.Value.uAsset.AssetStrings[i].AssetName}");
+            //    }
+
+            //    Console.WriteLine();
+
+            //    var uExp = new uExp();
+
+            //    using var readerExp = File.OpenRead($"{luckyMark.Key}.uexp");
+
+            //    luckyMark.Value.uExp = uExp.Decompile<LuckyMarkDataTableEntry>(readerExp);
+
+            //    foreach (LuckyMarkDataTableEntry luckyMarkEntry in luckyMark.Value.uExp.DataTableEntries)
+            //    {
+            //        Console.WriteLine($"LuckyMark: {luckyMark.Value.uAsset.AssetStrings[(int)luckyMarkEntry.Id].AssetName} - LuckyMark Name: {luckyMark.Value.uAsset.AssetStrings[(int)luckyMarkEntry.Treasure].AssetName}");
+            //    }
+
+            //    Console.WriteLine();
+            //}
+
+            //var weaponEnhanceData = new Dictionary<string, DataTable>
+            //{
+            //    { "TresItemWeaponEnhanceData", new DataTable() }
+            //};
+
+            //foreach (var weapon in weaponEnhanceData)
+            //{
+            //    var uAsset = new uAsset();
+
+            //    using var reader = File.OpenRead($"{weapon.Key}.uasset");
+
+            //    weapon.Value.uAsset = uAsset.Decompile(reader);
+
+            //    for (int i = 0; i < weapon.Value.uAsset.AssetStrings.Count; ++i)
+            //    {
+            //        Console.WriteLine($"{i} ({i.ToString("X")}): {weapon.Value.uAsset.AssetStrings[i].AssetName}");
+            //    }
+
+            //    Console.WriteLine();
+
+            //    var uExp = new uExp();
+
+            //    using var readerExp = File.OpenRead($"{weapon.Key}.uexp");
+
+            //    weapon.Value.uExp = uExp.Decompile<WeaponEnhanceDataTableEntry>(readerExp);
+
+            //    foreach (WeaponEnhanceDataTableEntry weaponEntry in weapon.Value.uExp.DataTableEntries)
+            //    {
+            //        Console.WriteLine($"WeaponEnhance: {weapon.Value.uAsset.AssetStrings[(int)weaponEntry.IW].AssetName}_{weaponEntry.Id} - WeaponEnhance Name: {weapon.Value.uAsset.AssetStrings[(int)weaponEntry.Weapon].AssetName}");
+            //    }
+
+            //    Console.WriteLine();
+            //}
+
+            //var initData = new Dictionary<string, DataTable>
+            //{
+            //    { "TresChrInitData", new DataTable() }
+            //};
+
+            //foreach (var init in initData)
+            //{
+            //    var uAsset = new uAsset();
+
+            //    using var reader = File.OpenRead($"{init.Key}.uasset");
+
+            //    init.Value.uAsset = uAsset.Decompile(reader);
+
+            //    for (int i = 0; i < init.Value.uAsset.AssetStrings.Count; ++i)
+            //    {
+            //        Console.WriteLine($"{i} ({i.ToString("X")}): {init.Value.uAsset.AssetStrings[i].AssetName}");
+            //    }
+
+            //    Console.WriteLine();
+
+            //    var uExp = new uExp();
+
+            //    using var readerExp = File.OpenRead($"{init.Key}.uexp");
+
+            //    init.Value.uExp = uExp.Decompile<ChrInitDataTableEntry>(readerExp);
+
+            //    foreach (ChrInitDataTableEntry initEntry in init.Value.uExp.DataTableEntries)
+            //    {
+            //        Console.WriteLine($"Init: {init.Value.uAsset.AssetStrings[(int)initEntry.Id].AssetName} - Init Name: {init.Value.uAsset.AssetStrings[(int)initEntry.Weapons[0]].AssetName}");
+            //    }
+
+            //    Console.WriteLine();
+            //}
+
+            #endregion Decompiling
+
+            #region Changing + Recompiling
+
+
+
+            #endregion Changing + Recompiling
+        }
+    }
+}
