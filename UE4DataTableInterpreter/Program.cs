@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
+using UE4DataTableInterpreter.DataTables;
 using UE4DataTableInterpreter.Enums;
 using UE4DataTableInterpreter.Gameflows;
 
@@ -37,6 +38,14 @@ namespace UE4DataTableInterpreter
 
         public static void Main(string[] args)
         {
+            var tempList = new List<string> { "Pole Spin is on Sora's Level Ups [5 (TypeC) - 10 (TypeB) - 8 (TypeC)]", "Oblivion is in Toy Box in Large Chest 1", "Guard is in The Keyblade Graveyard (Terra-Xehanort & Vanitas Boss) on Shooting Star on Level 8", "Proof of Fantasy is on Lucky Emblem Milestone 5",
+                                              "There is 1 Check in Arendelle.", "There is 1 Check in Toy Box.", "There is 1 Check in Unreality.", "There is 1 Check in The Caribbean." };
+
+            var mobile = new Mobile();
+            var t = mobile.Process(tempList);
+
+            File.WriteAllBytes("mobile_test.locres", t.ToArray());
+
             using var writer = new StreamWriter("uAssetIds_v2.json");
             
             string[] filePaths = Directory.GetFiles(@"D:\WaterKH\Repositories\UE4DataTableInterpreter\UE4DataTableInterpreter\Content\", "*.uasset", SearchOption.AllDirectories);
