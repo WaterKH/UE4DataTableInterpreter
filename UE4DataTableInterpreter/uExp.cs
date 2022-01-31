@@ -81,6 +81,9 @@ namespace UE4DataTableInterpreter
                         temp = new MobilePortalDataTableEntry();
                         reader.Position = 0;
                         break;
+                    case "SynthesisItemDataTableEntry":
+                        temp = new SynthesisItemDataTableEntry();
+                        break;
                     default:
                         break;
                 }
@@ -93,6 +96,8 @@ namespace UE4DataTableInterpreter
                     dataTableEntry.RowName = uAssetStrings[((ChrInitDataTableEntry)dataTableEntry).m_PlayerSora.IndexId].AssetName.Replace("\0", "");
                 else if (typeof(T).Name == "MobilePortalDataTableEntry")
                     dataTableEntry.RowName = uAssetStrings[^3].AssetName.Replace("\0", "");
+                else if (typeof(T).Name == "SynthesisItemDataTableEntry")
+                    dataTableEntry.RowName = uAssetStrings[((SynthesisItemDataTableEntry)dataTableEntry).IS].AssetName.Replace("\0", $"_{dataTableEntry.IndexId - 1}");
                 else
                     dataTableEntry.RowName = uAssetStrings[dataTableEntry.IndexId].AssetName.Replace("\0", "");
 
@@ -176,6 +181,10 @@ namespace UE4DataTableInterpreter
                 case "MobilePortalDataTableEntry":
                     data = new List<byte>();
                     data.AddRange(((MobilePortalDataTableEntry)this.DataTableEntries.FirstOrDefault().Value).Recompile());
+                    break;
+                case "SynthesisItemDataTableEntry":
+                    foreach (var (rowName, entry) in this.DataTableEntries)
+                        data.AddRange(((SynthesisItemDataTableEntry)entry).Recompile());
                     break;
                 default:
                     break;

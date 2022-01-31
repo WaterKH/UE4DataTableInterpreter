@@ -56,11 +56,14 @@ namespace UE4DataTableInterpreter
                         subPath = @"Content\Load\Tres\TresVBonusTableAlt";
                         break;
                     case DataTableEnum.WeaponEnhance:
-                        path = @"Content\Load\ItemSynthesis\TresItemWeaponEnhanceData";
+                        path = @"Content\Load\Tres\ItemSynthesis\TresItemWeaponEnhanceData";
                         break;
                     case DataTableEnum.Event:
                         path = @"Content\Load\Tres\TresEventData";
                         subPath = @"Content\Game\UI\Data\MobilePortal\MobilePortalDataAsset";
+                        break;
+                    case DataTableEnum.SynthesisItem:
+                        path = @"Content\Load\Tres\ItemSynthesis\TresItemSynthesisData";
                         break;
 
 
@@ -187,6 +190,9 @@ namespace UE4DataTableInterpreter
                         break;
                     case DataTableEnum.Event:
                         uExp.Decompile<EventDataTableEntry>(readerExp, uAsset.AssetStrings);
+                        break;
+                    case DataTableEnum.SynthesisItem:
+                        uExp.Decompile<SynthesisItemDataTableEntry>(readerExp, uAsset.AssetStrings);
                         break;
 
 
@@ -600,7 +606,9 @@ namespace UE4DataTableInterpreter
                                     ((MobilePortalDataTableEntry)uExpAlt.DataTableEntries.FirstOrDefault(x => x.Value.RowName == entryIndex).Value).LSIGamePlayRewardItemValue = assetAltIndex;
                                 }
                                 break;
-
+                            case DataTableEnum.SynthesisItem:
+                                ((SynthesisItemDataTableEntry)uExp.DataTableEntries.FirstOrDefault(x => x.Value.RowName == entryIndex).Value).Reward = assetIndex;
+                                break;
 
                             case DataTableEnum.TreasureBT:
                             case DataTableEnum.TreasureBX:
@@ -654,6 +662,9 @@ namespace UE4DataTableInterpreter
                         break;
                     case DataTableEnum.Event:
                         uExpFileBytes = uExp.Recompile<EventDataTableEntry>();
+                        break;
+                    case DataTableEnum.SynthesisItem:
+                        uExpFileBytes = uExp.Recompile<SynthesisItemDataTableEntry>();
                         break;
 
 

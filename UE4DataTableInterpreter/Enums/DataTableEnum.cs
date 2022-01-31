@@ -24,6 +24,7 @@
 
         EquipItem = 18,
         WeaponEnhance = 19,
+        SynthesisItem = 20,
 
         //TreasureBT = 1,
         //TreasureBX = 2,
