@@ -48,7 +48,7 @@ namespace UE4DataTableInterpreter
 
             using var writer = new StreamWriter("uAssetIds_v2.json");
             
-            string[] filePaths = Directory.GetFiles(@"D:\WaterKH\Repositories\UE4DataTableInterpreter\UE4DataTableInterpreter\Content\", "*.uasset", SearchOption.AllDirectories);
+            string[] filePaths = Directory.GetFiles(@"D:/WaterKH/Repositories/UE4DataTableInterpreter/UE4DataTableInterpreter/Content/", "*.uasset", SearchOption.AllDirectories);
             foreach (var path in filePaths)
             {
                 using var reader = new FileStream(path, FileMode.Open);

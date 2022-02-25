@@ -36,69 +36,69 @@ namespace UE4DataTableInterpreter
                 switch (dataTableEnum)
                 {
                     case DataTableEnum.ChrInit:
-                        path = @"Content\Load\Common\TresChrInitData";
+                        path = @"Content/Load/Common/TresChrInitData";
                         break;
                     case DataTableEnum.EquipItem:
-                        path = @"Content\Load\Tres\TresEquipItemData";
+                        path = @"Content/Load/Tres/TresEquipItemData";
                         break;
                     case DataTableEnum.FullcourseAbility:
-                        path = @"Content\Load\Tres\TresFullcourseAbilityList";
+                        path = @"Content/Load/Tres/TresFullcourseAbilityList";
                         break;
                     case DataTableEnum.LevelUp:
-                        path = @"Content\DataTable\Player\LevelUp\p_ex001_LevelUpData";
-                        subPath = @"Content\DataTable\Player\LevelUp\p_ex001_LevelUpLookupData";
+                        path = @"Content/DataTable/Player/LevelUp/p_ex001_LevelUpData";
+                        subPath = @"Content/DataTable/Player/LevelUp/p_ex001_LevelUpLookupData";
                         break;
                     case DataTableEnum.LuckyMark:
-                        path = @"Content\Load\Tres\TresLuckyMarkMilestoneRewardData";
+                        path = @"Content/Load/Tres/TresLuckyMarkMilestoneRewardData";
                         break;
                     case DataTableEnum.VBonus:
-                        path = @"Content\Load\Tres\TresVBonusData";
-                        subPath = @"Content\Load\Tres\TresVBonusTableAlt";
+                        path = @"Content/Load/Tres/TresVBonusData";
+                        subPath = @"Content/Load/Tres/TresVBonusTableAlt";
                         break;
                     case DataTableEnum.WeaponEnhance:
-                        path = @"Content\Load\Tres\ItemSynthesis\TresItemWeaponEnhanceData";
+                        path = @"Content/Load/Tres/ItemSynthesis/TresItemWeaponEnhanceData";
                         break;
                     case DataTableEnum.Event:
-                        path = @"Content\Load\Tres\TresEventData";
-                        subPath = @"Content\Game\UI\Data\MobilePortal\MobilePortalDataAsset";
+                        path = @"Content/Load/Tres/TresEventData";
+                        subPath = @"Content/Game/UI/Data/MobilePortal/MobilePortalDataAsset";
                         break;
                     case DataTableEnum.SynthesisItem:
-                        path = @"Content\Load\Tres\ItemSynthesis\TresItemSynthesisData";
+                        path = @"Content/Load/Tres/ItemSynthesis/TresItemSynthesisData";
                         break;
 
 
                     case DataTableEnum.TreasureBT:
-                        path = @"Content\Load\Tres\TresTreasureDataBT";
+                        path = @"Content/Load/Tres/TresTreasureDataBT";
                         break;
                     case DataTableEnum.TreasureBX:
-                        path = @"Content\Load\Tres\TresTreasureDataBX";
+                        path = @"Content/Load/Tres/TresTreasureDataBX";
                         break;
                     case DataTableEnum.TreasureCA:
-                        path = @"Content\Load\Tres\TresTreasureDataCA";
+                        path = @"Content/Load/Tres/TresTreasureDataCA";
                         break;
                     case DataTableEnum.TreasureEW:
-                        path = @"Content\Load\Tres\TresTreasureDataEW";
+                        path = @"Content/Load/Tres/TresTreasureDataEW";
                         break;
                     case DataTableEnum.TreasureFZ:
-                        path = @"Content\Load\Tres\TresTreasureDataFZ";
+                        path = @"Content/Load/Tres/TresTreasureDataFZ";
                         break;
                     case DataTableEnum.TreasureHE:
-                        path = @"Content\Load\Tres\TresTreasureDataHE";
+                        path = @"Content/Load/Tres/TresTreasureDataHE";
                         break;
                     case DataTableEnum.TreasureKG:
-                        path = @"Content\Load\Tres\TresTreasureDataKG";
+                        path = @"Content/Load/Tres/TresTreasureDataKG";
                         break;
                     case DataTableEnum.TreasureMI:
-                        path = @"Content\Load\Tres\TresTreasureDataMI";
+                        path = @"Content/Load/Tres/TresTreasureDataMI";
                         break;
                     case DataTableEnum.TreasureRA:
-                        path = @"Content\Load\Tres\TresTreasureDataRA";
+                        path = @"Content/Load/Tres/TresTreasureDataRA";
                         break;
                     case DataTableEnum.TreasureTS:
-                        path = @"Content\Load\Tres\TresTreasureDataTS";
+                        path = @"Content/Load/Tres/TresTreasureDataTS";
                         break;
                     case DataTableEnum.TreasureTT:
-                        path = @"Content\Load\Tres\TresTreasureDataTT";
+                        path = @"Content/Load/Tres/TresTreasureDataTT";
                         break;
                     default:
                         break;
@@ -686,24 +686,24 @@ namespace UE4DataTableInterpreter
                 }
 
                 // Add Recompiled uAsset + uExp to recompiledFiles
-                recompiledFiles.Add($@"KINGDOM HEARTS III\{path}.uasset", uAssetFileBytes);
-                recompiledFiles.Add($@"KINGDOM HEARTS III\{path}.uexp", uExpFileBytes);
+                recompiledFiles.Add($@"KINGDOM HEARTS III/{path}.uasset", uAssetFileBytes);
+                recompiledFiles.Add($@"KINGDOM HEARTS III/{path}.uexp", uExpFileBytes);
 
                 // Add Recompiled ALT uAsset + uExp to recompiledFiles
                 if (dataTableEnum == DataTableEnum.VBonus)
                 {
-                    recompiledFiles.Add($@"KINGDOM HEARTS III\{subPath}.uasset", uAssetAlt.Recompile());
-                    recompiledFiles.Add($@"KINGDOM HEARTS III\{subPath}.uexp", uExpAlt.Recompile<VBonusDataTableAltEntry>());
+                    recompiledFiles.Add($@"KINGDOM HEARTS III/{subPath}.uasset", uAssetAlt.Recompile());
+                    recompiledFiles.Add($@"KINGDOM HEARTS III/{subPath}.uexp", uExpAlt.Recompile<VBonusDataTableAltEntry>());
                 }
                 else if (dataTableEnum == DataTableEnum.LevelUp)
                 {
-                    recompiledFiles.Add($@"KINGDOM HEARTS III\{subPath}.uasset", uAssetAlt.Recompile());
-                    recompiledFiles.Add($@"KINGDOM HEARTS III\{subPath}.uexp", uExpAlt.Recompile<LevelUpDataTableAltEntry>());
+                    recompiledFiles.Add($@"KINGDOM HEARTS III/{subPath}.uasset", uAssetAlt.Recompile());
+                    recompiledFiles.Add($@"KINGDOM HEARTS III/{subPath}.uexp", uExpAlt.Recompile<LevelUpDataTableAltEntry>());
                 }
                 else if (dataTableEnum == DataTableEnum.Event)
                 {
-                    recompiledFiles.Add($@"KINGDOM HEARTS III\{subPath}.uasset", uAssetAlt.Recompile());
-                    recompiledFiles.Add($@"KINGDOM HEARTS III\{subPath}.uexp", uExpAlt.Recompile<MobilePortalDataTableEntry>());
+                    recompiledFiles.Add($@"KINGDOM HEARTS III/{subPath}.uasset", uAssetAlt.Recompile());
+                    recompiledFiles.Add($@"KINGDOM HEARTS III/{subPath}.uexp", uExpAlt.Recompile<MobilePortalDataTableEntry>());
                 }
             }
 
