@@ -30,14 +30,61 @@ namespace UE4DataTableInterpreter
             //{ DataTableEnum.TreasureRA, new Dictionary<string, Dictionary<string, string>> { } },
             //{ DataTableEnum.TreasureTS, new Dictionary<string, Dictionary<string, string>> { } },
             //{ DataTableEnum.TreasureTT, new Dictionary<string, Dictionary<string, string>> { } },
-            { DataTableEnum.VBonus, new Dictionary<string, Dictionary<string, string>> { } },
+            //{ DataTableEnum.VBonus, new Dictionary<string, Dictionary<string, string>> { } },
             //{ DataTableEnum.WeaponEnhance, new Dictionary<string, Dictionary<string, string>> { } }
+            { DataTableEnum.Shotlock, new Dictionary<string, Dictionary<string, string>> {
+                { "w_so110", new Dictionary<string, string> {
+                        { "w_so120", "EMPTY ON PURPOSE" }
+                    }
+                } }
+            }
+        };
+
+        public static Dictionary<string, bool> QualityOfLifeData = new Dictionary<string, bool>
+        {
+            { "BOSS_001", true }, { "BOSS_002", false }, { "BOSS_003", true }, { "BOSS_004", true },
+
+            { "EVENT_001", true }, { "EVENT_002", false }, { "EVENT_003", true }, { "EVENT_004", true },
+            { "EVENT_005", true }, { "EVENT_006", false }, { "EVENT_007", true },
+
+            { "ITEM_001", true }, { "ITEM_002", false }, { "ITEM_003", true }, { "ITEM_004", true }
+        };
+
+        public static Dictionary<string, List<string>> HintData = new Dictionary<string, List<string>>
+        {
+            { "SecretReport02", new List<string> { "This is a test", "This is another test", "Yet Another Test", "Final Test" } }, { "SecretReport03", new List<string> { "TTest3" } }, { "SecretReport04", new List<string> { "TTest4" } }, { "SecretReport05", new List<string> { "TTest5" } },
+            { "SecretReport06", new List<string> { "TTest6" } }, { "SecretReport07", new List<string> { "TTest7" } }, { "SecretReport08", new List<string> { "TTest8" } }, { "SecretReport09", new List<string> { "TTest9" } },
+            { "SecretReport10", new List<string> { "TTest10" } }, { "SecretReport11", new List<string> { "TTest11" } }, { "SecretReport12", new List<string> { "TTest12" } }, { "SecretReport13", new List<string> { "TTest13" } },
+            { "SecretReport14", new List<string> { "TTest14" } }
         };
 
         public static Dictionary<string, long> uAssetIds = new Dictionary<string, long>();
 
         public static void Main(string[] args)
         {
+            var dataTableManager = new DataTableManager();
+
+            var tempQoL = dataTableManager.GenerateQualityOfLifeDataTable(QualityOfLifeData);
+
+            foreach (var te in tempQoL)
+            {
+                File.WriteAllBytes(te.Key.Split('/')[^1], te.Value.ToArray());
+            }
+
+            var tempHint = dataTableManager.GenerateHintDataTable(HintData);
+
+            foreach (var te in tempHint)
+            {
+                File.WriteAllBytes(te.Key.Split('/')[^1], te.Value.ToArray());
+            }
+
+            var filesToWrite = dataTableManager.RandomizeDataTables(Data);
+
+            foreach (var file in filesToWrite)
+            {
+                File.WriteAllBytes(file.Key.Split('/')[^1], file.Value.ToArray());
+            }
+
             var tempList = new List<string> { "Pole Spin is on Sora's Level Ups [5 (TypeC) - 10 (TypeB) - 8 (TypeC)]", "Oblivion is in Toy Box in Large Chest 1", "Guard is in The Keyblade Graveyard (Terra-Xehanort & Vanitas Boss) on Shooting Star on Level 8", "Proof of Fantasy is on Lucky Emblem Milestone 5",
                                               "There is 1 Check in Arendelle.", "There is 1 Check in Toy Box.", "There is 1 Check in Unreality.", "There is 1 Check in The Caribbean." };
 
@@ -100,7 +147,7 @@ namespace UE4DataTableInterpreter
             //var uexp = new uExp();
             //uexp.Decompile<GameflowTT>(reader, umap.AssetStrings);
 
-            var dataTableManager = new DataTableManager();
+            dataTableManager = new DataTableManager();
             var randomizedData = new Dictionary<DataTableEnum, Dictionary<string, Dictionary<string, string>>>
             {
                 { DataTableEnum.ChrInit, new Dictionary<string, Dictionary<string, string>> { } },

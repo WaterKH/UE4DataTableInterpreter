@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Text.Json;
 using UE4DataTableInterpreter.DataTables;
 using UE4DataTableInterpreter.Enums;
@@ -24,6 +25,9 @@ namespace UE4DataTableInterpreter
 
             foreach (var (dataTableEnum, entries) in randomizedValues)
             {   
+                if (dataTableEnum == DataTableEnum.Shotlock)
+                    continue;
+
                 // Decompile uAsset
                 var uAsset = new uAsset();
                 var path = "";
@@ -559,6 +563,7 @@ namespace UE4DataTableInterpreter
                                             uAssetAlt.Unk17 += randomizedValue.Length + 8;
                                             uAssetAlt.Unk19 += randomizedValue.Length + 8;
                                             uAssetAlt.FinalLength += randomizedValue.Length + 8;
+                                            uAssetAlt.FinalLength += randomizedValue.Length + 8;
                                         }
 
                                         var none = uAsset.AssetStrings.FirstOrDefault(x => x.AssetName == "ETresAbilityKind::NONE\u0000");
@@ -707,11 +712,182 @@ namespace UE4DataTableInterpreter
                 }
             }
 
+            // TODO Shotlocks
+            if (randomizedValues.ContainsKey(DataTableEnum.Shotlock))
+            {
+                foreach (var (replaceShotlock, values) in randomizedValues[DataTableEnum.Shotlock])
+                {
+                    var newShotlock = values.FirstOrDefault().Key;
+
+                    // Replace shotlock file name with new name (for both uasset + uexp),
+                    // Then find the string inside of the uassets and update to new 
+                    
+                    // Decompile uAsset
+                    var uAsset = new uAsset();
+                    var path = $"Content/Blueprints/Player/p_ex001/{replaceShotlock}";
+                    var newPath = $"Content/Blueprints/Player/p_ex001/{newShotlock}";
+
+                    using var reader = File.OpenRead($"{path}_ProjSet.uasset");
+
+                    // modifies the existing uAsset (+ returns itself, but we won't need that here)
+                    uAsset.Decompile(reader);
+
+                    reader.Position -= (0xB0 + 0x4 + 0x54);
+                    uAsset.DuplicateData = reader.ReadBytesFromFileStream(0x1); // 0xB68 for Shotlock
+                    uAsset.FinalLength = BitConverter.ToInt32(reader.ReadBytesFromFileStream(4).ToArray()); // 0x4 for Shotlock
+                    uAsset.DuplicateData2 = reader.ReadBytesFromFileStream((int)(reader.Length - reader.Position)); // 0x118 for Shotlock
+
+                    uAsset.AssetStrings.FirstOrDefault(x => x.AssetName == $"{replaceShotlock}_ProjSet\u0000").AssetName = newShotlock;
+
+                    // Recompile uAsset
+                    var uAssetFileBytes = uAsset.Recompile();
+
+
+                    // Read uExp into Byte Stream
+                    List<byte> uExpFileBytes;
+                    using var memoryStream = new MemoryStream();
+
+                    using var uexp_reader = File.OpenRead($"{path}_ProjSet.uexp");
+                    
+                    uexp_reader.CopyTo(memoryStream);
+                    uExpFileBytes = memoryStream.ToArray().ToList();
+                    
+                    // Add Recompiled uAsset + uExp to recompiledFiles
+                    recompiledFiles.Add($@"KINGDOM HEARTS III/{newPath}_ProjSet.uasset", uAssetFileBytes);
+                    recompiledFiles.Add($@"KINGDOM HEARTS III/{newPath}_ProjSet.uexp", uExpFileBytes);
+
+                    // Decompile uAsset
+
+                    using var readerEquip = File.OpenRead($"{path}_Equip.uasset");
+
+                    // modifies the existing uAsset (+ returns itself, but we won't need that here)
+                    uAsset = new uAsset();
+                    uAsset.Decompile(readerEquip);
+
+                    readerEquip.Position -= (0xB0 + 0x4 + 0x54);
+                    uAsset.DuplicateData = readerEquip.ReadBytesFromFileStream(0x1); // 0xB68 for Shotlock
+                    uAsset.FinalLength = BitConverter.ToInt32(readerEquip.ReadBytesFromFileStream(4).ToArray()); // 0x4 for Shotlock
+                    uAsset.DuplicateData2 = readerEquip.ReadBytesFromFileStream((int)(readerEquip.Length - readerEquip.Position)); // 0x118 for Shotlock
+
+                    uAsset.AssetStrings.FirstOrDefault(x => x.AssetName == $"{replaceShotlock}_ProjSet\u0000").AssetName = newShotlock;
+
+                    // Recompile uAsset
+                    var uAssetEquipFileBytes = uAsset.Recompile();
+
+
+                    // Read uExp into Byte Stream
+                    List<byte> uExpEquipFileBytes;
+                    using var memoryEquipStream = new MemoryStream();
+
+                    using var uexpEquipReader = File.OpenRead($"{path}_Equip.uexp");
+
+                    uexpEquipReader.CopyTo(memoryEquipStream);
+                    uExpEquipFileBytes = memoryEquipStream.ToArray().ToList();
+
+                    // Add Recompiled uAsset + uExp to recompiledFiles
+                    recompiledFiles.Add($@"KINGDOM HEARTS III/{newPath}_Equip.uasset", uAssetEquipFileBytes);
+                    recompiledFiles.Add($@"KINGDOM HEARTS III/{newPath}_Equip.uexp", uExpEquipFileBytes);
+                }
+            }
 
 
             // Create ZIP Archive and send back
             return recompiledFiles;
             //return recompiledFiles.CreateZipArchive(randomSeed); // TODO Remember to delete this after downloaded
+        }
+
+
+        public Dictionary<string, List<byte>> GenerateHintDataTable(Dictionary<string, List<string>> hints)
+        {
+            var recompiledFiles = new Dictionary<string, List<byte>>();
+
+            // Decompile uAsset
+            var uAsset = new uAsset();
+            var path = @"Content/Load/Tres/SecretReportInfoTable";
+            
+            using var reader = File.OpenRead($"{path}.uasset");
+
+            // modifies the existing uAsset (+ returns itself, but we won't need that here)
+            uAsset.Decompile(reader);
+
+            reader.Flush();
+            reader.Close();
+
+            // Decompile uExp
+            var uExp = new uExp();
+
+            using var readerExp = File.OpenRead($"{path}.uexp");
+            
+            uExp.Decompile<SecretReportInfoDataTableEntry>(readerExp, uAsset.AssetStrings);
+
+            readerExp.Flush();
+            readerExp.Close();
+
+            foreach (var (report, hintTexts) in hints)
+            {
+                var concattedHints = string.Join("  -  ", hintTexts) + "\u0000";
+
+                ((SecretReportInfoDataTableEntry)uExp.DataTableEntries.FirstOrDefault(x => x.Value.RowName == report).Value).ReportText = Encoding.ASCII.GetBytes(concattedHints).ToList();
+                ((SecretReportInfoDataTableEntry)uExp.DataTableEntries.FirstOrDefault(x => x.Value.RowName == report).Value).ReportTextLength = concattedHints.Length;
+            }
+
+            // Recompile uAsset
+            var uAssetFileBytes = uAsset.Recompile();
+
+
+            // Recompile uExp
+            var uExpFileBytes = uExp.Recompile<SecretReportInfoDataTableEntry>();
+
+            // Add Recompiled uAsset + uExp to recompiledFiles
+            recompiledFiles.Add($@"KINGDOM HEARTS III/{path}.uasset", uAssetFileBytes);
+            recompiledFiles.Add($@"KINGDOM HEARTS III/{path}.uexp", uExpFileBytes);
+
+            return recompiledFiles;
+        }
+
+        public Dictionary<string, List<byte>> GenerateQualityOfLifeDataTable(Dictionary<string, bool> qol)
+        {
+            var recompiledFiles = new Dictionary<string, List<byte>>();
+
+            // Decompile uAsset
+            var uAsset = new uAsset();
+            var path = @"Content/Load/Tres/QualityOfLifeTable";
+
+            using var reader = File.OpenRead($"{path}.uasset");
+
+            // modifies the existing uAsset (+ returns itself, but we won't need that here)
+            uAsset.Decompile(reader);
+
+            reader.Flush();
+            reader.Close();
+
+            // Decompile uExp
+            var uExp = new uExp();
+
+            using var readerExp = File.OpenRead($"{path}.uexp");
+
+            uExp.Decompile<QualityOfLifeDataTableEntry>(readerExp, uAsset.AssetStrings);
+
+            readerExp.Flush();
+            readerExp.Close();
+
+            foreach (var (qolName, active) in qol)
+            {
+                ((QualityOfLifeDataTableEntry)uExp.DataTableEntries.FirstOrDefault(x => x.Value.RowName == qolName).Value).activeValue = Convert.ToByte(active);
+            }
+
+            // Recompile uAsset
+            var uAssetFileBytes = uAsset.Recompile();
+
+
+            // Recompile uExp
+            var uExpFileBytes = uExp.Recompile<QualityOfLifeDataTableEntry>();
+
+            // Add Recompiled uAsset + uExp to recompiledFiles
+            recompiledFiles.Add($@"KINGDOM HEARTS III/{path}.uasset", uAssetFileBytes);
+            recompiledFiles.Add($@"KINGDOM HEARTS III/{path}.uexp", uExpFileBytes);
+
+            return recompiledFiles;
         }
     }
 }

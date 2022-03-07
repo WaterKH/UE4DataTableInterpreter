@@ -33,7 +33,7 @@ namespace UE4DataTableInterpreter
             this.Unk3 = BitConverter.ToInt64(reader.ReadBytesFromFileStream(8).ToArray());
             this.Id = BitConverter.ToInt32(reader.ReadBytesFromFileStream(4).ToArray());
             this.RowCount = BitConverter.ToInt32(reader.ReadBytesFromFileStream(4).ToArray());
-
+            
             if (this.RowCount == 0)
                 this.RowCount = 1;
 
@@ -84,13 +84,19 @@ namespace UE4DataTableInterpreter
                     case "SynthesisItemDataTableEntry":
                         temp = new SynthesisItemDataTableEntry();
                         break;
+                    case "QualityOfLifeDataTableEntry":
+                        temp = new QualityOfLifeDataTableEntry();
+                        break;
+                    case "SecretReportInfoDataTableEntry":
+                        temp = new SecretReportInfoDataTableEntry();
+                        break;
                     default:
                         break;
                 }
 
                 var dataTableEntry = ((IDataTable)temp).Decompile(reader);
 
-                if (typeof(T).Name == "WeaponEnhanceDataTableEntry") 
+                if (typeof(T).Name == "WeaponEnhanceDataTableEntry")
                     dataTableEntry.RowName = uAssetStrings[((WeaponEnhanceDataTableEntry)dataTableEntry).IW].AssetName.Replace("\0", $"_{dataTableEntry.IndexId - 1}");
                 else if (typeof(T).Name == "ChrInitDataTableEntry")
                     dataTableEntry.RowName = uAssetStrings[((ChrInitDataTableEntry)dataTableEntry).m_PlayerSora.IndexId].AssetName.Replace("\0", "");
@@ -98,6 +104,8 @@ namespace UE4DataTableInterpreter
                     dataTableEntry.RowName = uAssetStrings[^3].AssetName.Replace("\0", "");
                 else if (typeof(T).Name == "SynthesisItemDataTableEntry")
                     dataTableEntry.RowName = uAssetStrings[((SynthesisItemDataTableEntry)dataTableEntry).IS].AssetName.Replace("\0", $"_{dataTableEntry.IndexId - 1}");
+                else if (typeof(T).Name == "ShotlockDataTableEntry")
+                    dataTableEntry.RowName = uAssetStrings[^1].AssetName.Replace("\0", "");
                 else
                     dataTableEntry.RowName = uAssetStrings[dataTableEntry.IndexId].AssetName.Replace("\0", "");
 
@@ -185,6 +193,14 @@ namespace UE4DataTableInterpreter
                 case "SynthesisItemDataTableEntry":
                     foreach (var (rowName, entry) in this.DataTableEntries)
                         data.AddRange(((SynthesisItemDataTableEntry)entry).Recompile());
+                    break;
+                case "QualityOfLifeDataTableEntry":
+                    foreach (var (rowName, entry) in this.DataTableEntries)
+                        data.AddRange(((QualityOfLifeDataTableEntry)entry).Recompile());
+                    break;
+                case "SecretReportInfoDataTableEntry":
+                    foreach (var (rowName, entry) in this.DataTableEntries)
+                        data.AddRange(((SecretReportInfoDataTableEntry)entry).Recompile());
                     break;
                 default:
                     break;
