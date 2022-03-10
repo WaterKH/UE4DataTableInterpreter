@@ -886,7 +886,54 @@ namespace UE4DataTableInterpreter
             recompiledFiles.Add($@"KINGDOM HEARTS III/{path}.uasset", uAssetFileBytes);
             recompiledFiles.Add($@"KINGDOM HEARTS III/{path}.uexp", uExpFileBytes);
 
+            
+            // Add QoL Specific Files
+            if (qol["BOSS_001"]) // Easier Mini-UFO
+            {
+                var ufoPath = @"Content/Blueprints/Gimmick/ts/g_ts_UFO/g_ts_UFO";
+
+                var ufoFiles = this.LoadAssetExpFiles(ufoPath);
+
+                recompiledFiles.Add($@"KINGDOM HEARTS III/{ufoPath}.uasset", ufoFiles.Item1);
+                recompiledFiles.Add($@"KINGDOM HEARTS III/{ufoPath}.uexp", ufoFiles.Item2);
+            }
+
+            if (qol["BOSS_002"]) // Faster Raging Vulture
+            {
+                var vulturePath = @"Content/DataTable/Enemy/Base/e_ex021_BaseDataTable";
+
+                var vultureFiles = this.LoadAssetExpFiles(vulturePath);
+
+                recompiledFiles.Add($@"KINGDOM HEARTS III/{vulturePath}.uasset", vultureFiles.Item1);
+                recompiledFiles.Add($@"KINGDOM HEARTS III/{vulturePath}.uexp", vultureFiles.Item2);
+            }
+
             return recompiledFiles;
+        }
+
+        private Tuple<List<byte>, List<byte>> LoadAssetExpFiles(string path)
+        {
+            // Load uAsset
+            List<byte> uAssetUFOFileBytes;
+            using var uAssetMemoryUFOStream = new MemoryStream();
+
+            using var readerUFO = File.OpenRead($"{path}.uasset");
+
+            readerUFO.CopyTo(uAssetMemoryUFOStream);
+            uAssetUFOFileBytes = uAssetMemoryUFOStream.ToArray().ToList();
+
+
+            // Load uExp
+            List<byte> uExpUFOFileBytes;
+            using var uExpMemoryUFOStream = new MemoryStream();
+
+            using var readerExpUFO = File.OpenRead($"{path}.uexp");
+
+            readerExpUFO.CopyTo(uExpMemoryUFOStream);
+            uExpUFOFileBytes = uExpMemoryUFOStream.ToArray().ToList();
+
+
+            return new Tuple<List<byte>, List<byte>>(uAssetUFOFileBytes, uExpUFOFileBytes);
         }
     }
 }

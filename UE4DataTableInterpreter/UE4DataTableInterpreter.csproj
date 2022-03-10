@@ -5,10 +5,11 @@
     <TargetFramework>net5.0</TargetFramework>
     <ApplicationIcon />
     <StartupObject />
-    <Version>1.1.4</Version>
+    <Version>1.1.5</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>waterkh</Authors>
-    <Description>1.1.4 - Critical bug fix for VBonus Ability 2 length offset
+    <Description>1.1.5 - UFO + Vulture file addition
+1.1.4 - Critical bug fix for VBonus Ability 2 length offset
 1.1.3 - Added prelim changes for Shotlock randomization + Added QoL and Hint data breakdown + Event file updated
 1.1.2 - Fixed file paths to be correct for Docker (Linux)
 1.1.1 - Added some more changes to the DefaultKH3.json + uAssetIds.json + Added some updates to the logic for the Hint System + SynthesisItemDataTables
@@ -238,6 +239,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Content\Blueprints\Gimmick\ts\g_ts_UFO\g_ts_UFO.uasset">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Blueprints\Gimmick\ts\g_ts_UFO\g_ts_UFO.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Content\Blueprints\Player\p_ex001\w_so010_Equip.uasset">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -467,6 +474,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Content\Blueprints\Player\p_ex001\w_so210_ProjSet.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\DataTable\Enemy\Base\e_ex021_BaseDataTable.uasset">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\DataTable\Enemy\Base\e_ex021_BaseDataTable.uexp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Content\Load\Tres\QualityOfLifeTable.uasset">
