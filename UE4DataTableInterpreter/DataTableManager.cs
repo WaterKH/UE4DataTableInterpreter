@@ -563,7 +563,6 @@ namespace UE4DataTableInterpreter
                                             uAssetAlt.Unk17 += randomizedValue.Length + 8;
                                             uAssetAlt.Unk19 += randomizedValue.Length + 8;
                                             uAssetAlt.FinalLength += randomizedValue.Length + 8;
-                                            uAssetAlt.FinalLength += randomizedValue.Length + 8;
                                         }
 
                                         var none = uAsset.AssetStrings.FirstOrDefault(x => x.AssetName == "ETresAbilityKind::NONE\u0000");

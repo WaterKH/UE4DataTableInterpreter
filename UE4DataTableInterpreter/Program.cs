@@ -30,14 +30,21 @@ namespace UE4DataTableInterpreter
             //{ DataTableEnum.TreasureRA, new Dictionary<string, Dictionary<string, string>> { } },
             //{ DataTableEnum.TreasureTS, new Dictionary<string, Dictionary<string, string>> { } },
             //{ DataTableEnum.TreasureTT, new Dictionary<string, Dictionary<string, string>> { } },
-            //{ DataTableEnum.VBonus, new Dictionary<string, Dictionary<string, string>> { } },
-            //{ DataTableEnum.WeaponEnhance, new Dictionary<string, Dictionary<string, string>> { } }
-            { DataTableEnum.Shotlock, new Dictionary<string, Dictionary<string, string>> {
-                { "w_so110", new Dictionary<string, string> {
-                        { "w_so120", "EMPTY ON PURPOSE" }
-                    }
+            { DataTableEnum.VBonus, new Dictionary<string, Dictionary<string, string>> {
+                { "Vbonus_001", new Dictionary<string, string> {
+                    {  "Sora_Bonus1", "PRT_ITEM43\u0000" },
+                    {  "Sora_Ability1", "PRT_ITEM42\u0000" },
+                    {  "Sora_Bonus2", "PRT_ITEM41\u0000" },
+                    { "Sora_Ability2", "PRT_ITEM40\u0000" }
                 } }
-            }
+            } },
+            //{ DataTableEnum.WeaponEnhance, new Dictionary<string, Dictionary<string, string>> { } }
+            //{ DataTableEnum.Shotlock, new Dictionary<string, Dictionary<string, string>> {
+            //    { "w_so110", new Dictionary<string, string> {
+            //            { "w_so120", "EMPTY ON PURPOSE" }
+            //        }
+            //    } }
+            //}
         };
 
         public static Dictionary<string, bool> QualityOfLifeData = new Dictionary<string, bool>
@@ -168,7 +175,14 @@ namespace UE4DataTableInterpreter
                 { DataTableEnum.TreasureRA, new Dictionary<string, Dictionary<string, string>> { } },
                 { DataTableEnum.TreasureTS, new Dictionary<string, Dictionary<string, string>> { } },
                 { DataTableEnum.TreasureTT, new Dictionary<string, Dictionary<string, string>> { } },
-                { DataTableEnum.VBonus, new Dictionary<string, Dictionary<string, string>> { } },
+                { DataTableEnum.VBonus, new Dictionary<string, Dictionary<string, string>> {
+                { "Vbonus_001", new Dictionary<string, string> {
+                    {  "Sora_Bonus1", "ETresVictoryBonusKind::HP_UP10\u0000" },
+                    {  "Sora_Ability1", "PRT_ITEM42\u0000" },
+                    {  "Sora_Bonus2", "ETresVictoryBonusKind::NONE\u0000" },
+                    { "Sora_Ability2", "ETresAbilityKind::FLASH_STEP\u0000" }
+                } }
+            } },
                 { DataTableEnum.WeaponEnhance, new Dictionary<string, Dictionary<string, string>> { } }
             };
 
