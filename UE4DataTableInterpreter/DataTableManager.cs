@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Text.Json;
 using UE4DataTableInterpreter.DataTables;
 using UE4DataTableInterpreter.Enums;
@@ -24,6 +25,9 @@ namespace UE4DataTableInterpreter
 
             foreach (var (dataTableEnum, entries) in randomizedValues)
             {   
+                if (dataTableEnum == DataTableEnum.Shotlock)
+                    continue;
+
                 // Decompile uAsset
                 var uAsset = new uAsset();
                 var path = "";
@@ -36,69 +40,69 @@ namespace UE4DataTableInterpreter
                 switch (dataTableEnum)
                 {
                     case DataTableEnum.ChrInit:
-                        path = @"Content\Load\Common\TresChrInitData";
+                        path = @"Content/Load/Common/TresChrInitData";
                         break;
                     case DataTableEnum.EquipItem:
-                        path = @"Content\Load\Tres\TresEquipItemData";
+                        path = @"Content/Load/Tres/TresEquipItemData";
                         break;
                     case DataTableEnum.FullcourseAbility:
-                        path = @"Content\Load\Tres\TresFullcourseAbilityList";
+                        path = @"Content/Load/Tres/TresFullcourseAbilityList";
                         break;
                     case DataTableEnum.LevelUp:
-                        path = @"Content\DataTable\Player\LevelUp\p_ex001_LevelUpData";
-                        subPath = @"Content\DataTable\Player\LevelUp\p_ex001_LevelUpLookupData";
+                        path = @"Content/DataTable/Player/LevelUp/p_ex001_LevelUpData";
+                        subPath = @"Content/DataTable/Player/LevelUp/p_ex001_LevelUpLookupData";
                         break;
                     case DataTableEnum.LuckyMark:
-                        path = @"Content\Load\Tres\TresLuckyMarkMilestoneRewardData";
+                        path = @"Content/Load/Tres/TresLuckyMarkMilestoneRewardData";
                         break;
                     case DataTableEnum.VBonus:
-                        path = @"Content\Load\Tres\TresVBonusData";
-                        subPath = @"Content\Load\Tres\TresVBonusTableAlt";
+                        path = @"Content/Load/Tres/TresVBonusData";
+                        subPath = @"Content/Load/Tres/TresVBonusTableAlt";
                         break;
                     case DataTableEnum.WeaponEnhance:
-                        path = @"Content\Load\Tres\ItemSynthesis\TresItemWeaponEnhanceData";
+                        path = @"Content/Load/Tres/ItemSynthesis/TresItemWeaponEnhanceData";
                         break;
                     case DataTableEnum.Event:
-                        path = @"Content\Load\Tres\TresEventData";
-                        subPath = @"Content\Game\UI\Data\MobilePortal\MobilePortalDataAsset";
+                        path = @"Content/Load/Tres/TresEventData";
+                        subPath = @"Content/Game/UI/Data/MobilePortal/MobilePortalDataAsset";
                         break;
                     case DataTableEnum.SynthesisItem:
-                        path = @"Content\Load\Tres\ItemSynthesis\TresItemSynthesisData";
+                        path = @"Content/Load/Tres/ItemSynthesis/TresItemSynthesisData";
                         break;
 
 
                     case DataTableEnum.TreasureBT:
-                        path = @"Content\Load\Tres\TresTreasureDataBT";
+                        path = @"Content/Load/Tres/TresTreasureDataBT";
                         break;
                     case DataTableEnum.TreasureBX:
-                        path = @"Content\Load\Tres\TresTreasureDataBX";
+                        path = @"Content/Load/Tres/TresTreasureDataBX";
                         break;
                     case DataTableEnum.TreasureCA:
-                        path = @"Content\Load\Tres\TresTreasureDataCA";
+                        path = @"Content/Load/Tres/TresTreasureDataCA";
                         break;
                     case DataTableEnum.TreasureEW:
-                        path = @"Content\Load\Tres\TresTreasureDataEW";
+                        path = @"Content/Load/Tres/TresTreasureDataEW";
                         break;
                     case DataTableEnum.TreasureFZ:
-                        path = @"Content\Load\Tres\TresTreasureDataFZ";
+                        path = @"Content/Load/Tres/TresTreasureDataFZ";
                         break;
                     case DataTableEnum.TreasureHE:
-                        path = @"Content\Load\Tres\TresTreasureDataHE";
+                        path = @"Content/Load/Tres/TresTreasureDataHE";
                         break;
                     case DataTableEnum.TreasureKG:
-                        path = @"Content\Load\Tres\TresTreasureDataKG";
+                        path = @"Content/Load/Tres/TresTreasureDataKG";
                         break;
                     case DataTableEnum.TreasureMI:
-                        path = @"Content\Load\Tres\TresTreasureDataMI";
+                        path = @"Content/Load/Tres/TresTreasureDataMI";
                         break;
                     case DataTableEnum.TreasureRA:
-                        path = @"Content\Load\Tres\TresTreasureDataRA";
+                        path = @"Content/Load/Tres/TresTreasureDataRA";
                         break;
                     case DataTableEnum.TreasureTS:
-                        path = @"Content\Load\Tres\TresTreasureDataTS";
+                        path = @"Content/Load/Tres/TresTreasureDataTS";
                         break;
                     case DataTableEnum.TreasureTT:
-                        path = @"Content\Load\Tres\TresTreasureDataTT";
+                        path = @"Content/Load/Tres/TresTreasureDataTT";
                         break;
                     default:
                         break;
@@ -559,6 +563,7 @@ namespace UE4DataTableInterpreter
                                             uAssetAlt.Unk17 += randomizedValue.Length + 8;
                                             uAssetAlt.Unk19 += randomizedValue.Length + 8;
                                             uAssetAlt.FinalLength += randomizedValue.Length + 8;
+                                            uAssetAlt.FinalLength += randomizedValue.Length + 8;
                                         }
 
                                         var none = uAsset.AssetStrings.FirstOrDefault(x => x.AssetName == "ETresAbilityKind::NONE\u0000");
@@ -686,32 +691,203 @@ namespace UE4DataTableInterpreter
                 }
 
                 // Add Recompiled uAsset + uExp to recompiledFiles
-                recompiledFiles.Add($@"KINGDOM HEARTS III\{path}.uasset", uAssetFileBytes);
-                recompiledFiles.Add($@"KINGDOM HEARTS III\{path}.uexp", uExpFileBytes);
+                recompiledFiles.Add($@"KINGDOM HEARTS III/{path}.uasset", uAssetFileBytes);
+                recompiledFiles.Add($@"KINGDOM HEARTS III/{path}.uexp", uExpFileBytes);
 
                 // Add Recompiled ALT uAsset + uExp to recompiledFiles
                 if (dataTableEnum == DataTableEnum.VBonus)
                 {
-                    recompiledFiles.Add($@"KINGDOM HEARTS III\{subPath}.uasset", uAssetAlt.Recompile());
-                    recompiledFiles.Add($@"KINGDOM HEARTS III\{subPath}.uexp", uExpAlt.Recompile<VBonusDataTableAltEntry>());
+                    recompiledFiles.Add($@"KINGDOM HEARTS III/{subPath}.uasset", uAssetAlt.Recompile());
+                    recompiledFiles.Add($@"KINGDOM HEARTS III/{subPath}.uexp", uExpAlt.Recompile<VBonusDataTableAltEntry>());
                 }
                 else if (dataTableEnum == DataTableEnum.LevelUp)
                 {
-                    recompiledFiles.Add($@"KINGDOM HEARTS III\{subPath}.uasset", uAssetAlt.Recompile());
-                    recompiledFiles.Add($@"KINGDOM HEARTS III\{subPath}.uexp", uExpAlt.Recompile<LevelUpDataTableAltEntry>());
+                    recompiledFiles.Add($@"KINGDOM HEARTS III/{subPath}.uasset", uAssetAlt.Recompile());
+                    recompiledFiles.Add($@"KINGDOM HEARTS III/{subPath}.uexp", uExpAlt.Recompile<LevelUpDataTableAltEntry>());
                 }
                 else if (dataTableEnum == DataTableEnum.Event)
                 {
-                    recompiledFiles.Add($@"KINGDOM HEARTS III\{subPath}.uasset", uAssetAlt.Recompile());
-                    recompiledFiles.Add($@"KINGDOM HEARTS III\{subPath}.uexp", uExpAlt.Recompile<MobilePortalDataTableEntry>());
+                    recompiledFiles.Add($@"KINGDOM HEARTS III/{subPath}.uasset", uAssetAlt.Recompile());
+                    recompiledFiles.Add($@"KINGDOM HEARTS III/{subPath}.uexp", uExpAlt.Recompile<MobilePortalDataTableEntry>());
                 }
             }
 
+            // TODO Shotlocks
+            if (randomizedValues.ContainsKey(DataTableEnum.Shotlock))
+            {
+                foreach (var (replaceShotlock, values) in randomizedValues[DataTableEnum.Shotlock])
+                {
+                    var newShotlock = values.FirstOrDefault().Key;
+
+                    // Replace shotlock file name with new name (for both uasset + uexp),
+                    // Then find the string inside of the uassets and update to new 
+                    
+                    // Decompile uAsset
+                    var uAsset = new uAsset();
+                    var path = $"Content/Blueprints/Player/p_ex001/{replaceShotlock}";
+                    var newPath = $"Content/Blueprints/Player/p_ex001/{newShotlock}";
+
+                    using var reader = File.OpenRead($"{path}_ProjSet.uasset");
+
+                    // modifies the existing uAsset (+ returns itself, but we won't need that here)
+                    uAsset.Decompile(reader);
+
+                    reader.Position -= (0xB0 + 0x4 + 0x54);
+                    uAsset.DuplicateData = reader.ReadBytesFromFileStream(0x1); // 0xB68 for Shotlock
+                    uAsset.FinalLength = BitConverter.ToInt32(reader.ReadBytesFromFileStream(4).ToArray()); // 0x4 for Shotlock
+                    uAsset.DuplicateData2 = reader.ReadBytesFromFileStream((int)(reader.Length - reader.Position)); // 0x118 for Shotlock
+
+                    uAsset.AssetStrings.FirstOrDefault(x => x.AssetName == $"{replaceShotlock}_ProjSet\u0000").AssetName = newShotlock;
+
+                    // Recompile uAsset
+                    var uAssetFileBytes = uAsset.Recompile();
+
+
+                    // Read uExp into Byte Stream
+                    List<byte> uExpFileBytes;
+                    using var memoryStream = new MemoryStream();
+
+                    using var uexp_reader = File.OpenRead($"{path}_ProjSet.uexp");
+                    
+                    uexp_reader.CopyTo(memoryStream);
+                    uExpFileBytes = memoryStream.ToArray().ToList();
+                    
+                    // Add Recompiled uAsset + uExp to recompiledFiles
+                    recompiledFiles.Add($@"KINGDOM HEARTS III/{newPath}_ProjSet.uasset", uAssetFileBytes);
+                    recompiledFiles.Add($@"KINGDOM HEARTS III/{newPath}_ProjSet.uexp", uExpFileBytes);
+
+                    // Decompile uAsset
+
+                    using var readerEquip = File.OpenRead($"{path}_Equip.uasset");
+
+                    // modifies the existing uAsset (+ returns itself, but we won't need that here)
+                    uAsset = new uAsset();
+                    uAsset.Decompile(readerEquip);
+
+                    readerEquip.Position -= (0xB0 + 0x4 + 0x54);
+                    uAsset.DuplicateData = readerEquip.ReadBytesFromFileStream(0x1); // 0xB68 for Shotlock
+                    uAsset.FinalLength = BitConverter.ToInt32(readerEquip.ReadBytesFromFileStream(4).ToArray()); // 0x4 for Shotlock
+                    uAsset.DuplicateData2 = readerEquip.ReadBytesFromFileStream((int)(readerEquip.Length - readerEquip.Position)); // 0x118 for Shotlock
+
+                    uAsset.AssetStrings.FirstOrDefault(x => x.AssetName == $"{replaceShotlock}_ProjSet\u0000").AssetName = newShotlock;
+
+                    // Recompile uAsset
+                    var uAssetEquipFileBytes = uAsset.Recompile();
+
+
+                    // Read uExp into Byte Stream
+                    List<byte> uExpEquipFileBytes;
+                    using var memoryEquipStream = new MemoryStream();
+
+                    using var uexpEquipReader = File.OpenRead($"{path}_Equip.uexp");
+
+                    uexpEquipReader.CopyTo(memoryEquipStream);
+                    uExpEquipFileBytes = memoryEquipStream.ToArray().ToList();
+
+                    // Add Recompiled uAsset + uExp to recompiledFiles
+                    recompiledFiles.Add($@"KINGDOM HEARTS III/{newPath}_Equip.uasset", uAssetEquipFileBytes);
+                    recompiledFiles.Add($@"KINGDOM HEARTS III/{newPath}_Equip.uexp", uExpEquipFileBytes);
+                }
+            }
 
 
             // Create ZIP Archive and send back
             return recompiledFiles;
             //return recompiledFiles.CreateZipArchive(randomSeed); // TODO Remember to delete this after downloaded
+        }
+
+
+        public Dictionary<string, List<byte>> GenerateHintDataTable(Dictionary<string, List<string>> hints)
+        {
+            var recompiledFiles = new Dictionary<string, List<byte>>();
+
+            // Decompile uAsset
+            var uAsset = new uAsset();
+            var path = @"Content/Load/Tres/SecretReportInfoTable";
+            
+            using var reader = File.OpenRead($"{path}.uasset");
+
+            // modifies the existing uAsset (+ returns itself, but we won't need that here)
+            uAsset.Decompile(reader);
+
+            reader.Flush();
+            reader.Close();
+
+            // Decompile uExp
+            var uExp = new uExp();
+
+            using var readerExp = File.OpenRead($"{path}.uexp");
+            
+            uExp.Decompile<SecretReportInfoDataTableEntry>(readerExp, uAsset.AssetStrings);
+
+            readerExp.Flush();
+            readerExp.Close();
+
+            foreach (var (report, hintTexts) in hints)
+            {
+                var concattedHints = string.Join("  -  ", hintTexts) + "\u0000";
+
+                ((SecretReportInfoDataTableEntry)uExp.DataTableEntries.FirstOrDefault(x => x.Value.RowName == report).Value).ReportText = Encoding.ASCII.GetBytes(concattedHints).ToList();
+                ((SecretReportInfoDataTableEntry)uExp.DataTableEntries.FirstOrDefault(x => x.Value.RowName == report).Value).ReportTextLength = concattedHints.Length;
+            }
+
+            // Recompile uAsset
+            var uAssetFileBytes = uAsset.Recompile();
+
+
+            // Recompile uExp
+            var uExpFileBytes = uExp.Recompile<SecretReportInfoDataTableEntry>();
+
+            // Add Recompiled uAsset + uExp to recompiledFiles
+            recompiledFiles.Add($@"KINGDOM HEARTS III/{path}.uasset", uAssetFileBytes);
+            recompiledFiles.Add($@"KINGDOM HEARTS III/{path}.uexp", uExpFileBytes);
+
+            return recompiledFiles;
+        }
+
+        public Dictionary<string, List<byte>> GenerateQualityOfLifeDataTable(Dictionary<string, bool> qol)
+        {
+            var recompiledFiles = new Dictionary<string, List<byte>>();
+
+            // Decompile uAsset
+            var uAsset = new uAsset();
+            var path = @"Content/Load/Tres/QualityOfLifeTable";
+
+            using var reader = File.OpenRead($"{path}.uasset");
+
+            // modifies the existing uAsset (+ returns itself, but we won't need that here)
+            uAsset.Decompile(reader);
+
+            reader.Flush();
+            reader.Close();
+
+            // Decompile uExp
+            var uExp = new uExp();
+
+            using var readerExp = File.OpenRead($"{path}.uexp");
+
+            uExp.Decompile<QualityOfLifeDataTableEntry>(readerExp, uAsset.AssetStrings);
+
+            readerExp.Flush();
+            readerExp.Close();
+
+            foreach (var (qolName, active) in qol)
+            {
+                ((QualityOfLifeDataTableEntry)uExp.DataTableEntries.FirstOrDefault(x => x.Value.RowName == qolName).Value).activeValue = Convert.ToByte(active);
+            }
+
+            // Recompile uAsset
+            var uAssetFileBytes = uAsset.Recompile();
+
+
+            // Recompile uExp
+            var uExpFileBytes = uExp.Recompile<QualityOfLifeDataTableEntry>();
+
+            // Add Recompiled uAsset + uExp to recompiledFiles
+            recompiledFiles.Add($@"KINGDOM HEARTS III/{path}.uasset", uAssetFileBytes);
+            recompiledFiles.Add($@"KINGDOM HEARTS III/{path}.uexp", uExpFileBytes);
+
+            return recompiledFiles;
         }
     }
 }

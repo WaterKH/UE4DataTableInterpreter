@@ -22,7 +22,7 @@ namespace UE4DataTableInterpreter.DataTables
 
         public List<byte> Process(List<string> reports)
         {
-            var path = @"Content\Locres\kh3_mobile";
+            var path = @"Content/Locres/kh3_mobile";
             using var mobile = File.OpenRead($"{path}.locres");
             using var mobileMemory = new MemoryStream();
             mobile.CopyTo(mobileMemory);
