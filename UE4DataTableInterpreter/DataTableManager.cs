@@ -908,6 +908,36 @@ namespace UE4DataTableInterpreter
                 recompiledFiles.Add($@"KINGDOM HEARTS III/{vulturePath}.uexp", vultureFiles.Item2);
             }
 
+            if (qol["BOSS_004"]) // Lich Skip
+            {
+                var lichPath = @"Content/Maps/ew/umap/ew_28/ew_28_ENV";
+
+                var lichFiles = this.LoadAssetExpFiles(lichPath);
+
+                recompiledFiles.Add($@"KINGDOM HEARTS III/{lichPath}.uasset", lichFiles.Item1);
+                recompiledFiles.Add($@"KINGDOM HEARTS III/{lichPath}.uexp", lichFiles.Item2);
+            }
+
+            if (qol["EVENT_001"]) // Frozen Chase Skip
+            {
+                var frozenChasePath = @"Content/Levels/fz/fz_03/umap/fz_03_gimmick_Avalanche";
+
+                var frozenChaseFiles = this.LoadAssetExpFiles(frozenChasePath);
+
+                recompiledFiles.Add($@"KINGDOM HEARTS III/{frozenChasePath}.uasset", frozenChaseFiles.Item1);
+                recompiledFiles.Add($@"KINGDOM HEARTS III/{frozenChasePath}.uexp", frozenChaseFiles.Item2);
+            }
+
+            if (qol["ITEM_003"]) // All Maps
+            {
+                var mapsPath = @"Content/Maps/ew/umap/ew_01/QoL_Maps";
+
+                var mapsFiles = this.LoadAssetExpFiles(mapsPath);
+
+                recompiledFiles.Add($@"KINGDOM HEARTS III/{mapsPath}.uasset", mapsFiles.Item1);
+                recompiledFiles.Add($@"KINGDOM HEARTS III/{mapsPath}.uexp", mapsFiles.Item2);
+            }
+
             return recompiledFiles;
         }
 
