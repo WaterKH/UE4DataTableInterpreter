@@ -115,10 +115,11 @@ namespace UE4DataTableInterpreter
 
                 if (dataTableEnum == DataTableEnum.ChrInit)
                 {
-                    reader.Position -= (0xB0 + 0x4 + 0x54);
-                    uAsset.DuplicateData = reader.ReadBytesFromFileStream(0xB68); // 0xB68 for ChrInit
-                    uAsset.FinalLength = BitConverter.ToInt32(reader.ReadBytesFromFileStream(4).ToArray()); // 0x4 for ChrInit
-                    uAsset.DuplicateData2 = reader.ReadBytesFromFileStream(0x118); // 0x118 for ChrInit
+                    reader.Position -= (0xA8 + 0x8 + 0x8 + 0x50);
+                    uAsset.DuplicateData = reader.ReadBytesFromFileStream(0xB60); // 0xB68 for ChrInit
+                    uAsset.uExpLength = BitConverter.ToInt64(reader.ReadBytesFromFileStream(8).ToArray());
+                    uAsset.uAssetLength = BitConverter.ToInt32(reader.ReadBytesFromFileStream(8).ToArray()); // 0x4 for ChrInit
+                    uAsset.DuplicateData2 = reader.ReadBytesFromFileStream(0x114); // 0x118 for ChrInit
                 }
                 else if (dataTableEnum == DataTableEnum.VBonus || dataTableEnum == DataTableEnum.LevelUp || dataTableEnum == DataTableEnum.Event)
                 {
@@ -128,10 +129,11 @@ namespace UE4DataTableInterpreter
 
                     if (dataTableEnum == DataTableEnum.Event)
                     {
-                        subReader.Position -= (0xB0 + 0x4 + 0x54);
-                        uAssetAlt.DuplicateData = subReader.ReadBytesFromFileStream(0x1C8); // 0x1C8 for MobilePortal
-                        uAssetAlt.FinalLength = BitConverter.ToInt32(subReader.ReadBytesFromFileStream(4).ToArray()); // 0x4 for MobilePortal
-                        uAssetAlt.DuplicateData2 = subReader.ReadBytesFromFileStream(0x68); // 0x118 for MobilePortal
+                        subReader.Position -= (0xA8 + 0x8 + 0x8 + 0x50);
+                        uAssetAlt.DuplicateData = subReader.ReadBytesFromFileStream(0x1C0); // 0x1C0 for Event
+                        uAssetAlt.uExpLength = BitConverter.ToInt64(subReader.ReadBytesFromFileStream(8).ToArray());
+                        uAssetAlt.uAssetLength = BitConverter.ToInt32(subReader.ReadBytesFromFileStream(8).ToArray());
+                        uAssetAlt.DuplicateData2 = subReader.ReadBytesFromFileStream(0x64); // 0x64 for Event
                     }
 
                     subReader.Flush();
@@ -245,13 +247,14 @@ namespace UE4DataTableInterpreter
                             // Update All Apparent Lengths in uAsset
                             uAsset.FileSize += randomizedValue.Length + 8;
                             uAsset.UnkLength3 += 1;
+                            uAsset.Unk12 = uAsset.UnkLength3;
                             uAsset.Unk5 += randomizedValue.Length + 8;
                             uAsset.SubSize1 += randomizedValue.Length + 8;
                             uAsset.SubSize2 += randomizedValue.Length + 8;
                             uAsset.Unk16 += randomizedValue.Length + 8;
                             uAsset.Unk17 += randomizedValue.Length + 8;
                             uAsset.Unk19 += randomizedValue.Length + 8;
-                            uAsset.FinalLength += randomizedValue.Length + 8;
+                            uAsset.uAssetLength += randomizedValue.Length + 8;
                         }
 
 
@@ -317,13 +320,14 @@ namespace UE4DataTableInterpreter
                                             // Update All Apparent Lengths in uAsset
                                             uAssetAlt.FileSize += randomizedValue.Length + 8;
                                             uAssetAlt.UnkLength3 += 1;
+                                            uAssetAlt.Unk12 = uAssetAlt.UnkLength3;
                                             uAssetAlt.Unk5 += randomizedValue.Length + 8;
                                             uAssetAlt.SubSize1 += randomizedValue.Length + 8;
                                             uAssetAlt.SubSize2 += randomizedValue.Length + 8;
                                             uAssetAlt.Unk16 += randomizedValue.Length + 8;
                                             uAssetAlt.Unk17 += randomizedValue.Length + 8;
                                             uAssetAlt.Unk19 += randomizedValue.Length + 8;
-                                            uAssetAlt.FinalLength += randomizedValue.Length + 8;
+                                            uAssetAlt.uAssetLength += randomizedValue.Length + 8;
                                         }
 
                                         var none = uAsset.AssetStrings.FirstOrDefault(x => x.AssetName == "ETresAbilityKind::NONE\u0000");
@@ -356,13 +360,14 @@ namespace UE4DataTableInterpreter
                                             // Update All Apparent Lengths in uAsset
                                             uAssetAlt.FileSize += randomizedValue.Length + 8;
                                             uAssetAlt.UnkLength3 += 1;
+                                            uAssetAlt.Unk12 = uAssetAlt.UnkLength3;
                                             uAssetAlt.Unk5 += randomizedValue.Length + 8;
                                             uAssetAlt.SubSize1 += randomizedValue.Length + 8;
                                             uAssetAlt.SubSize2 += randomizedValue.Length + 8;
                                             uAssetAlt.Unk16 += randomizedValue.Length + 8;
                                             uAssetAlt.Unk17 += randomizedValue.Length + 8;
                                             uAssetAlt.Unk19 += randomizedValue.Length + 8;
-                                            uAssetAlt.FinalLength += randomizedValue.Length + 8;
+                                            uAssetAlt.uAssetLength += randomizedValue.Length + 8;
                                         }
 
                                         var none = uAsset.AssetStrings.FirstOrDefault(x => x.AssetName == "ETresAbilityKind::NONE\u0000");
@@ -395,13 +400,14 @@ namespace UE4DataTableInterpreter
                                             // Update All Apparent Lengths in uAsset
                                             uAssetAlt.FileSize += randomizedValue.Length + 8;
                                             uAssetAlt.UnkLength3 += 1;
+                                            uAssetAlt.Unk12 = uAssetAlt.UnkLength3;
                                             uAssetAlt.Unk5 += randomizedValue.Length + 8;
                                             uAssetAlt.SubSize1 += randomizedValue.Length + 8;
                                             uAssetAlt.SubSize2 += randomizedValue.Length + 8;
                                             uAssetAlt.Unk16 += randomizedValue.Length + 8;
                                             uAssetAlt.Unk17 += randomizedValue.Length + 8;
                                             uAssetAlt.Unk19 += randomizedValue.Length + 8;
-                                            uAssetAlt.FinalLength += randomizedValue.Length + 8;
+                                            uAssetAlt.uAssetLength += randomizedValue.Length + 8;
                                         }
 
                                         var none = uAsset.AssetStrings.FirstOrDefault(x => x.AssetName == "ETresAbilityKind::NONE\u0000");
@@ -439,13 +445,14 @@ namespace UE4DataTableInterpreter
                                             // Update All Apparent Lengths in uAsset
                                             uAssetAlt.FileSize += randomizedValue.Length + 8;
                                             uAssetAlt.UnkLength3 += 1;
+                                            uAssetAlt.Unk12 = uAssetAlt.UnkLength3;
                                             uAssetAlt.Unk5 += randomizedValue.Length + 8;
                                             uAssetAlt.SubSize1 += randomizedValue.Length + 8;
                                             uAssetAlt.SubSize2 += randomizedValue.Length + 8;
                                             uAssetAlt.Unk16 += randomizedValue.Length + 8;
                                             uAssetAlt.Unk17 += randomizedValue.Length + 8;
                                             uAssetAlt.Unk19 += randomizedValue.Length + 8;
-                                            uAssetAlt.FinalLength += randomizedValue.Length + 8;
+                                            uAssetAlt.uAssetLength += randomizedValue.Length + 8;
                                         }
 
                                         var none = uAsset.AssetStrings.FirstOrDefault(x => x.AssetName == "ETresVictoryBonusKind::NONE\u0000");
@@ -478,13 +485,14 @@ namespace UE4DataTableInterpreter
                                             // Update All Apparent Lengths in uAsset
                                             uAssetAlt.FileSize += randomizedValue.Length + 8;
                                             uAssetAlt.UnkLength3 += 1;
+                                            uAssetAlt.Unk12 = uAssetAlt.UnkLength3;
                                             uAssetAlt.Unk5 += randomizedValue.Length + 8;
                                             uAssetAlt.SubSize1 += randomizedValue.Length + 8;
                                             uAssetAlt.SubSize2 += randomizedValue.Length + 8;
                                             uAssetAlt.Unk16 += randomizedValue.Length + 8;
                                             uAssetAlt.Unk17 += randomizedValue.Length + 8;
                                             uAssetAlt.Unk19 += randomizedValue.Length + 8;
-                                            uAssetAlt.FinalLength += randomizedValue.Length + 8;
+                                            uAssetAlt.uAssetLength += randomizedValue.Length + 8;
                                         }
 
                                         var none = uAsset.AssetStrings.FirstOrDefault(x => x.AssetName == "ETresVictoryBonusKind::NONE\u0000");
@@ -517,13 +525,14 @@ namespace UE4DataTableInterpreter
                                             // Update All Apparent Lengths in uAsset
                                             uAssetAlt.FileSize += randomizedValue.Length + 8;
                                             uAssetAlt.UnkLength3 += 1;
+                                            uAssetAlt.Unk12 = uAssetAlt.UnkLength3;
                                             uAssetAlt.Unk5 += randomizedValue.Length + 8;
                                             uAssetAlt.SubSize1 += randomizedValue.Length + 8;
                                             uAssetAlt.SubSize2 += randomizedValue.Length + 8;
                                             uAssetAlt.Unk16 += randomizedValue.Length + 8;
                                             uAssetAlt.Unk17 += randomizedValue.Length + 8;
                                             uAssetAlt.Unk19 += randomizedValue.Length + 8;
-                                            uAssetAlt.FinalLength += randomizedValue.Length + 8;
+                                            uAssetAlt.uAssetLength += randomizedValue.Length + 8;
                                         }
 
                                         var none = uAsset.AssetStrings.FirstOrDefault(x => x.AssetName == "ETresAbilityKind::NONE\u0000");
@@ -556,13 +565,14 @@ namespace UE4DataTableInterpreter
                                             // Update All Apparent Lengths in uAsset
                                             uAssetAlt.FileSize += randomizedValue.Length + 8;
                                             uAssetAlt.UnkLength3 += 1;
+                                            uAssetAlt.Unk12 = uAssetAlt.UnkLength3;
                                             uAssetAlt.Unk5 += randomizedValue.Length + 8;
                                             uAssetAlt.SubSize1 += randomizedValue.Length + 8;
                                             uAssetAlt.SubSize2 += randomizedValue.Length + 8;
                                             uAssetAlt.Unk16 += randomizedValue.Length + 8;
                                             uAssetAlt.Unk17 += randomizedValue.Length + 8;
                                             uAssetAlt.Unk19 += randomizedValue.Length + 8;
-                                            uAssetAlt.FinalLength += randomizedValue.Length + 8;
+                                            uAssetAlt.uAssetLength += randomizedValue.Length + 8;
                                         }
 
                                         var none = uAsset.AssetStrings.FirstOrDefault(x => x.AssetName == "ETresAbilityKind::NONE\u0000");
@@ -598,13 +608,14 @@ namespace UE4DataTableInterpreter
                                         // Update All Apparent Lengths in uAsset
                                         uAssetAlt.FileSize += randomizedValue.Length + 8;
                                         uAssetAlt.UnkLength3 += 1;
+                                        uAssetAlt.Unk12 = uAssetAlt.UnkLength3;
                                         uAssetAlt.Unk5 += randomizedValue.Length + 8;
                                         uAssetAlt.SubSize1 += randomizedValue.Length + 8;
                                         uAssetAlt.SubSize2 += randomizedValue.Length + 8;
                                         uAssetAlt.Unk16 += randomizedValue.Length + 8;
                                         uAssetAlt.Unk17 += randomizedValue.Length + 8;
                                         uAssetAlt.Unk19 += randomizedValue.Length + 8;
-                                        uAssetAlt.FinalLength += randomizedValue.Length + 8;
+                                        uAssetAlt.uAssetLength += randomizedValue.Length + 8;
                                     }
 
                                     ((MobilePortalDataTableEntry)uExpAlt.DataTableEntries.FirstOrDefault(x => x.Value.RowName == entryIndex).Value).LSIGamePlayRewardItemValue = assetAltIndex;
@@ -632,10 +643,6 @@ namespace UE4DataTableInterpreter
                         }
                     }
                 }
-
-
-                // Recompile uAsset
-                var uAssetFileBytes = uAsset.Recompile();
 
 
                 // Recompile uExp
@@ -689,6 +696,13 @@ namespace UE4DataTableInterpreter
                         break;
                 }
 
+
+                // Recompile uAsset with uExp length
+                uAsset.uExpLength = uExpFileBytes.Count - 4; // Remove 4 bytes for the ID at the end?
+                uAsset.Unk17 = (int)(uAsset.uExpLength + uAsset.uAssetLength);
+
+                var uAssetFileBytes = uAsset.Recompile();
+
                 // Add Recompiled uAsset + uExp to recompiledFiles
                 recompiledFiles.Add($@"KINGDOM HEARTS III/{path}.uasset", uAssetFileBytes);
                 recompiledFiles.Add($@"KINGDOM HEARTS III/{path}.uexp", uExpFileBytes);
@@ -696,18 +710,39 @@ namespace UE4DataTableInterpreter
                 // Add Recompiled ALT uAsset + uExp to recompiledFiles
                 if (dataTableEnum == DataTableEnum.VBonus)
                 {
-                    recompiledFiles.Add($@"KINGDOM HEARTS III/{subPath}.uasset", uAssetAlt.Recompile());
-                    recompiledFiles.Add($@"KINGDOM HEARTS III/{subPath}.uexp", uExpAlt.Recompile<VBonusDataTableAltEntry>());
+                    var uExpAltFileBytes = uExpAlt.Recompile<VBonusDataTableAltEntry>();
+
+                    uAssetAlt.uExpLength = uExpAltFileBytes.Count - 4; // Remove 4 bytes for the ID at the end?
+                    uAssetAlt.Unk17 = (int)(uAssetAlt.uExpLength + uAssetAlt.uAssetLength);
+
+                    var uAssetAltFileBytes = uAssetAlt.Recompile();
+
+                    recompiledFiles.Add($@"KINGDOM HEARTS III/{subPath}.uasset", uAssetAltFileBytes);
+                    recompiledFiles.Add($@"KINGDOM HEARTS III/{subPath}.uexp", uExpAltFileBytes);
                 }
                 else if (dataTableEnum == DataTableEnum.LevelUp)
                 {
-                    recompiledFiles.Add($@"KINGDOM HEARTS III/{subPath}.uasset", uAssetAlt.Recompile());
-                    recompiledFiles.Add($@"KINGDOM HEARTS III/{subPath}.uexp", uExpAlt.Recompile<LevelUpDataTableAltEntry>());
+                    var uExpAltFileBytes = uExpAlt.Recompile<LevelUpDataTableAltEntry>();
+
+                    uAssetAlt.uExpLength = uExpAltFileBytes.Count - 4; // Remove 4 bytes for the ID at the end?
+                    uAssetAlt.Unk17 = (int)(uAssetAlt.uExpLength + uAssetAlt.uAssetLength);
+
+                    var uAssetAltFileBytes = uAssetAlt.Recompile();
+
+                    recompiledFiles.Add($@"KINGDOM HEARTS III/{subPath}.uasset", uAssetAltFileBytes);
+                    recompiledFiles.Add($@"KINGDOM HEARTS III/{subPath}.uexp", uExpAltFileBytes);
                 }
                 else if (dataTableEnum == DataTableEnum.Event)
                 {
-                    recompiledFiles.Add($@"KINGDOM HEARTS III/{subPath}.uasset", uAssetAlt.Recompile());
-                    recompiledFiles.Add($@"KINGDOM HEARTS III/{subPath}.uexp", uExpAlt.Recompile<MobilePortalDataTableEntry>());
+                    var uExpAltFileBytes = uExpAlt.Recompile<MobilePortalDataTableEntry>();
+
+                    uAssetAlt.uExpLength = uExpAltFileBytes.Count - 4; // Remove 4 bytes for the ID at the end?
+                    uAssetAlt.Unk17 = (int)(uAssetAlt.uExpLength + uAssetAlt.uAssetLength);
+
+                    var uAssetAltFileBytes = uAssetAlt.Recompile();
+
+                    recompiledFiles.Add($@"KINGDOM HEARTS III/{subPath}.uasset", uAssetAltFileBytes);
+                    recompiledFiles.Add($@"KINGDOM HEARTS III/{subPath}.uexp", uExpAltFileBytes);
                 }
             }
 
@@ -731,9 +766,11 @@ namespace UE4DataTableInterpreter
                     // modifies the existing uAsset (+ returns itself, but we won't need that here)
                     uAsset.Decompile(reader);
 
-                    reader.Position -= (0xB0 + 0x4 + 0x54);
+                    // TODO Redo this
+                    reader.Position -= (0xA8 + 0x8 + 0x8 + 0x50);
                     uAsset.DuplicateData = reader.ReadBytesFromFileStream(0x1); // 0xB68 for Shotlock
-                    uAsset.FinalLength = BitConverter.ToInt32(reader.ReadBytesFromFileStream(4).ToArray()); // 0x4 for Shotlock
+                    uAsset.uExpLength = BitConverter.ToInt64(reader.ReadBytesFromFileStream(8).ToArray());
+                    uAsset.uAssetLength = BitConverter.ToInt32(reader.ReadBytesFromFileStream(8).ToArray()); // 0x4 for ChrInit
                     uAsset.DuplicateData2 = reader.ReadBytesFromFileStream((int)(reader.Length - reader.Position)); // 0x118 for Shotlock
 
                     uAsset.AssetStrings.FirstOrDefault(x => x.AssetName == $"{replaceShotlock}_ProjSet\u0000").AssetName = newShotlock;
@@ -762,10 +799,12 @@ namespace UE4DataTableInterpreter
                     // modifies the existing uAsset (+ returns itself, but we won't need that here)
                     uAsset = new uAsset();
                     uAsset.Decompile(readerEquip);
-
-                    readerEquip.Position -= (0xB0 + 0x4 + 0x54);
+                    
+                    // TODO Redo this
+                    readerEquip.Position -= (0xA8 + 0x8 + 0x8 + 0x50);
                     uAsset.DuplicateData = readerEquip.ReadBytesFromFileStream(0x1); // 0xB68 for Shotlock
-                    uAsset.FinalLength = BitConverter.ToInt32(readerEquip.ReadBytesFromFileStream(4).ToArray()); // 0x4 for Shotlock
+                    uAsset.uExpLength = BitConverter.ToInt64(readerEquip.ReadBytesFromFileStream(8).ToArray());
+                    uAsset.uAssetLength = BitConverter.ToInt32(readerEquip.ReadBytesFromFileStream(8).ToArray()); // 0x4 for ChrInit
                     uAsset.DuplicateData2 = readerEquip.ReadBytesFromFileStream((int)(readerEquip.Length - readerEquip.Position)); // 0x118 for Shotlock
 
                     uAsset.AssetStrings.FirstOrDefault(x => x.AssetName == $"{replaceShotlock}_ProjSet\u0000").AssetName = newShotlock;
@@ -830,12 +869,17 @@ namespace UE4DataTableInterpreter
                 ((SecretReportInfoDataTableEntry)uExp.DataTableEntries.FirstOrDefault(x => x.Value.RowName == report).Value).ReportTextLength = concattedHints.Length;
             }
 
-            // Recompile uAsset
-            var uAssetFileBytes = uAsset.Recompile();
-
 
             // Recompile uExp
             var uExpFileBytes = uExp.Recompile<SecretReportInfoDataTableEntry>();
+
+
+            // Recompile uAsset
+            uAsset.uExpLength = uExpFileBytes.Count - 4; // Remove 4 bytes for the ID at the end?
+            uAsset.Unk17 = (int)(uAsset.uExpLength + uAsset.uAssetLength);
+
+            var uAssetFileBytes = uAsset.Recompile();
+
 
             // Add Recompiled uAsset + uExp to recompiledFiles
             recompiledFiles.Add($@"KINGDOM HEARTS III/{path}.uasset", uAssetFileBytes);
@@ -875,12 +919,17 @@ namespace UE4DataTableInterpreter
                 ((QualityOfLifeDataTableEntry)uExp.DataTableEntries.FirstOrDefault(x => x.Value.RowName == qolName).Value).activeValue = Convert.ToByte(active);
             }
 
-            // Recompile uAsset
-            var uAssetFileBytes = uAsset.Recompile();
-
 
             // Recompile uExp
             var uExpFileBytes = uExp.Recompile<QualityOfLifeDataTableEntry>();
+
+
+            // Recompile uAsset
+            uAsset.uExpLength = uExpFileBytes.Count - 4; // Remove 4 bytes for the ID at the end?
+            uAsset.Unk17 = (int)(uAsset.uExpLength + uAsset.uAssetLength);
+
+            var uAssetFileBytes = uAsset.Recompile();
+
 
             // Add Recompiled uAsset + uExp to recompiledFiles
             recompiledFiles.Add($@"KINGDOM HEARTS III/{path}.uasset", uAssetFileBytes);
@@ -912,9 +961,9 @@ namespace UE4DataTableInterpreter
             {
                 var lichPath = @"Content/Maps/ew/umap/ew_28/ew_28_ENV";
 
-                var lichFiles = this.LoadAssetExpFiles(lichPath);
+                var lichFiles = this.LoadAssetExpFiles(lichPath, true);
 
-                recompiledFiles.Add($@"KINGDOM HEARTS III/{lichPath}.uasset", lichFiles.Item1);
+                recompiledFiles.Add($@"KINGDOM HEARTS III/{lichPath}.umap", lichFiles.Item1);
                 recompiledFiles.Add($@"KINGDOM HEARTS III/{lichPath}.uexp", lichFiles.Item2);
             }
 
@@ -922,48 +971,59 @@ namespace UE4DataTableInterpreter
             {
                 var frozenChasePath = @"Content/Levels/fz/fz_03/umap/fz_03_gimmick_Avalanche";
 
-                var frozenChaseFiles = this.LoadAssetExpFiles(frozenChasePath);
+                var frozenChaseFiles = this.LoadAssetExpFiles(frozenChasePath, true);
 
-                recompiledFiles.Add($@"KINGDOM HEARTS III/{frozenChasePath}.uasset", frozenChaseFiles.Item1);
+                recompiledFiles.Add($@"KINGDOM HEARTS III/{frozenChasePath}.umap", frozenChaseFiles.Item1);
                 recompiledFiles.Add($@"KINGDOM HEARTS III/{frozenChasePath}.uexp", frozenChaseFiles.Item2);
+            }
+
+            if (qol["EVENT_003"]) // Big Hero 6 Rescue Skip
+            {
+                var bigSixPath = @"Content/Maps/ew/umap/ew_01/QoL_BigSix";
+
+                var bigSixFiles = this.LoadAssetExpFiles(bigSixPath, true);
+
+                recompiledFiles.Add($@"KINGDOM HEARTS III/{bigSixPath}.umap", bigSixFiles.Item1);
+                recompiledFiles.Add($@"KINGDOM HEARTS III/{bigSixPath}.uexp", bigSixFiles.Item2);
             }
 
             if (qol["ITEM_003"]) // All Maps
             {
                 var mapsPath = @"Content/Maps/ew/umap/ew_01/QoL_Maps";
 
-                var mapsFiles = this.LoadAssetExpFiles(mapsPath);
+                var mapsFiles = this.LoadAssetExpFiles(mapsPath, true);
 
-                recompiledFiles.Add($@"KINGDOM HEARTS III/{mapsPath}.uasset", mapsFiles.Item1);
+                recompiledFiles.Add($@"KINGDOM HEARTS III/{mapsPath}.umap", mapsFiles.Item1);
                 recompiledFiles.Add($@"KINGDOM HEARTS III/{mapsPath}.uexp", mapsFiles.Item2);
             }
 
             return recompiledFiles;
         }
 
-        private Tuple<List<byte>, List<byte>> LoadAssetExpFiles(string path)
+        private Tuple<List<byte>, List<byte>> LoadAssetExpFiles(string path, bool umapUse = false)
         {
             // Load uAsset
-            List<byte> uAssetUFOFileBytes;
-            using var uAssetMemoryUFOStream = new MemoryStream();
+            List<byte> uAssetFileBytes;
+            using var uAssetMemoryStream = new MemoryStream();
 
-            using var readerUFO = File.OpenRead($"{path}.uasset");
+            var extension = umapUse ? "umap" : "uasset";
+            using var reader = File.OpenRead($"{path}.{extension}");
 
-            readerUFO.CopyTo(uAssetMemoryUFOStream);
-            uAssetUFOFileBytes = uAssetMemoryUFOStream.ToArray().ToList();
+            reader.CopyTo(uAssetMemoryStream);
+            uAssetFileBytes = uAssetMemoryStream.ToArray().ToList();
 
 
             // Load uExp
-            List<byte> uExpUFOFileBytes;
-            using var uExpMemoryUFOStream = new MemoryStream();
+            List<byte> uExpFileBytes;
+            using var uExpMemoryStream = new MemoryStream();
 
-            using var readerExpUFO = File.OpenRead($"{path}.uexp");
+            using var readerExp = File.OpenRead($"{path}.uexp");
 
-            readerExpUFO.CopyTo(uExpMemoryUFOStream);
-            uExpUFOFileBytes = uExpMemoryUFOStream.ToArray().ToList();
+            readerExp.CopyTo(uExpMemoryStream);
+            uExpFileBytes = uExpMemoryStream.ToArray().ToList();
 
 
-            return new Tuple<List<byte>, List<byte>>(uAssetUFOFileBytes, uExpUFOFileBytes);
+            return new Tuple<List<byte>, List<byte>>(uAssetFileBytes, uExpFileBytes);
         }
     }
 }

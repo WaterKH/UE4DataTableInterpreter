@@ -33,7 +33,7 @@ namespace UE4DataTableInterpreter
         public int Unk14 { get; set; }
         public int Unk15 { get; set; }
         public int Unk16 { get; set; } // Has to do with AssetNameCount
-        public int Unk17 { get; set; } // Has to do with AssetNameCount
+        public int Unk17 { get; set; } // uExp + uAsset Combined Size
         public List<byte> Unk18 { get; set; } // 16 bytes?
         public int Unk19 { get; set; } // Has to do with AssetNameCount
 
@@ -43,7 +43,8 @@ namespace UE4DataTableInterpreter
         // TODO Rest of the data
 
         public List<byte> DuplicateData { get; set; } // 0xB0 length
-        public int FinalLength { get; set; }
+        public long uExpLength { get; set; }
+        public long uAssetLength { get; set; }
         public List<byte> DuplicateData2 { get; set; } // 0x54 length
 
         public uAsset Decompile(FileStream reader)
@@ -91,7 +92,7 @@ namespace UE4DataTableInterpreter
             this.AssetStrings = new List<Asset>();
 
             var length = -1;
-            for (int i = 0; i < this.Unk12; ++i)
+            for (int i = 0; i < this.UnkLength3; ++i)
             {
                 length = BitConverter.ToInt32(reader.ReadBytesFromFileStream(4).ToArray());
 
@@ -109,9 +110,10 @@ namespace UE4DataTableInterpreter
             }
 
             //reader.Position -= 4;
-            this.DuplicateData = reader.ReadBytesFromFileStream(0xB0); // 0xB68 for ChrInit
-            this.FinalLength = BitConverter.ToInt32(reader.ReadBytesFromFileStream(4).ToArray()); // 0x369D for ChrInit
-            this.DuplicateData2 = reader.ReadBytesFromFileStream(0x54); // 0x118 for ChrInit
+            this.DuplicateData = reader.ReadBytesFromFileStream(0xA8); // 0xB68 for ChrInit
+            this.uExpLength = BitConverter.ToInt64(reader.ReadBytesFromFileStream(8).ToArray());
+            this.uAssetLength = BitConverter.ToInt64(reader.ReadBytesFromFileStream(8).ToArray()); // 0x369D for ChrInit
+            this.DuplicateData2 = reader.ReadBytesFromFileStream(0x50); // 0x118 for ChrInit
 
             return this;
         }
@@ -168,7 +170,8 @@ namespace UE4DataTableInterpreter
             }
 
             data.AddRange(this.DuplicateData);
-            data.AddRange(BitConverter.GetBytes(this.FinalLength));
+            data.AddRange(BitConverter.GetBytes(this.uExpLength));
+            data.AddRange(BitConverter.GetBytes(this.uAssetLength));
             data.AddRange(this.DuplicateData2);
 
             return data;
