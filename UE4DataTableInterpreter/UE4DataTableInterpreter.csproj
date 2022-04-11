@@ -5,10 +5,11 @@
     <TargetFramework>net5.0</TargetFramework>
     <ApplicationIcon />
     <StartupObject />
-    <Version>1.1.12</Version>
+    <Version>1.1.13</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>waterkh</Authors>
-    <Description>1.1.12 - Added QoL Big Hero Rescue
+    <Description>1.1.13 - Allow for variable number of hints on reports
+1.1.12 - Added QoL Big Hero Rescue
 1.1.11 - Fix to datatable de/re-recompiling + Fixes to QoL and Hints
 1.1.10 - Fix to function call
 1.1.9 - Fix to file reader
