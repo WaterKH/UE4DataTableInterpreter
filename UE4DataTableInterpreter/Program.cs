@@ -6,6 +6,7 @@ using System.Text.Json;
 using UE4DataTableInterpreter.DataTables;
 using UE4DataTableInterpreter.Enums;
 using UE4DataTableInterpreter.Gameflows;
+using UE4DataTableInterpreter.Models;
 
 namespace UE4DataTableInterpreter
 {
@@ -14,12 +15,12 @@ namespace UE4DataTableInterpreter
         public static Dictionary<DataTableEnum, Dictionary<string, Dictionary<string, string>>> Data = new Dictionary<DataTableEnum, Dictionary<string, Dictionary<string, string>>>()
         {
             //{ DataTableEnum.ChrInit, new Dictionary<string, Dictionary<string, string>> { } },
-            //{ DataTableEnum.EquipItem, new Dictionary<string, Dictionary<string, string>> { } },
-            { DataTableEnum.Event, new Dictionary<string, Dictionary<string, string>> {
-                { "EVENT_001", new Dictionary<string, string> {
-                    { "RandomizedItem", "NAVI_MAP_CA01\u0000" }
-                } }
-            } },
+            { DataTableEnum.EquipItem, new Dictionary<string, Dictionary<string, string>> { } },
+            //{ DataTableEnum.Event, new Dictionary<string, Dictionary<string, string>> {
+            //    { "EVENT_001", new Dictionary<string, string> {
+            //        { "RandomizedItem", "NAVI_MAP_CA01\u0000" }
+            //    } }
+            //} },
             //{ DataTableEnum.FullcourseAbility, new Dictionary<string, Dictionary<string, string>> { } },
             //{ DataTableEnum.LevelUp, new Dictionary<string, Dictionary<string, string>> { } },
             //{ DataTableEnum.LuckyMark, new Dictionary<string, Dictionary<string, string>> { } },
@@ -42,13 +43,53 @@ namespace UE4DataTableInterpreter
             //        { "Sora_Ability2", "PRT_ITEM40\u0000" }
             //    } }
             //} },
-            //{ DataTableEnum.WeaponEnhance, new Dictionary<string, Dictionary<string, string>> { } }
+            //{ DataTableEnum.WeaponEnhance, new Dictionary<string, Dictionary<string, string>> { } },
             //{ DataTableEnum.Shotlock, new Dictionary<string, Dictionary<string, string>> {
             //    { "w_so110", new Dictionary<string, string> {
             //            { "w_so120", "EMPTY ON PURPOSE" }
             //        }
             //    } }
             //}
+            //{ DataTableEnum.FoodItemEffectStat, new Dictionary<string, Dictionary<string, string>> {
+            //    { "FOOD_ITEM01", new Dictionary<string, string> {
+            //        { "MaxHPPlus", "30" }, { "MaxMPPlus", "30" }, { "AttackPlus", "30" }, { "MagicPlus", "30" }, { "DefensePlus", "30" }
+            //    } }
+            //} },
+            //{ DataTableEnum.EXP, new Dictionary<string, Dictionary<string, string>> {
+            //    { "EXP", new Dictionary<string, string> {
+            //        { "Multiplier", "10" }
+            //    } }
+            //} }
+            //{ DataTableEnum.BaseCharStat, new Dictionary<string, Dictionary<string, string>> {
+            //    { "Sora", new Dictionary<string, string> {
+            //        { "MaxHitPoint", "1000" }, { "MaxMagicPoint", "1000" }, { "MaxFocusPoint", "100" }, { "AttackPower", "1000" },
+            //        { "MagicPower", "1000" }, { "DefensePower", "1000" }, { "AbilityPoint", "2" }
+            //    } }
+            //} },
+            //{ DataTableEnum.LevelUpStat, new Dictionary<string, Dictionary<string, string>> {
+            //    { "1", new Dictionary<string, string> {
+            //        { "AttackPower", "1000" }, { "MagicPower", "1000" }, { "DefensePower", "1000" }, { "AbilityPoint", "100" }
+            //    } },
+            //    { "2", new Dictionary<string, string> {
+            //        { "AttackPower", "2000" }, { "MagicPower", "2000" }, { "DefensePower", "2000" }, { "AbilityPoint", "200" }
+            //    } }
+            //} }
+            //{ DataTableEnum.WeaponEnhanceStat, new Dictionary<string, Dictionary<string, string>> {
+            //    { "IW_0", new Dictionary<string, string> {
+            //        { "AttackPlus", "10" }, { "MagicPlus", "6" }
+            //    } },
+            //    { "IW_1", new Dictionary<string, string> {
+            //        { "AttackPlus", "10" }, { "MagicPlus", "10" }
+            //    } }
+            //} }
+            { DataTableEnum.EquipItemStat, new Dictionary<string, Dictionary<string, string>> {
+                { "I03001", new Dictionary<string, string> {
+                    { "AP", "10" }, { "AttackPlus", "3" }, { "MagicPlus", "100" }, { "DefensePlus", "10" },
+                    { "AttrResistPhysical", "20" }, { "AttrResistFire", "15" }, { "AttrResistBlizzard", "30" },
+                    { "AttrResistThunder", "20" }, { "AttrResistWater", "15" }, { "AttrResistAero", "30" },
+                    { "AttrResistDark", "20" }, { "AttrResistNoType", "15" }
+                } }
+            } },
         };
 
         public static Dictionary<string, bool> QualityOfLifeData = new Dictionary<string, bool>
@@ -69,24 +110,36 @@ namespace UE4DataTableInterpreter
             { "SecretReport14", new List<string> { "TTest14" } }
         };
 
+        public static Dictionary<string, Enemy> RandomizedBosses = new Dictionary<string, Enemy> {
+            { "Steel Titan", new Enemy { FilePath = @"Content/Levels/bx/bx_01/umap/bx_01_enemy_03", Address = 0x2FF5, EnemyPath = "/Game/Blueprints/Enemy/e_ex781/e_ex781_Pawn.e_ex781_Pawn_C\u0000" } }
+            //{ "Demon Tide", new Enemy { FilePath = @"Content/Levels/tt/tt_01/umap/tt_01_enemy_02", Address = 0x5291, EnemyPath = "/Game/Blueprints/Enemy/e_ex816/e_ex816_Pawn.e_ex816_Pawn_C\u0000" } }
+        };
+
         public static Dictionary<string, long> uAssetIds = new Dictionary<string, long>();
 
         public static void Main(string[] args)
         {
             var dataTableManager = new DataTableManager();
 
-            var tempQoL = dataTableManager.GenerateQualityOfLifeDataTable(QualityOfLifeData);
+            //var tempQoL = dataTableManager.GenerateQualityOfLifeDataTable(QualityOfLifeData);
 
-            foreach (var te in tempQoL)
+            //foreach (var te in tempQoL)
+            //{
+            //    File.WriteAllBytes(te.Key.Split('/')[^1], te.Value.ToArray());
+            //}
+
+            //var tempHint = dataTableManager.GenerateHintDataTable(HintData);
+
+            //foreach (var te in tempHint)
+            //{
+            //    File.WriteAllBytes(te.Key.Split('/')[^1], te.Value.ToArray());
+            //}
+
+            var bosses = dataTableManager.RandomizeBossDataTables(RandomizedBosses);
+
+            foreach (var file in bosses)
             {
-                File.WriteAllBytes(te.Key.Split('/')[^1], te.Value.ToArray());
-            }
-
-            var tempHint = dataTableManager.GenerateHintDataTable(HintData);
-
-            foreach (var te in tempHint)
-            {
-                File.WriteAllBytes(te.Key.Split('/')[^1], te.Value.ToArray());
+                File.WriteAllBytes(file.Key.Split('/')[^1], file.Value.ToArray());
             }
 
             var filesToWrite = dataTableManager.RandomizeDataTables(Data);
