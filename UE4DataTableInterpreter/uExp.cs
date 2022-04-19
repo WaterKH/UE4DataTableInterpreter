@@ -90,6 +90,14 @@ namespace UE4DataTableInterpreter
                     case "SecretReportInfoDataTableEntry":
                         temp = new SecretReportInfoDataTableEntry();
                         break;
+
+                    case "FoodItemEffectDataTableEntry":
+                        temp = new FoodItemEffectDataTableEntry();
+                        break;
+
+                    case "CharacterBaseDataTableEntry":
+                        temp = new CharacterBaseDataTableEntry();
+                        break;
                     default:
                         break;
                 }
@@ -201,6 +209,16 @@ namespace UE4DataTableInterpreter
                 case "SecretReportInfoDataTableEntry":
                     foreach (var (rowName, entry) in this.DataTableEntries)
                         data.AddRange(((SecretReportInfoDataTableEntry)entry).Recompile());
+                    break;
+
+                case "FoodItemEffectDataTableEntry":
+                    foreach (var (rowName, entry) in this.DataTableEntries)
+                        data.AddRange(((FoodItemEffectDataTableEntry)entry).Recompile());
+                    break;
+
+                case "CharacterBaseDataTableEntry":
+                    foreach (var (rowName, entry) in this.DataTableEntries)
+                        data.AddRange(((CharacterBaseDataTableEntry)entry).Recompile());
                     break;
                 default:
                     break;
