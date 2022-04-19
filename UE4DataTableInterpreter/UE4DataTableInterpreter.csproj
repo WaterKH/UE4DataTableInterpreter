@@ -5,10 +5,11 @@
     <TargetFramework>net5.0</TargetFramework>
     <ApplicationIcon />
     <StartupObject />
-    <Version>1.2.1</Version>
+    <Version>1.2.2</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>waterkh</Authors>
-    <Description>1.2.1 - Wording on Hints
+    <Description>1.2.2 - Updated Event DataTables
+1.2.1 - Wording on Hints
 1.2 - Added DataTableEnums and Handling for different Stats + Boss/Enemy
 1.1.13 - Fix to Raging Vulture file
 1.1.12 - Added QoL Big Hero Rescue
