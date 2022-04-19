@@ -26,6 +26,17 @@
         WeaponEnhance = 19,
         SynthesisItem = 20,
 
-        Shotlock = 21
+        FoodItemEffectStat = 21,
+        BaseCharStat = 22,
+        LevelUpStat = 23,
+        EquipItemStat = 24,
+        WeaponEnhanceStat = 25,
+
+        Shotlock = 26,
+        Formchange = 27,
+
+        Boss = 28,
+        Enemy = 29,
+        EXP = 30
     }
 }

@@ -6,6 +6,8 @@ using System.Text;
 using System.Text.Json;
 using UE4DataTableInterpreter.DataTables;
 using UE4DataTableInterpreter.Enums;
+using UE4DataTableInterpreter.Interfaces;
+using UE4DataTableInterpreter.Models;
 
 namespace UE4DataTableInterpreter
 {
@@ -24,9 +26,27 @@ namespace UE4DataTableInterpreter
             var uAssetIds = JsonSerializer.Deserialize<Dictionary<string, uint>>(streamReader.ReadToEnd());
 
             foreach (var (dataTableEnum, entries) in randomizedValues)
-            {   
-                if (dataTableEnum == DataTableEnum.Shotlock)
+            {
+                // Processing for edge case situations like Stat Boosts, EXP Multiplier, etc.
+                if (dataTableEnum == DataTableEnum.Shotlock || dataTableEnum == DataTableEnum.LevelUpStat || dataTableEnum == DataTableEnum.EquipItemStat || dataTableEnum == DataTableEnum.WeaponEnhanceStat)
+                {
                     continue;
+                }
+                else if (dataTableEnum == DataTableEnum.EXP)
+                {
+                    this.ProcessEXPTables(ref recompiledFiles, entries["EXP"]["Multiplier"]);
+                    continue;
+                }
+                else if (dataTableEnum == DataTableEnum.BaseCharStat)
+                {
+                    this.ProcessBaseCharacterStats(ref recompiledFiles, entries["Sora"]);
+                    continue;
+                }
+                else if (dataTableEnum == DataTableEnum.FoodItemEffectStat)
+                {
+                    this.ProcessFoodItemEffectStats(ref recompiledFiles, entries);
+                    continue;
+                }
 
                 // Decompile uAsset
                 var uAsset = new uAsset();
@@ -645,6 +665,29 @@ namespace UE4DataTableInterpreter
                 }
 
 
+                // Update existing tables
+                switch (dataTableEnum)
+                {
+                    case DataTableEnum.LevelUp:
+                        if (randomizedValues.ContainsKey(DataTableEnum.LevelUpStat))
+                            this.ProcessLevelUpStats(randomizedValues[DataTableEnum.LevelUpStat], uExp.DataTableEntries);
+
+                        break;
+                    case DataTableEnum.WeaponEnhance:
+                        if (randomizedValues.ContainsKey(DataTableEnum.WeaponEnhanceStat))
+                            this.ProcessWeaponEnhanceStats(randomizedValues[DataTableEnum.WeaponEnhanceStat], uExp.DataTableEntries);
+
+                        break;
+                    case DataTableEnum.EquipItem:
+                        if (randomizedValues.ContainsKey(DataTableEnum.EquipItemStat))
+                            this.ProcessEquipItemStats(randomizedValues[DataTableEnum.EquipItemStat], uExp.DataTableEntries);
+
+                        break;
+
+                    default:
+                        break;
+                }
+
                 // Recompile uExp
                 var uExpFileBytes = new List<byte>();
 
@@ -834,6 +877,253 @@ namespace UE4DataTableInterpreter
             //return recompiledFiles.CreateZipArchive(randomSeed); // TODO Remember to delete this after downloaded
         }
 
+        public void ProcessEXPTables(ref Dictionary<string, List<byte>> recompiledFiles, string expMultiplier)
+        {
+            var convertedEXPMultiplier = float.Parse(expMultiplier);
+
+            var enemyTablePaths = Directory.GetFiles(@"Content/DataTable/Enemy/Base");
+
+            foreach (var enemyTablePath in enemyTablePaths.Select(x => x.Split('.')[0].Replace("\\", "/")).Distinct())
+            {
+                // Decompile uAsset
+                var uAsset = new uAsset();
+
+
+                // Only for VBonus for now
+                var uAssetAlt = new uAsset();
+
+
+                using var reader = File.OpenRead($"{enemyTablePath}.uasset");
+
+                // modifies the existing uAsset (+ returns itself, but we won't need that here)
+                uAsset.Decompile(reader);
+
+                reader.Flush();
+                reader.Close();
+
+                // Decompile uExp
+                var uExp = new uExp();
+
+                using var readerExp = File.OpenRead($"{enemyTablePath}.uexp");
+
+
+                // modifies the existing uExp (+ returns itself, but we won't need that here)
+                uExp.Decompile<CharacterBaseDataTableEntry>(readerExp, uAsset.AssetStrings);
+
+                readerExp.Flush();
+                readerExp.Close();
+
+                // Change EXP Multiplier according to the passed in multiplier
+                uExp.DataTableEntries.ToList().ForEach(x => ((CharacterBaseDataTableEntry)x.Value).ExpRateValue *= convertedEXPMultiplier);
+                
+                
+                // Recompile uExp
+                var uExpFileBytes = new List<byte>();
+
+                uExpFileBytes = uExp.Recompile<CharacterBaseDataTableEntry>();
+
+                // Recompile uAsset with uExp length
+                uAsset.uExpLength = uExpFileBytes.Count - 4; // Remove 4 bytes for the ID at the end?
+                uAsset.Unk17 = (int)(uAsset.uExpLength + uAsset.uAssetLength);
+
+                var uAssetFileBytes = uAsset.Recompile();
+
+                // Add Recompiled uAsset + uExp to recompiledFiles
+                recompiledFiles.Add($@"KINGDOM HEARTS III/{enemyTablePath}.uasset", uAssetFileBytes);
+                recompiledFiles.Add($@"KINGDOM HEARTS III/{enemyTablePath}.uexp", uExpFileBytes);
+            }
+        }
+
+        public void ProcessBaseCharacterStats(ref Dictionary<string, List<byte>> recompiledFiles, Dictionary<string, string> randomizedValues)
+        {
+            var path = @"Content/DataTable/Player/Base/p_ex001_BaseParamData";
+
+            // Decompile uAsset
+            var uAsset = new uAsset();
+
+
+            using var reader = File.OpenRead($"{path}.uasset");
+
+            // modifies the existing uAsset (+ returns itself, but we won't need that here)
+            uAsset.Decompile(reader);
+
+            reader.Flush();
+            reader.Close();
+
+            // Decompile uExp
+            var uExp = new uExp();
+
+            using var readerExp = File.OpenRead($"{path}.uexp");
+
+
+            // modifies the existing uExp (+ returns itself, but we won't need that here)
+            uExp.Decompile<CharacterBaseDataTableEntry>(readerExp, uAsset.AssetStrings);
+
+            readerExp.Flush();
+            readerExp.Close();
+
+            foreach (var (name, randomizedValue) in randomizedValues)
+            {
+                if (name == "MaxHitPoint")
+                    ((CharacterBaseDataTableEntry)uExp.DataTableEntries.FirstOrDefault().Value).MaxHitPointValue = int.Parse(randomizedValue);
+                else if (name == "MaxMagicPoint")
+                    ((CharacterBaseDataTableEntry)uExp.DataTableEntries.FirstOrDefault().Value).MaxMagicPointValue = int.Parse(randomizedValue);
+                else if (name == "MaxFocusPoint")
+                    ((CharacterBaseDataTableEntry)uExp.DataTableEntries.FirstOrDefault().Value).MaxFocusPointValue = int.Parse(randomizedValue);
+                else if (name == "AttackPower")
+                    ((CharacterBaseDataTableEntry)uExp.DataTableEntries.FirstOrDefault().Value).AttackPowerValue = int.Parse(randomizedValue);
+                else if (name == "MagicPower")
+                    ((CharacterBaseDataTableEntry)uExp.DataTableEntries.FirstOrDefault().Value).MagicPowerValue = int.Parse(randomizedValue);
+                else if (name == "DefensePower")
+                    ((CharacterBaseDataTableEntry)uExp.DataTableEntries.FirstOrDefault().Value).DefensePowerValue = int.Parse(randomizedValue);
+                else if (name == "AbilityPoint")
+                    ((CharacterBaseDataTableEntry)uExp.DataTableEntries.FirstOrDefault().Value).AbilityPointValue = int.Parse(randomizedValue);
+            }
+            
+
+            // Recompile uExp
+            var uExpFileBytes = new List<byte>();
+
+            uExpFileBytes = uExp.Recompile<CharacterBaseDataTableEntry>();
+
+            // Recompile uAsset with uExp length
+            uAsset.uExpLength = uExpFileBytes.Count - 4; // Remove 4 bytes for the ID at the end?
+            uAsset.Unk17 = (int)(uAsset.uExpLength + uAsset.uAssetLength);
+
+            var uAssetFileBytes = uAsset.Recompile();
+
+            // Add Recompiled uAsset + uExp to recompiledFiles
+            recompiledFiles.Add($@"KINGDOM HEARTS III/{path}.uasset", uAssetFileBytes);
+            recompiledFiles.Add($@"KINGDOM HEARTS III/{path}.uexp", uExpFileBytes);
+        }
+
+        public void ProcessFoodItemEffectStats(ref Dictionary<string, List<byte>> recompiledFiles, Dictionary<string, Dictionary<string, string>> randomizedValues)
+        {
+            var path = @"Content/Load/Tres/TresFoodItemEffectData";
+
+            // Decompile uAsset
+            var uAsset = new uAsset();
+
+
+            using var reader = File.OpenRead($"{path}.uasset");
+
+            // modifies the existing uAsset (+ returns itself, but we won't need that here)
+            uAsset.Decompile(reader);
+
+            reader.Flush();
+            reader.Close();
+
+            // Decompile uExp
+            var uExp = new uExp();
+
+            using var readerExp = File.OpenRead($"{path}.uexp");
+
+
+            // modifies the existing uExp (+ returns itself, but we won't need that here)
+            uExp.Decompile<FoodItemEffectDataTableEntry>(readerExp, uAsset.AssetStrings);
+
+            readerExp.Flush();
+            readerExp.Close();
+
+            foreach (var (food, randomizedOptions) in randomizedValues)
+            {
+                foreach (var (name, randomizedValue) in randomizedOptions)
+                {
+                    if (name == "MaxHPPlus")
+                        ((FoodItemEffectDataTableEntry)uExp.DataTableEntries.FirstOrDefault(x => x.Value.RowName == food).Value).MaxHPPlusValue = int.Parse(randomizedValue);
+                    else if (name == "MaxMPPlus")
+                        ((FoodItemEffectDataTableEntry)uExp.DataTableEntries.FirstOrDefault(x => x.Value.RowName == food).Value).MaxMPPlusValue = int.Parse(randomizedValue);
+                    else if (name == "AttackPlus")
+                        ((FoodItemEffectDataTableEntry)uExp.DataTableEntries.FirstOrDefault(x => x.Value.RowName == food).Value).AttackPlusValue = int.Parse(randomizedValue);
+                    else if (name == "MagicPlus")
+                        ((FoodItemEffectDataTableEntry)uExp.DataTableEntries.FirstOrDefault(x => x.Value.RowName == food).Value).MagicPlusValue = int.Parse(randomizedValue);
+                    else if (name == "DefensePlus")
+                        ((FoodItemEffectDataTableEntry)uExp.DataTableEntries.FirstOrDefault(x => x.Value.RowName == food).Value).DefensePlusValue = int.Parse(randomizedValue);
+                }
+            }
+
+
+            // Recompile uExp
+            var uExpFileBytes = new List<byte>();
+
+            uExpFileBytes = uExp.Recompile<FoodItemEffectDataTableEntry>();
+
+            // Recompile uAsset with uExp length
+            uAsset.uExpLength = uExpFileBytes.Count - 4; // Remove 4 bytes for the ID at the end?
+            uAsset.Unk17 = (int)(uAsset.uExpLength + uAsset.uAssetLength);
+
+            var uAssetFileBytes = uAsset.Recompile();
+
+            // Add Recompiled uAsset + uExp to recompiledFiles
+            recompiledFiles.Add($@"KINGDOM HEARTS III/{path}.uasset", uAssetFileBytes);
+            recompiledFiles.Add($@"KINGDOM HEARTS III/{path}.uexp", uExpFileBytes);
+        }
+
+        public void ProcessLevelUpStats(Dictionary<string, Dictionary<string, string>> randomizedValues, Dictionary<string, IDataTable> entries)
+        {
+            foreach (var (level, randomizedOptions) in randomizedValues)
+            {
+                foreach (var (name, randomizedValue) in randomizedOptions)
+                {
+                    if (name == "AttackPower")
+                        ((LevelUpDataTableEntry)entries.FirstOrDefault(x => x.Value.RowName == level).Value).AttackValue = int.Parse(randomizedValue);
+                    else if (name == "MagicPower")
+                        ((LevelUpDataTableEntry)entries.FirstOrDefault(x => x.Value.RowName == level).Value).MagicValue = int.Parse(randomizedValue);
+                    else if (name == "DefensePower")
+                        ((LevelUpDataTableEntry)entries.FirstOrDefault(x => x.Value.RowName == level).Value).DefenseValue = int.Parse(randomizedValue);
+                    else if (name == "AbilityPoint")
+                        ((LevelUpDataTableEntry)entries.FirstOrDefault(x => x.Value.RowName == level).Value).AbilityPointValue = int.Parse(randomizedValue);
+                }
+            }
+        }
+
+        public void ProcessWeaponEnhanceStats(Dictionary<string, Dictionary<string, string>> randomizedValues, Dictionary<string, IDataTable> entries)
+        {
+            foreach (var (equipment, randomizedOptions) in randomizedValues)
+            {
+                foreach (var (name, randomizedValue) in randomizedOptions)
+                {
+                    if (name == "AttackPlus")
+                        ((WeaponEnhanceDataTableEntry)entries.FirstOrDefault(x => x.Value.RowName == equipment).Value).AttackPlus = int.Parse(randomizedValue);
+                    else if (name == "MagicPlus")
+                        ((WeaponEnhanceDataTableEntry)entries.FirstOrDefault(x => x.Value.RowName == equipment).Value).MagicPlus = int.Parse(randomizedValue);
+                }
+            }
+        }
+
+        public void ProcessEquipItemStats(Dictionary<string, Dictionary<string, string>> randomizedValues, Dictionary<string, IDataTable> entries)
+        {
+            foreach (var (equipment, randomizedOptions) in randomizedValues)
+            {
+                foreach (var (name, randomizedValue) in randomizedOptions)
+                {
+                    if (name == "AP")
+                        ((EquipItemDataTableEntry)entries.FirstOrDefault(x => x.Value.RowName == equipment).Value).APValue = int.Parse(randomizedValue);
+                    else if (name == "AttackPlus")
+                        ((EquipItemDataTableEntry)entries.FirstOrDefault(x => x.Value.RowName == equipment).Value).AttackValue = int.Parse(randomizedValue);
+                    else if (name == "MagicPlus")
+                        ((EquipItemDataTableEntry)entries.FirstOrDefault(x => x.Value.RowName == equipment).Value).MagicValue = int.Parse(randomizedValue);
+                    else if (name == "DefensePlus")
+                        ((EquipItemDataTableEntry)entries.FirstOrDefault(x => x.Value.RowName == equipment).Value).DefenseValue = int.Parse(randomizedValue);
+                    else if (name == "AttrResistPhysical")
+                        ((EquipItemDataTableEntry)entries.FirstOrDefault(x => x.Value.RowName == equipment).Value).PhysicalResistValue = int.Parse(randomizedValue);
+                    else if (name == "AttrResistFire")
+                        ((EquipItemDataTableEntry)entries.FirstOrDefault(x => x.Value.RowName == equipment).Value).FireResistValue = int.Parse(randomizedValue);
+                    else if (name == "AttrResistBlizzard")
+                        ((EquipItemDataTableEntry)entries.FirstOrDefault(x => x.Value.RowName == equipment).Value).BlizzardResistValue = int.Parse(randomizedValue);
+                    else if (name == "AttrResistThunder")
+                        ((EquipItemDataTableEntry)entries.FirstOrDefault(x => x.Value.RowName == equipment).Value).ThunderResistValue = int.Parse(randomizedValue);
+                    else if (name == "AttrResistWater")
+                        ((EquipItemDataTableEntry)entries.FirstOrDefault(x => x.Value.RowName == equipment).Value).WaterResistValue = int.Parse(randomizedValue);
+                    else if (name == "AttrResistAero")
+                        ((EquipItemDataTableEntry)entries.FirstOrDefault(x => x.Value.RowName == equipment).Value).AeroResistValue = int.Parse(randomizedValue);
+                    else if (name == "AttrResistDark")
+                        ((EquipItemDataTableEntry)entries.FirstOrDefault(x => x.Value.RowName == equipment).Value).DarkResistValue = int.Parse(randomizedValue);
+                    else if (name == "AttrResistNoType")
+                        ((EquipItemDataTableEntry)entries.FirstOrDefault(x => x.Value.RowName == equipment).Value).NoTypeResistValue = int.Parse(randomizedValue);
+                }
+            }
+        }
 
         public Dictionary<string, List<byte>> GenerateHintDataTable(Dictionary<string, List<string>> hints)
         {
@@ -937,7 +1227,7 @@ namespace UE4DataTableInterpreter
 
             
             // Add QoL Specific Files
-            if (qol["BOSS_001"]) // Easier Mini-UFO
+            if (qol.ContainsKey("BOSS_001") && qol["BOSS_001"]) // Easier Mini-UFO
             {
                 var ufoPath = @"Content/Blueprints/Gimmick/ts/g_ts_UFO/g_ts_UFO";
 
@@ -947,7 +1237,7 @@ namespace UE4DataTableInterpreter
                 recompiledFiles.Add($@"KINGDOM HEARTS III/{ufoPath}.uexp", ufoFiles.Item2);
             }
 
-            if (qol["BOSS_002"]) // Faster Raging Vulture
+            if (qol.ContainsKey("BOSS_002") && qol["BOSS_002"]) // Faster Raging Vulture
             {
                 var vulturePath = @"Content/DataTable/Enemy/Base/e_ex021_BaseDataTable";
 
@@ -957,7 +1247,7 @@ namespace UE4DataTableInterpreter
                 recompiledFiles.Add($@"KINGDOM HEARTS III/{vulturePath}.uexp", vultureFiles.Item2);
             }
 
-            if (qol["BOSS_004"]) // Lich Skip
+            if (qol.ContainsKey("BOSS_004") && qol["BOSS_004"]) // Lich Skip
             {
                 var lichPath = @"Content/Maps/ew/umap/ew_28/ew_28_ENV";
 
@@ -967,7 +1257,7 @@ namespace UE4DataTableInterpreter
                 recompiledFiles.Add($@"KINGDOM HEARTS III/{lichPath}.uexp", lichFiles.Item2);
             }
 
-            if (qol["EVENT_001"]) // Frozen Chase Skip
+            if (qol.ContainsKey("EVENT_001") && qol["EVENT_001"]) // Frozen Chase Skip
             {
                 var frozenChasePath = @"Content/Levels/fz/fz_03/umap/fz_03_gimmick_Avalanche";
 
@@ -977,7 +1267,7 @@ namespace UE4DataTableInterpreter
                 recompiledFiles.Add($@"KINGDOM HEARTS III/{frozenChasePath}.uexp", frozenChaseFiles.Item2);
             }
 
-            if (qol["EVENT_003"]) // Big Hero 6 Rescue Skip
+            if (qol.ContainsKey("EVENT_003") && qol["EVENT_003"]) // Big Hero 6 Rescue Skip
             {
                 var bigSixPath = @"Content/Maps/ew/umap/ew_01/QoL_BigSix";
 
@@ -987,7 +1277,7 @@ namespace UE4DataTableInterpreter
                 recompiledFiles.Add($@"KINGDOM HEARTS III/{bigSixPath}.uexp", bigSixFiles.Item2);
             }
 
-            if (qol["ITEM_003"]) // All Maps
+            if (qol.ContainsKey("ITEM_003") && qol["ITEM_003"]) // All Maps
             {
                 var mapsPath = @"Content/Maps/ew/umap/ew_01/QoL_Maps";
 
@@ -996,6 +1286,12 @@ namespace UE4DataTableInterpreter
                 recompiledFiles.Add($@"KINGDOM HEARTS III/{mapsPath}.umap", mapsFiles.Item1);
                 recompiledFiles.Add($@"KINGDOM HEARTS III/{mapsPath}.uexp", mapsFiles.Item2);
             }
+
+            if (qol.ContainsKey("ITEM_004") && qol["ITEM_004"]) // Fully Upgraded Keyblades
+            {
+                // TODO We can set the WeaponEnhance values all to true, but we will also need to add some logic to add those abilities to the Keyblade
+            }
+
 
             return recompiledFiles;
         }
@@ -1024,6 +1320,104 @@ namespace UE4DataTableInterpreter
 
 
             return new Tuple<List<byte>, List<byte>>(uAssetFileBytes, uExpFileBytes);
+        }
+
+
+        /// <summary>
+        /// Randomizes the enemy file path in the Levels folder
+        /// </summary>
+        /// <param name="randomizedEnemies"></param>
+        /// <returns></returns>
+        public Dictionary<string, List<byte>> RandomizeBossDataTables(Dictionary<string, Enemy> randomizedEnemies)
+        {
+            var recompiledFiles = new Dictionary<string, List<byte>>();
+
+            foreach (var (enemyName, enemyData) in randomizedEnemies)
+            {
+                // Decompile uMap
+                var uMap = new uMap();
+                var uMapLength = -1;
+
+
+                using var reader = File.OpenRead($"{enemyData.FilePath}.umap");
+                uMapLength = (int)reader.Length;
+
+                // modifies the existing uAsset (+ returns itself, but we won't need that here)
+                uMap.Decompile(reader);
+
+                reader.Flush();
+                reader.Close();
+
+                // Decompile uExp
+                var uExpFileBytes = new List<byte>();
+
+                using var readerExp = File.OpenRead($"{enemyData.FilePath}.uexp");
+
+
+                // Since each level will have a unique uExp, it makes more sense to use the Address and change 
+                // the previous 4 bytes (the length, if necessary) and the actual string itself
+
+                // modifies the existing uExp (+ returns itself, but we won't need that here)
+                //uExp.Decompile<FoodItemEffectDataTableEntry>(readerExp, uMap.AssetStrings);
+                uExpFileBytes.AddRange(readerExp.ReadBytesFromFileStream((int)readerExp.Length));
+
+                readerExp.Flush();
+                readerExp.Close();
+
+                // Update uExp with correct length and enemy name
+                var originalLength = BitConverter.ToInt32(uExpFileBytes.GetRange((int)(enemyData.Address - 4), 4).ToArray());
+                var nameBytes = Encoding.UTF8.GetBytes(enemyData.EnemyPath);
+
+                var lengthBytes = BitConverter.GetBytes(enemyData.EnemyPath.Length);
+                for (int i = 0; i < lengthBytes.Length; ++i)
+                {
+                    var index = (int)(enemyData.Address - (4 - i));
+                    uExpFileBytes[index] = lengthBytes[i];
+                }
+
+                var updateduExpFileBytes = new List<byte>();
+                updateduExpFileBytes.AddRange(uExpFileBytes.Take((int)enemyData.Address));
+                updateduExpFileBytes.AddRange(nameBytes);
+                updateduExpFileBytes.AddRange(uExpFileBytes.Skip((int)(enemyData.Address + originalLength)).ToList());
+
+
+                // Add the offsets and length to uMap
+                var found = false;
+                var updated = false;
+                var offset = (enemyData.EnemyPath.Length - originalLength);
+
+                foreach (var uMapObject in uMap.Objects)
+                {
+                    // If our address is within the current object's starting position and ending position, we found it
+                    found = ((uMapLength + enemyData.Address) >= uMapObject.uExpPosition && (uMapLength + enemyData.Address) <= (uMapObject.uExpPosition + uMapObject.uExpBlockLength));
+
+                    if (found || updated)
+                    {
+                        if (updated)
+                        {
+                            uMapObject.uExpPosition += offset;
+                        }
+                        else
+                        {
+                            uMapObject.uExpBlockLength += offset;
+                            
+                            updated = true;
+                        }
+                    }
+                }
+
+
+                // Recompile uMap with uExp length
+                uMap.uMapuExpLength += offset;
+
+                var uAssetFileBytes = uMap.Recompile();
+
+                // Add Recompiled uMap + uExp to recompiledFiles
+                recompiledFiles.Add($@"KINGDOM HEARTS III/{enemyData.FilePath}.umap", uAssetFileBytes);
+                recompiledFiles.Add($@"KINGDOM HEARTS III/{enemyData.FilePath}.uexp", updateduExpFileBytes);
+            }
+
+            return recompiledFiles;
         }
     }
 }
