@@ -1153,6 +1153,7 @@ namespace UE4DataTableInterpreter
 
             foreach (var (report, hintTexts) in hints)
             {
+                hintTexts.RemoveAll(x => string.IsNullOrEmpty(x));
                 var concattedHints = string.Join("  -  ", hintTexts) + "\u0000";
 
                 ((SecretReportInfoDataTableEntry)uExp.DataTableEntries.FirstOrDefault(x => x.Value.RowName == report).Value).ReportText = Encoding.ASCII.GetBytes(concattedHints).ToList();

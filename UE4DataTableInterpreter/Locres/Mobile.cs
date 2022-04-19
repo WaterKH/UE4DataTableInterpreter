@@ -20,7 +20,7 @@ namespace UE4DataTableInterpreter.DataTables
 
         public Mobile() { }
 
-        public List<byte> Process(List<string> reports)
+        public List<byte> Process(List<string> reports, int hintsPerReport)
         {
             var path = @"Content/Locres/kh3_mobile";
             using var mobile = File.OpenRead($"{path}.locres");
@@ -31,7 +31,7 @@ namespace UE4DataTableInterpreter.DataTables
 
             foreach (var reportInfo in this.ReportInformation)
             {
-                var subSetOfReports = reports.Take(4).ToList();
+                var subSetOfReports = reports.Take(hintsPerReport).ToList();
 
                 if (subSetOfReports.Count == 0)
                     break;

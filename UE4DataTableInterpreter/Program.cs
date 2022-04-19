@@ -153,7 +153,7 @@ namespace UE4DataTableInterpreter
                                               "There is 1 Check in Arendelle.", "There is 1 Check in Toy Box.", "There is 1 Check in Unreality.", "There is 1 Check in The Caribbean." };
 
             var mobile = new Mobile();
-            var t = mobile.Process(tempList);
+            var t = mobile.Process(tempList, 4);
 
             File.WriteAllBytes("mobile_test.locres", t.ToArray());
 
