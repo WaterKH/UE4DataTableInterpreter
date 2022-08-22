@@ -42,6 +42,8 @@ namespace UE4DataTableInterpreter
 
         public List<byte> RestOfData { get; set; }
 
+        public int uMapTotalLength { get; set; }
+
 
         public uMap Decompile(FileStream reader)
         {
@@ -89,7 +91,7 @@ namespace UE4DataTableInterpreter
             {
                 int length = BitConverter.ToInt32(reader.ReadBytesFromFileStream(4).ToArray());
 
-                var tempLength = length == -8 ? 16 : length;
+                var tempLength = length == -8 ? 16 : length == -17 ? 34 : length;
                 var asset = new Asset
                 {
                     Length = length,
@@ -187,9 +189,10 @@ namespace UE4DataTableInterpreter
 
             foreach (var asset in this.AssetStrings)
             {
-                var tempAssetName = asset.Length == -8 ?
-                       new byte[] { 0xB0, 0x65, 0x8F, 0x89, 0x54, 0x00, 0x72, 0x00, 0x61, 0x00, 0x63, 0x00, 0x6B, 0x00, 0x00, 0x00 } :
-                       Encoding.UTF8.GetBytes(asset.AssetName);
+                var tempAssetName = 
+                    asset.Length == -8 ? new byte[] { 0xB0, 0x65, 0x8F, 0x89, 0x54, 0x00, 0x72, 0x00, 0x61, 0x00, 0x63, 0x00, 0x6B, 0x00, 0x00, 0x00 } :
+                    asset.Length == -17 ? new byte[] { 0xA4, 0x30, 0xD9, 0x30, 0xF3, 0x30, 0xC8, 0x30, 0x20, 0x00, 0x4F, 0x00, 0x6E, 0x00, 0x54, 0x00, 0x69, 0x00, 0x6D, 0x00, 0x65, 0x00, 0x72, 0x00, 0x54, 0x00, 0x69, 0x00, 0x63, 0x00, 0x6B, 0x00, 0x00, 0x00 } :
+                    Encoding.UTF8.GetBytes(asset.AssetName);
 
                 data.AddRange(BitConverter.GetBytes(asset.Length));
                 data.AddRange(tempAssetName);

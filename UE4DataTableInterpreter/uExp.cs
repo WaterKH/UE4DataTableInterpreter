@@ -98,6 +98,16 @@ namespace UE4DataTableInterpreter
                     case "CharacterBaseDataTableEntry":
                         temp = new CharacterBaseDataTableEntry();
                         break;
+
+                    case "CompletionConditionsDataTableEntry":
+                        temp = new CompletionConditionsDataTableEntry();
+                        break;
+                    case "BossDataTableEntry":
+                        temp = new BossDataTableEntry();
+                        break;
+                    case "PartyMemberDataTableEntry":
+                        temp = new PartyMemberDataTableEntry();
+                        break;
                     default:
                         break;
                 }
@@ -219,6 +229,19 @@ namespace UE4DataTableInterpreter
                 case "CharacterBaseDataTableEntry":
                     foreach (var (rowName, entry) in this.DataTableEntries)
                         data.AddRange(((CharacterBaseDataTableEntry)entry).Recompile());
+                    break;
+
+                case "CompletionConditionsDataTableEntry":
+                    foreach (var (rowName, entry) in this.DataTableEntries)
+                        data.AddRange(((CompletionConditionsDataTableEntry)entry).Recompile());
+                    break;
+                case "BossDataTableEntry":
+                    foreach (var (rowName, entry) in this.DataTableEntries)
+                        data.AddRange(((BossDataTableEntry)entry).Recompile());
+                    break;
+                case "PartyMemberDataTableEntry":
+                    foreach (var (rowName, entry) in this.DataTableEntries)
+                        data.AddRange(((PartyMemberDataTableEntry)entry).Recompile());
                     break;
                 default:
                     break;
