@@ -24,6 +24,18 @@ namespace UE4DataTableInterpreter
             return data;
         }
 
+        public static long StringToSeed(this string input)
+        {
+            if (string.IsNullOrEmpty(input))
+                return 0;
+
+            var hash = 0L;
+            foreach (var c in input.ToCharArray())
+                hash = 31L * hash + c;
+
+            return hash;
+        }
+
         //public static byte[] CreateZipArchive(this Dictionary<string, List<byte>> dataTables, string randomSeed)
         //{
         //    var zipPath = @$".\Seeds\{randomSeed}\pakchunk99-randomizer-{randomSeed}.zip";
@@ -59,7 +71,7 @@ namespace UE4DataTableInterpreter
         //    using var reader = new FileStream(zipPath, FileMode.Open);
         //    using var fileDataStream = new MemoryStream();
         //    reader.CopyTo(fileDataStream);
-            
+
         //    return fileDataStream.ToArray();
         //}
     }

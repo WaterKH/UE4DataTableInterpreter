@@ -4,7 +4,9 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
+using System.Threading.Tasks;
 using UE4DataTableInterpreter.DataTables;
+using UE4DataTableInterpreter.DataTables.Data;
 using UE4DataTableInterpreter.Enums;
 using UE4DataTableInterpreter.Interfaces;
 using UE4DataTableInterpreter.Models;
@@ -18,7 +20,7 @@ namespace UE4DataTableInterpreter
         /// </summary>
         /// <param name="randomSeed">The random seed generated along with the values.</param>
         /// <param name="randomizedValues">This dictionary has the following pattern: Key: DataTableEnum - Value: { Key: - Value: { Key: EntryIndex - Value: {Key: ValueToChangeName - Value: RandomizedValue } }.</param>
-        public Dictionary<string, List<byte>> RandomizeDataTables(Dictionary<DataTableEnum, Dictionary<string, Dictionary<string, string>>> randomizedValues)
+        public async Task<Dictionary<string, List<byte>>> RandomizeDataTables(Dictionary<DataTableEnum, Dictionary<string, Dictionary<string, string>>> randomizedValues, bool easyUpgradeKeyblades = false)
         {
             var recompiledFiles = new Dictionary<string, List<byte>>();
 
@@ -604,6 +606,17 @@ namespace UE4DataTableInterpreter
                                 break;
                             case DataTableEnum.WeaponEnhance:
                                 ((WeaponEnhanceDataTableEntry)uExp.DataTableEntries.FirstOrDefault(x => x.Value.RowName == entryIndex).Value).Ability = assetIndex;
+
+                                if (easyUpgradeKeyblades)
+                                {
+                                    ((WeaponEnhanceDataTableEntry)uExp.DataTableEntries.FirstOrDefault(x => x.Value.RowName == entryIndex).Value).MatNum0 = 0;
+                                    ((WeaponEnhanceDataTableEntry)uExp.DataTableEntries.FirstOrDefault(x => x.Value.RowName == entryIndex).Value).MatNum1 = 0;
+                                    ((WeaponEnhanceDataTableEntry)uExp.DataTableEntries.FirstOrDefault(x => x.Value.RowName == entryIndex).Value).MatNum2 = 0;
+                                    ((WeaponEnhanceDataTableEntry)uExp.DataTableEntries.FirstOrDefault(x => x.Value.RowName == entryIndex).Value).MatNum3 = 0;
+                                    ((WeaponEnhanceDataTableEntry)uExp.DataTableEntries.FirstOrDefault(x => x.Value.RowName == entryIndex).Value).MatNum4 = 0;
+                                    ((WeaponEnhanceDataTableEntry)uExp.DataTableEntries.FirstOrDefault(x => x.Value.RowName == entryIndex).Value).MatNum5 = 0;
+                                }
+
                                 break;
                             case DataTableEnum.Event:
                                 if (keyName == "RandomizedItem")
@@ -885,6 +898,10 @@ namespace UE4DataTableInterpreter
 
             foreach (var enemyTablePath in enemyTablePaths.Select(x => x.Split('.')[0].Replace("\\", "/")).Distinct())
             {
+                // For now, just skip this since we have the duplicate table issue on unzip
+                if (enemyTablePath.Contains("ex021"))
+                    continue;
+
                 // Decompile uAsset
                 var uAsset = new uAsset();
 
@@ -1125,7 +1142,9 @@ namespace UE4DataTableInterpreter
             }
         }
 
-        public Dictionary<string, List<byte>> GenerateHintDataTable(Dictionary<string, List<string>> hints)
+
+
+        public async Task<Dictionary<string, List<byte>>> GenerateHintDataTable(Dictionary<string, List<string>> hints)
         {
             var recompiledFiles = new Dictionary<string, List<byte>>();
 
@@ -1179,7 +1198,7 @@ namespace UE4DataTableInterpreter
             return recompiledFiles;
         }
 
-        public Dictionary<string, List<byte>> GenerateQualityOfLifeDataTable(Dictionary<string, bool> qol)
+        public async Task<Dictionary<string, List<byte>>> GenerateQualityOfLifeDataTable(Dictionary<string, bool> qol)
         {
             var recompiledFiles = new Dictionary<string, List<byte>>();
 
@@ -1227,7 +1246,7 @@ namespace UE4DataTableInterpreter
             recompiledFiles.Add($@"KINGDOM HEARTS III/{path}.uexp", uExpFileBytes);
 
             
-            // Add QoL Specific Files
+            // Add Boss QoL
             if (qol.ContainsKey("BOSS_001") && qol["BOSS_001"]) // Easier Mini-UFO
             {
                 var ufoPath = @"Content/Blueprints/Gimmick/ts/g_ts_UFO/g_ts_UFO";
@@ -1248,6 +1267,16 @@ namespace UE4DataTableInterpreter
                 recompiledFiles.Add($@"KINGDOM HEARTS III/{vulturePath}.uexp", vultureFiles.Item2);
             }
 
+            if (qol.ContainsKey("BOSS_003") && qol["BOSS_003"]) // Skip Dark Baymax Phase 1
+            {
+                var baymaxPath = @"Content/Cutscene/Localization/ja/bx/cutscene_bx02_bx562";
+
+                var baymaxFiles = this.LoadAssetExpFiles(baymaxPath, true);
+
+                recompiledFiles.Add($@"KINGDOM HEARTS III/{baymaxPath}.umap", baymaxFiles.Item1);
+                recompiledFiles.Add($@"KINGDOM HEARTS III/{baymaxPath}.uexp", baymaxFiles.Item2);
+            }
+
             if (qol.ContainsKey("BOSS_004") && qol["BOSS_004"]) // Lich Skip
             {
                 var lichPath = @"Content/Maps/ew/umap/ew_28/ew_28_ENV";
@@ -1258,6 +1287,8 @@ namespace UE4DataTableInterpreter
                 recompiledFiles.Add($@"KINGDOM HEARTS III/{lichPath}.uexp", lichFiles.Item2);
             }
 
+
+            // Add Event QoL
             if (qol.ContainsKey("EVENT_001") && qol["EVENT_001"]) // Frozen Chase Skip
             {
                 var frozenChasePath = @"Content/Levels/fz/fz_03/umap/fz_03_gimmick_Avalanche";
@@ -1266,6 +1297,16 @@ namespace UE4DataTableInterpreter
 
                 recompiledFiles.Add($@"KINGDOM HEARTS III/{frozenChasePath}.umap", frozenChaseFiles.Item1);
                 recompiledFiles.Add($@"KINGDOM HEARTS III/{frozenChasePath}.uexp", frozenChaseFiles.Item2);
+            }
+
+            if (qol.ContainsKey("EVENT_002") && qol["EVENT_002"]) // Faster Crab Collection
+            {
+                var crabPath = @"Content/DataTable/Gimmick/Prize/g_ca_KaniDiveGim_PrizeData";
+
+                var crabFiles = this.LoadAssetExpFiles(crabPath);
+
+                recompiledFiles.Add($@"KINGDOM HEARTS III/{crabPath}.uasset", crabFiles.Item1);
+                recompiledFiles.Add($@"KINGDOM HEARTS III/{crabPath}.uexp", crabFiles.Item2);
             }
 
             if (qol.ContainsKey("EVENT_003") && qol["EVENT_003"]) // Big Hero 6 Rescue Skip
@@ -1278,6 +1319,38 @@ namespace UE4DataTableInterpreter
                 recompiledFiles.Add($@"KINGDOM HEARTS III/{bigSixPath}.uexp", bigSixFiles.Item2);
             }
 
+            if (qol.ContainsKey("EVENT_004") && qol["EVENT_004"]) // Faster Sora Collection
+            {
+                var soraCollectionPath = @"Content/Maps/ew/umap/ew_02/QoL_SoraCollection";
+
+                var soraCollectionFiles = this.LoadAssetExpFiles(soraCollectionPath, true);
+
+                recompiledFiles.Add($@"KINGDOM HEARTS III/{soraCollectionPath}.umap", soraCollectionFiles.Item1);
+                recompiledFiles.Add($@"KINGDOM HEARTS III/{soraCollectionPath}.uexp", soraCollectionFiles.Item2);
+            }
+
+            if (qol.ContainsKey("EVENT_005") && qol["EVENT_005"]) // Union X Skip
+            {
+                var unionPath = @"Content/Cutscene/Localization/ja/kg/cutscene_kg01_kg852b";
+
+                var unionFiles = this.LoadAssetExpFiles(unionPath, true);
+
+                recompiledFiles.Add($@"KINGDOM HEARTS III/{unionPath}.umap", unionFiles.Item1);
+                recompiledFiles.Add($@"KINGDOM HEARTS III/{unionPath}.uexp", unionFiles.Item2);
+            }
+
+            if (qol.ContainsKey("EVENT_006") && qol["EVENT_006"]) // Guardians of Light Skip
+            {
+                var guardiansPath = @"Content/Cutscene/Localization/ja/kg_DLC/cutscene_kg_06_kg974";
+
+                var guardiansFiles = this.LoadAssetExpFiles(guardiansPath, true);
+
+                recompiledFiles.Add($@"KINGDOM HEARTS III/{guardiansPath}.umap", guardiansFiles.Item1);
+                recompiledFiles.Add($@"KINGDOM HEARTS III/{guardiansPath}.uexp", guardiansFiles.Item2);
+            }
+
+
+            // Add Item QoL
             if (qol.ContainsKey("ITEM_003") && qol["ITEM_003"]) // All Maps
             {
                 var mapsPath = @"Content/Maps/ew/umap/ew_01/QoL_Maps";
@@ -1288,11 +1361,157 @@ namespace UE4DataTableInterpreter
                 recompiledFiles.Add($@"KINGDOM HEARTS III/{mapsPath}.uexp", mapsFiles.Item2);
             }
 
-            if (qol.ContainsKey("ITEM_004") && qol["ITEM_004"]) // Fully Upgraded Keyblades
+            if (qol.ContainsKey("ITEM_004") && qol["ITEM_004"]) // Easily Upgraded Keyblades
             {
-                // TODO We can set the WeaponEnhance values all to true, but we will also need to add some logic to add those abilities to the Keyblade
+                // Handled above in the Options Randomizer
             }
 
+
+            return recompiledFiles;
+        }
+
+        public async Task<Dictionary<string, List<byte>>> GenerateCompletionConditionsDataTable(Dictionary<string, int> conditions)
+        {
+            var recompiledFiles = new Dictionary<string, List<byte>>();
+
+            // Decompile uAsset
+            var uAsset = new uAsset();
+            var path = @"Content/Load/Tres/TresCompletionData";
+
+            using var reader = File.OpenRead($"{path}.uasset");
+
+            // modifies the existing uAsset (+ returns itself, but we won't need that here)
+            uAsset.Decompile(reader);
+
+            reader.Flush();
+            reader.Close();
+
+            // Decompile uExp
+            var uExp = new uExp();
+
+            using var readerExp = File.OpenRead($"{path}.uexp");
+
+            uExp.Decompile<CompletionConditionsDataTableEntry>(readerExp, uAsset.AssetStrings);
+
+            readerExp.Flush();
+            readerExp.Close();
+
+            var completionConditionList = new List<CompletionConditionItem>();
+            var arrayLength = 0L;
+            
+            var template = ((CompletionConditionsDataTableEntry)uExp.DataTableEntries.FirstOrDefault().Value).CompletionConditionItems.FirstOrDefault();
+            
+            foreach (var (name, amount) in conditions)
+            {
+                var completionCondition = new CompletionConditionItem
+                {
+                    CompletionConditionName = template.CompletionConditionName,
+                    StrProperty = template.StrProperty,
+                    Unk1 = template.Unk1,
+                    CompletionConditionNameLength = name.Length,
+                    CompletionConditionValue = Encoding.UTF8.GetBytes(name).ToList(),
+
+                    CompletionConditionAmountName = template.CompletionConditionAmountName,
+                    IntProperty = template.IntProperty,
+                    Unk2 = template.Unk2,
+                    CompletionConditionAmountValue = amount,
+
+                    None = template.None
+                };
+
+                completionConditionList.Add(completionCondition);
+                arrayLength += completionCondition.Length();
+            }
+
+            ((CompletionConditionsDataTableEntry)uExp.DataTableEntries.FirstOrDefault().Value).CompletionConditionItems = completionConditionList;
+            ((CompletionConditionsDataTableEntry)uExp.DataTableEntries.FirstOrDefault().Value).ArraySize = completionConditionList.Count;
+            ((CompletionConditionsDataTableEntry)uExp.DataTableEntries.FirstOrDefault().Value).LengthOfAllData = ((CompletionConditionsDataTableEntry)uExp.DataTableEntries.FirstOrDefault().Value).Length();
+            ((CompletionConditionsDataTableEntry)uExp.DataTableEntries.FirstOrDefault().Value).LengthOfArrayData = arrayLength;
+
+
+            // Recompile uExp
+            var uExpFileBytes = uExp.Recompile<CompletionConditionsDataTableEntry>();
+
+
+            // Recompile uAsset
+            uAsset.uExpLength = uExpFileBytes.Count - 4; // Remove 4 bytes for the ID at the end?
+            uAsset.Unk17 = (int)(uAsset.uExpLength + uAsset.uAssetLength);
+
+            var uAssetFileBytes = uAsset.Recompile();
+
+
+            // Add Recompiled uAsset + uExp to recompiledFiles
+            recompiledFiles.Add($@"KINGDOM HEARTS III/{path}.uasset", uAssetFileBytes);
+            recompiledFiles.Add($@"KINGDOM HEARTS III/{path}.uexp", uExpFileBytes);
+
+            return recompiledFiles;
+        }
+
+
+        public async Task<Dictionary<string, List<byte>>> GeneratePandorasPowerKeyblade(string seed = "")
+        {
+            var recompiledFiles = new Dictionary<string, List<byte>>();
+
+            // Decompile uAsset
+            var uAsset = new uAsset();
+            var path = @"Content/Character/wep/w_so120/mdl/mat0/w_so120_mat2_Inst";
+
+            using var reader = File.OpenRead($"{path}.uasset");
+
+            // modifies the existing uAsset (+ returns itself, but we won't need that here)
+            var uAssetFileBytes = new List<byte>();
+            uAssetFileBytes.AddRange(reader.ReadBytesFromFileStream((int)reader.Length));
+
+            reader.Flush();
+            reader.Close();
+
+            // Decompile uExp
+            var uExp = new uExp();
+
+            using var readerExp = File.OpenRead($"{path}.uexp");
+
+            // Decompile uExp
+            var uExpFileBytes = new List<byte>();
+            uExpFileBytes.AddRange(readerExp.ReadBytesFromFileStream((int)readerExp.Length));
+
+            readerExp.Flush();
+            readerExp.Close();
+
+            // Generate RGB Random Values
+            var hash = seed.StringToSeed();
+            var random = new Random((int)hash);
+
+            var allowedValues = new List<float> { 0.00f, 0.05f, 0.10f, 0.15f, 0.20f, 0.25f, 0.30f, 0.35f, 0.40f, 0.45f, 0.50f, 
+                                                    0.55f, 0.60f, 0.65f, 0.70f, 0.75f, 0.80f, 0.85f, 0.90f, 0.95f, 1.00f };
+
+            int randRIndex = (random.Next() % allowedValues.Count);
+            var rValue = BitConverter.GetBytes(allowedValues[randRIndex]);
+            for (int i = 0; i < 4; ++i)
+            {
+                var index = 0xCD0 - (4 - i);
+                uExpFileBytes[index] = rValue[i];
+            }
+
+            int randGIndex = (random.Next() % allowedValues.Count);
+            var gValue = BitConverter.GetBytes(allowedValues[randGIndex]);
+            for (int i = 0; i < 4; ++i)
+            {
+                var index = 0xCD4 - (4 - i);
+                uExpFileBytes[index] = gValue[i];
+            }
+
+            int randBIndex = (random.Next() % allowedValues.Count);
+            var bValue = BitConverter.GetBytes(allowedValues[randBIndex]);
+            for (int i = 0; i < 4; ++i)
+            {
+                var index = 0xCD8 - (4 - i);
+                uExpFileBytes[index] = bValue[i];
+            }
+
+
+            // Add Recompiled uAsset + uExp to recompiledFiles
+            recompiledFiles.Add($@"KINGDOM HEARTS III/{path}.uasset", uAssetFileBytes);
+            recompiledFiles.Add($@"KINGDOM HEARTS III/{path}.uexp", uExpFileBytes);
 
             return recompiledFiles;
         }
@@ -1325,98 +1544,288 @@ namespace UE4DataTableInterpreter
 
 
         /// <summary>
-        /// Randomizes the enemy file path in the Levels folder
+        /// Randomizes the enemy file path in the Levels folder. JSON is in reverse order of entities spawned in, so we can skip
+        /// figuring out the correct offset for each entity.
         /// </summary>
         /// <param name="randomizedEnemies"></param>
         /// <returns></returns>
-        public Dictionary<string, List<byte>> RandomizeBossDataTables(Dictionary<string, Enemy> randomizedEnemies)
+        public async Task<Dictionary<string, List<byte>>> RandomizeEnemies(Dictionary<string, Enemy> randomizedEnemies, string seed = "", bool enemyChaos = false)
         {
+            // TODO Update this logic to account for multiple bosses per file (or enemies)
+            // I think the best approach would be to make a dictionary of the uMap instead of the list of bytes, this way if it exists, we can just update the uMap
             var recompiledFiles = new Dictionary<string, List<byte>>();
+
+            var trackedEnemies = new Dictionary<string, uMap>();
+
+            var hash = seed.StringToSeed();
+            var random = new Random((int)hash);
+
+            var enemyKeys = randomizedEnemies.Keys.ToList();
 
             foreach (var (enemyName, enemyData) in randomizedEnemies)
             {
-                // Decompile uMap
-                var uMap = new uMap();
-                var uMapLength = -1;
-
-
-                using var reader = File.OpenRead($"{enemyData.FilePath}.umap");
-                uMapLength = (int)reader.Length;
-
-                // modifies the existing uAsset (+ returns itself, but we won't need that here)
-                uMap.Decompile(reader);
-
-                reader.Flush();
-                reader.Close();
-
-                // Decompile uExp
-                var uExpFileBytes = new List<byte>();
-
-                using var readerExp = File.OpenRead($"{enemyData.FilePath}.uexp");
-
-
-                // Since each level will have a unique uExp, it makes more sense to use the Address and change 
-                // the previous 4 bytes (the length, if necessary) and the actual string itself
-
-                // modifies the existing uExp (+ returns itself, but we won't need that here)
-                //uExp.Decompile<FoodItemEffectDataTableEntry>(readerExp, uMap.AssetStrings);
-                uExpFileBytes.AddRange(readerExp.ReadBytesFromFileStream((int)readerExp.Length));
-
-                readerExp.Flush();
-                readerExp.Close();
-
-                // Update uExp with correct length and enemy name
-                var originalLength = BitConverter.ToInt32(uExpFileBytes.GetRange((int)(enemyData.Address - 4), 4).ToArray());
-                var nameBytes = Encoding.UTF8.GetBytes(enemyData.EnemyPath);
-
-                var lengthBytes = BitConverter.GetBytes(enemyData.EnemyPath.Length);
-                for (int i = 0; i < lengthBytes.Length; ++i)
+                // Get uMap
+                uMap uMap = null;
+                if (trackedEnemies.ContainsKey(enemyData.FilePath))
                 {
-                    var index = (int)(enemyData.Address - (4 - i));
-                    uExpFileBytes[index] = lengthBytes[i];
+                    uMap = trackedEnemies[enemyData.FilePath];
+                }
+                else
+                {
+                    // Decompile uMap
+                    uMap = new uMap();
+
+
+                    using var reader = File.OpenRead($"{enemyData.FilePath}.umap");
+                    uMap.uMapTotalLength = (int)reader.Length;
+
+                    // modifies the existing uAsset (+ returns itself, but we won't need that here)
+                    uMap.Decompile(reader);
+
+                    reader.Flush();
+                    reader.Close();
                 }
 
-                var updateduExpFileBytes = new List<byte>();
-                updateduExpFileBytes.AddRange(uExpFileBytes.Take((int)enemyData.Address));
-                updateduExpFileBytes.AddRange(nameBytes);
-                updateduExpFileBytes.AddRange(uExpFileBytes.Skip((int)(enemyData.Address + originalLength)).ToList());
-
-
-                // Add the offsets and length to uMap
-                var found = false;
-                var updated = false;
-                var offset = (enemyData.EnemyPath.Length - originalLength);
-
-                foreach (var uMapObject in uMap.Objects)
+                
+                // Update uExp with correct length and enemy name
+                foreach (var addressString in enemyData.Addresses)
                 {
-                    // If our address is within the current object's starting position and ending position, we found it
-                    found = ((uMapLength + enemyData.Address) >= uMapObject.uExpPosition && (uMapLength + enemyData.Address) <= (uMapObject.uExpPosition + uMapObject.uExpBlockLength));
+                    var enemyPath = enemyData.EnemyPath;
 
-                    if (found || updated)
+                    if (enemyChaos)
                     {
-                        if (updated)
+                        var randomEnemy = randomizedEnemies[enemyKeys[random.Next(0, enemyKeys.Count)]];
+
+                        enemyPath = randomEnemy.EnemyPath;
+                    }
+
+                    try
+                    {
+                        // Get uExp
+                        List<byte> uExpFileBytes;
+                        if (recompiledFiles.ContainsKey($@"KINGDOM HEARTS III/{enemyData.FilePath}.uexp"))
                         {
-                            uMapObject.uExpPosition += offset;
+                            uExpFileBytes = recompiledFiles[$@"KINGDOM HEARTS III/{enemyData.FilePath}.uexp"];
                         }
                         else
                         {
-                            uMapObject.uExpBlockLength += offset;
-                            
-                            updated = true;
+                            // Decompile uExp
+                            uExpFileBytes = new List<byte>();
+
+                            using var readerExp = File.OpenRead($"{enemyData.FilePath}.uexp");
+
+
+                            // Since each level will have a unique uExp, it makes more sense to use the Address and change 
+                            // the previous 4 bytes (the length, if necessary) and the actual string itself
+
+                            // modifies the existing uExp (+ returns itself, but we won't need that here)
+                            //uExp.Decompile<FoodItemEffectDataTableEntry>(readerExp, uMap.AssetStrings);
+                            uExpFileBytes.AddRange(readerExp.ReadBytesFromFileStream((int)readerExp.Length));
+
+                            readerExp.Flush();
+                            readerExp.Close();
                         }
+
+                        var address = Convert.ToInt32(addressString, 16);
+
+                        var originalLength = BitConverter.ToInt32(uExpFileBytes.GetRange((int)(address - 4), 4).ToArray());
+                        var nameBytes = Encoding.UTF8.GetBytes(enemyPath);
+
+                        var lengthBytes = BitConverter.GetBytes(enemyPath.Length);
+                        for (int i = 0; i < lengthBytes.Length; ++i)
+                        {
+                            var index = (int)(address - (4 - i));
+                            uExpFileBytes[index] = lengthBytes[i];
+                        }
+
+                        var updateduExpFileBytes = new List<byte>();
+
+                        var take = uExpFileBytes.Take((int)address);
+                        var skip = uExpFileBytes.Skip((int)(address + originalLength));
+
+                        updateduExpFileBytes.AddRange(take);
+                        updateduExpFileBytes.AddRange(nameBytes);
+                        updateduExpFileBytes.AddRange(skip);
+
+
+                        // Add the offsets and length to uMap
+                        var found = false;
+                        var updated = false;
+                        var offset = (enemyPath.Length - originalLength);
+
+                        foreach (var uMapObject in uMap.Objects)
+                        {
+                            // If our address is within the current object's starting position and ending position, we found it
+                            found = ((uMap.uMapTotalLength + address) >= uMapObject.uExpPosition && (uMap.uMapTotalLength + address) <= (uMapObject.uExpPosition + uMapObject.uExpBlockLength));
+
+                            if (found || updated)
+                            {
+                                if (updated)
+                                {
+                                    uMapObject.uExpPosition += offset;
+                                }
+                                else
+                                {
+                                    uMapObject.uExpBlockLength += offset;
+
+                                    updated = true;
+                                }
+                            }
+                        }
+
+
+                        // Recompile uMap with uExp length
+                        uMap.uMapuExpLength += offset;
+
+
+                        // Add Recompiled uMap + uExp to recompiledFiles
+                        if (!trackedEnemies.ContainsKey(enemyData.FilePath))
+                            trackedEnemies.Add(enemyData.FilePath, null);
+
+                        trackedEnemies[enemyData.FilePath] = uMap;
+
+
+                        if (!recompiledFiles.ContainsKey($@"KINGDOM HEARTS III/{enemyData.FilePath}.uexp"))
+                            recompiledFiles.Add($@"KINGDOM HEARTS III/{enemyData.FilePath}.uexp", new List<byte>());
+
+                        recompiledFiles[$@"KINGDOM HEARTS III/{enemyData.FilePath}.uexp"] = updateduExpFileBytes;
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex);
                     }
                 }
-
-
-                // Recompile uMap with uExp length
-                uMap.uMapuExpLength += offset;
-
-                var uAssetFileBytes = uMap.Recompile();
-
-                // Add Recompiled uMap + uExp to recompiledFiles
-                recompiledFiles.Add($@"KINGDOM HEARTS III/{enemyData.FilePath}.umap", uAssetFileBytes);
-                recompiledFiles.Add($@"KINGDOM HEARTS III/{enemyData.FilePath}.uexp", updateduExpFileBytes);
             }
+
+
+            foreach (var (filePath, uMap) in trackedEnemies)
+            {
+                recompiledFiles.Add($@"KINGDOM HEARTS III/{filePath}.umap", uMap.Recompile());
+            }
+
+            return recompiledFiles;
+        }
+
+        public async Task<Dictionary<string, List<byte>>> RandomizeBosses(Dictionary<string, string> randomizedBosses)
+        {
+            // I think the best approach would be to make a dictionary of the uMap instead of the list of bytes, this way if it exists, we can just update the uMap
+            var recompiledFiles = new Dictionary<string, List<byte>>();
+
+
+            // Decompile uAsset
+            var uAsset = new uAsset();
+            var path = @"Content/Load/Tres/TresBossData";
+
+            using var reader = File.OpenRead($"{path}.uasset");
+
+            // modifies the existing uAsset (+ returns itself, but we won't need that here)
+            uAsset.Decompile(reader);
+
+            reader.Flush();
+            reader.Close();
+
+            // Decompile uExp
+            var uExp = new uExp();
+
+            using var readerExp = File.OpenRead($"{path}.uexp");
+
+            uExp.Decompile<BossDataTableEntry>(readerExp, uAsset.AssetStrings);
+
+            readerExp.Flush();
+            readerExp.Close();
+
+            foreach (var (name, actorId) in randomizedBosses)
+            {
+                var asset = uAsset.AssetStrings.FirstOrDefault(x => x.AssetName == actorId);
+                var assetIndex = uAsset.AssetStrings.IndexOf(asset);
+
+                ((BossDataTableEntry)uExp.DataTableEntries.FirstOrDefault(x => x.Value.RowName == name).Value).RandomizedName = assetIndex;
+            }
+
+
+            // Recompile uExp
+            var uExpFileBytes = uExp.Recompile<BossDataTableEntry>();
+
+
+            // Recompile uAsset
+            uAsset.uExpLength = uExpFileBytes.Count - 4; // Remove 4 bytes for the ID at the end?
+            uAsset.Unk17 = (int)(uAsset.uExpLength + uAsset.uAssetLength);
+
+            var uAssetFileBytes = uAsset.Recompile();
+
+
+            // Add Recompiled uAsset + uExp to recompiledFiles
+            recompiledFiles.Add($@"KINGDOM HEARTS III/{path}.uasset", uAssetFileBytes);
+            recompiledFiles.Add($@"KINGDOM HEARTS III/{path}.uexp", uExpFileBytes);
+
+            return recompiledFiles;
+        }
+
+        public async Task<Dictionary<string, List<byte>>> RandomizePartyMembers(Dictionary<string, string> randomizedPartyMembers, bool defaultDonaldGoofy = false, bool partyChaos = false)
+        {
+            // TODO Update this logic to account for multiple bosses per file (or enemies)
+            // I think the best approach would be to make a dictionary of the uMap instead of the list of bytes, this way if it exists, we can just update the uMap
+            var recompiledFiles = new Dictionary<string, List<byte>>();
+
+
+            // Decompile uAsset
+            var uAsset = new uAsset();
+            var path = @"Content/Load/Tres/TresPartyData";
+
+            using var reader = File.OpenRead($"{path}.uasset");
+
+            // modifies the existing uAsset (+ returns itself, but we won't need that here)
+            uAsset.Decompile(reader);
+
+            reader.Flush();
+            reader.Close();
+
+            // Decompile uExp
+            var uExp = new uExp();
+
+            using var readerExp = File.OpenRead($"{path}.uexp");
+
+            uExp.Decompile<PartyMemberDataTableEntry>(readerExp, uAsset.AssetStrings);
+
+            readerExp.Flush();
+            readerExp.Close();
+
+            foreach (var (name, actorId) in randomizedPartyMembers)
+            {
+                if (defaultDonaldGoofy)
+                {
+                    var id = name.Split('_')[1];
+                    // Donald and Goofy Variants
+                    if (id == "001" || id == "002" || id == "022" || id == "023" || id == "024" || id == "025" || id == "026" || id == "027")
+                        continue;
+                }
+                
+                if (partyChaos) 
+                    ((PartyMemberDataTableEntry)uExp.DataTableEntries.FirstOrDefault(x => x.Value.RowName == name).Value).RandomizeConstantly = Convert.ToByte(partyChaos);
+                else
+                {
+                    var asset = uAsset.AssetStrings.FirstOrDefault(x => x.AssetName == actorId);
+                    var assetIndex = uAsset.AssetStrings.IndexOf(asset);
+
+                    ((PartyMemberDataTableEntry)uExp.DataTableEntries.FirstOrDefault(x => x.Value.RowName == name).Value).RandomizedName = assetIndex;
+                }
+            }
+
+
+            // Recompile uExp
+            var uExpFileBytes = uExp.Recompile<PartyMemberDataTableEntry>();
+
+
+            // Recompile uAsset
+            uAsset.uExpLength = uExpFileBytes.Count - 4; // Remove 4 bytes for the ID at the end?
+            uAsset.Unk17 = (int)(uAsset.uExpLength + uAsset.uAssetLength);
+
+            var uAssetFileBytes = uAsset.Recompile();
+
+
+            // Add Recompiled uAsset + uExp to recompiledFiles
+            recompiledFiles.Add($@"KINGDOM HEARTS III/{path}.uasset", uAssetFileBytes);
+            recompiledFiles.Add($@"KINGDOM HEARTS III/{path}.uexp", uExpFileBytes);
 
             return recompiledFiles;
         }

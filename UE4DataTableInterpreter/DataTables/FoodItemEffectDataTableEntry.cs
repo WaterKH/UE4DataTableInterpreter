@@ -51,8 +51,9 @@ namespace UE4DataTableInterpreter.DataTables
 
         public long m_bPlusFoodItem { get; set; }
         public long BoolProperty { get; set; }
-        public List<byte> Unk8 { get; set; } // 9 bytes
+        public List<byte> Unk8 { get; set; } // 8 bytes
         public byte PlusFoodItemValue { get; set; }
+        public byte Unk9 { get; set; }
 
         public long None { get; set; }
 
@@ -99,8 +100,9 @@ namespace UE4DataTableInterpreter.DataTables
 
             this.m_bPlusFoodItem = BitConverter.ToInt64(reader.ReadBytesFromFileStream(8).ToArray());
             this.BoolProperty = BitConverter.ToInt64(reader.ReadBytesFromFileStream(8).ToArray());
-            this.Unk8 = reader.ReadBytesFromFileStream(9);
+            this.Unk8 = reader.ReadBytesFromFileStream(8);
             this.PlusFoodItemValue = (byte)reader.ReadByte();
+            this.Unk9 = (byte)reader.ReadByte();
 
             this.None = BitConverter.ToInt64(reader.ReadBytesFromFileStream(8).ToArray());
 
@@ -153,6 +155,7 @@ namespace UE4DataTableInterpreter.DataTables
             data.AddRange(BitConverter.GetBytes(this.BoolProperty));
             data.AddRange(this.Unk8);
             data.Add(this.PlusFoodItemValue);
+            data.Add(this.Unk9);
 
             data.AddRange(BitConverter.GetBytes(this.None));
 

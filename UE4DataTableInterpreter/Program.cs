@@ -111,7 +111,16 @@ namespace UE4DataTableInterpreter
         };
 
         public static Dictionary<string, Enemy> RandomizedBosses = new Dictionary<string, Enemy> {
-            { "Steel Titan", new Enemy { FilePath = @"Content/Levels/bx/bx_01/umap/bx_01_enemy_03", Address = 0x2FF5, EnemyPath = "/Game/Blueprints/Enemy/e_ex781/e_ex781_Pawn.e_ex781_Pawn_C\u0000" } }
+            { "Luxord", new Enemy { FilePath = "Content/Levels/kg/kg_02/umap/kg_02_enemy_Area_B",
+      Addresses = new string[] { "0xC3B7" },
+      EnemyPath = "/Game/Blueprints/Enemy/e_ex309/e_ex309_Pawn.e_ex309_Pawn_C\u0000",
+      SpawnOriginal = true } },
+            { "Larxene", new Enemy { FilePath = "Content/Levels/kg/kg_02/umap/kg_02_enemy_Area_B",
+      Addresses = new string[] { "0xC859" },
+      EnemyPath = "/Game/Blueprints/Enemy/e_ex309/e_ex309_Pawn.e_ex309_Pawn_C\u0000",
+      SpawnOriginal = true } },
+            
+
             //{ "Demon Tide", new Enemy { FilePath = @"Content/Levels/tt/tt_01/umap/tt_01_enemy_02", Address = 0x5291, EnemyPath = "/Game/Blueprints/Enemy/e_ex816/e_ex816_Pawn.e_ex816_Pawn_C\u0000" } }
         };
 
@@ -135,19 +144,19 @@ namespace UE4DataTableInterpreter
             //    File.WriteAllBytes(te.Key.Split('/')[^1], te.Value.ToArray());
             //}
 
-            var bosses = dataTableManager.RandomizeBossDataTables(RandomizedBosses);
+            //var bosses = dataTableManager.RandomizeBosses(new Dictionary<string, string> { { "", "" } }).Result;
 
-            foreach (var file in bosses)
-            {
-                File.WriteAllBytes(file.Key.Split('/')[^1], file.Value.ToArray());
-            }
+            //foreach (var file in bosses)
+            //{
+            //    File.WriteAllBytes(file.Key.Split('/')[^1], file.Value.ToArray());
+            //}
 
-            var filesToWrite = dataTableManager.RandomizeDataTables(Data);
+            //var filesToWrite = dataTableManager.RandomizeDataTables(Data);
 
-            foreach (var file in filesToWrite)
-            {
-                File.WriteAllBytes(file.Key.Split('/')[^1], file.Value.ToArray());
-            }
+            //foreach (var file in filesToWrite)
+            //{
+            //    File.WriteAllBytes(file.Key.Split('/')[^1], file.Value.ToArray());
+            //}
 
             var tempList = new List<string> { "Pole Spin is on Sora's Level Ups [5 (TypeC) - 10 (TypeB) - 8 (TypeC)]", "Oblivion is in Toy Box in Large Chest 1", "Guard is in The Keyblade Graveyard (Terra-Xehanort & Vanitas Boss) on Shooting Star on Level 8", "Proof of Fantasy is on Lucky Emblem Milestone 5",
                                               "There is 1 Check in Arendelle.", "There is 1 Check in Toy Box.", "There is 1 Check in Unreality.", "There is 1 Check in The Caribbean." };

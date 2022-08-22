@@ -5,10 +5,20 @@
     <TargetFramework>net5.0</TargetFramework>
     <ApplicationIcon />
     <StartupObject />
-    <Version>1.2.3</Version>
+    <Version>1.2.13</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>waterkh</Authors>
-    <Description>1.2.3 - Allow for variable number of hints on reports
+    <Description>1.2.13 - Keyblade Color Randomization
+1.2.12 - Fixed bug with QoL Compilation
+1.2.11 - Fixed bug with QoL File Name
+1.2.10 - Updated Enemy Files + Added New QoL Files
+1.2.9 - Updated QoL
+1.2.8 - Addressed bug with BoolProperty compiling
+1.2.7 - Update to TresBossData
+1.2.6 - Potential Final Release
+1.2.5 - Added Boss Files + Updated RandomizedEnemies Method + Updated Enemy Class
+1.2.4 - Updated QualityOfLifeTable
+1.2.3 - Allow for variable number of hints on reports
 1.2.2 - Updated Event DataTables
 1.2.1 - Wording on Hints
 1.2 - Added DataTableEnums and Handling for different Stats + Boss/Enemy
@@ -40,6 +50,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Content\Character\wep\w_so120\mdl\mat0\w_so120_mat2_Inst.uasset" />
+    <None Remove="Content\Character\wep\w_so120\mdl\mat0\w_so120_mat2_Inst.uexp" />
+    <None Remove="Content\Cutscene\Localization\ja\bx\cutscene_bx02_bx562.uexp" />
+    <None Remove="Content\Cutscene\Localization\ja\bx\cutscene_bx02_bx562.umap" />
+    <None Remove="Content\Cutscene\Localization\ja\kg\cutscene_kg01_kg852b.uexp" />
+    <None Remove="Content\Cutscene\Localization\ja\kg\cutscene_kg01_kg852b.umap" />
+    <None Remove="Content\Cutscene\Localization\ja\kg_DLC\cutscene_kg_06_kg974.uexp" />
+    <None Remove="Content\Cutscene\Localization\ja\kg_DLC\cutscene_kg_06_kg974.umap" />
     <None Remove="Content\DataTable\Player\LevelUp\p_ex001_LevelUpData.uasset" />
     <None Remove="Content\DataTable\Player\LevelUp\p_ex001_LevelUpData.uexp" />
     <None Remove="Content\DataTable\Player\LevelUp\p_ex001_LevelUpLookupData.uasset" />
@@ -88,12 +106,35 @@
     <None Remove="Content\Load\Tres\TresVBonusTableAlt.uexp" />
     <None Remove="Content\Locres\kh3_mobile.locres" />
     <None Remove="DataTableEnum.cs~RFcb35a7f.TMP" />
-    <None Remove="DefaultKH3 - Copy.json" />
     <None Remove="DefaultKH3.json" />
     <None Remove="uAssetIds.json" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Content\Character\wep\w_so120\mdl\mat0\w_so120_mat2_Inst.uasset">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Character\wep\w_so120\mdl\mat0\w_so120_mat2_Inst.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Cutscene\Localization\ja\bx\cutscene_bx02_bx562.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Cutscene\Localization\ja\bx\cutscene_bx02_bx562.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Cutscene\Localization\ja\kg\cutscene_kg01_kg852b.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Cutscene\Localization\ja\kg\cutscene_kg01_kg852b.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Cutscene\Localization\ja\kg_DLC\cutscene_kg_06_kg974.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Cutscene\Localization\ja\kg_DLC\cutscene_kg_06_kg974.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\DataTable\Player\LevelUp\p_ex001_LevelUpData.uasset">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -234,11 +275,6 @@
     </Content>
     <Content Include="Content\Locres\kh3_mobile.locres">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="DefaultKH3 - Copy.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
     <Content Include="DefaultKH3.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -1796,10 +1832,136 @@
     <None Update="Content\DataTable\Enemy\Base\e_PatchworkAnimalsCommon_BaseDataTable.uexp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Content\DataTable\Gimmick\Prize\g_ca_KaniDiveGim_PrizeData.uasset">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\DataTable\Gimmick\Prize\g_ca_KaniDiveGim_PrizeData.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Content\DataTable\Player\Base\p_ex001_BaseParamData.uasset">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Content\DataTable\Player\Base\p_ex001_BaseParamData.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\bt\bt_01\umap\bt_01_enemy_01.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\bt\bt_01\umap\bt_01_enemy_01.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\bt\bt_02\umap\bt_02_enemy_01.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\bt\bt_02\umap\bt_02_enemy_01.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\bt\bt_03\umap\bt_03_enemy_01.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\bt\bt_03\umap\bt_03_enemy_01.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\bt\bt_04\umap\bt_04_enemy_01.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\bt\bt_04\umap\bt_04_enemy_01.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\bt\bt_04\umap\bt_04_enemy_02.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\bt\bt_04\umap\bt_04_enemy_02.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\bt_DLC\bt_07\umap\bt_07_enemy_01.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\bt_DLC\bt_07\umap\bt_07_enemy_01.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\bt_DLC\bt_07\umap\bt_07_enemy_02.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\bt_DLC\bt_07\umap\bt_07_enemy_02.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\bt_DLC\bt_07\umap\bt_07_enemy_03.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\bt_DLC\bt_07\umap\bt_07_enemy_03.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\bt_DLC\bt_07\umap\bt_07_enemy_04.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\bt_DLC\bt_07\umap\bt_07_enemy_04.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\bt_DLC\bt_07\umap\bt_07_enemy_05.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\bt_DLC\bt_07\umap\bt_07_enemy_05.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\bt_DLC\bt_07\umap\bt_07_enemy_06.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\bt_DLC\bt_07\umap\bt_07_enemy_06.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\bt_DLC\bt_07\umap\bt_07_enemy_07.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\bt_DLC\bt_07\umap\bt_07_enemy_07.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\bt_DLC\bt_07\umap\bt_07_enemy_08.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\bt_DLC\bt_07\umap\bt_07_enemy_08.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\bt_DLC\bt_07\umap\bt_07_enemy_09.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\bt_DLC\bt_07\umap\bt_07_enemy_09.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\bt_DLC\bt_07\umap\bt_07_enemy_10.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\bt_DLC\bt_07\umap\bt_07_enemy_10.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\bt_DLC\bt_07\umap\bt_07_enemy_11.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\bt_DLC\bt_07\umap\bt_07_enemy_11.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\bt_DLC\bt_08\umap\bt_08_enemy_01.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\bt_DLC\bt_08\umap\bt_08_enemy_01.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\bt_DLC\bt_08\umap\bt_08_enemy_02.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\bt_DLC\bt_08\umap\bt_08_enemy_02.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\bx\bx_01\umap\bx_01_enemy_01.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\bx\bx_01\umap\bx_01_enemy_01.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\bx\bx_01\umap\bx_01_enemy_02.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\bx\bx_01\umap\bx_01_enemy_02.umap">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Content\Levels\bx\bx_01\umap\bx_01_enemy_03.uexp">
@@ -1808,16 +1970,1576 @@
     <None Update="Content\Levels\bx\bx_01\umap\bx_01_enemy_03.umap">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Content\Levels\bx\bx_02\umap\bx_02_enemy_01.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\bx\bx_02\umap\bx_02_enemy_01.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\bx\bx_02\umap\bx_02_enemy_02.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\bx\bx_02\umap\bx_02_enemy_02.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\bx\bx_02\umap\bx_02_enemy_03.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\bx\bx_02\umap\bx_02_enemy_03.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\bx\bx_02\umap\bx_02_enemy_04.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\bx\bx_02\umap\bx_02_enemy_04.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\bx\bx_02\umap\bx_02_enemy_05.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\bx\bx_02\umap\bx_02_enemy_05.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\bx\bx_02\umap\bx_02_enemy_06.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\bx\bx_02\umap\bx_02_enemy_06.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\bx\bx_02\umap\bx_02_enemy_07.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\bx\bx_02\umap\bx_02_enemy_07.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\bx\bx_02\umap\bx_02_enemy_09.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\bx\bx_02\umap\bx_02_enemy_09.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\bx\bx_02\umap\bx_02_enemy_10.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\bx\bx_02\umap\bx_02_enemy_10.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\bx\bx_02\umap\bx_02_enemy_13.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\bx\bx_02\umap\bx_02_enemy_13.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\bx\bx_02\umap\bx_02_enemy_Night.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\bx\bx_02\umap\bx_02_enemy_Night.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\bx\bx_02\umap\mission_VS_DarkBaymax_01.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\bx\bx_02\umap\mission_VS_DarkBaymax_01.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ca\ca_01\umap\ca_01_enemy.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ca\ca_01\umap\ca_01_enemy.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ca\ca_02\umap\ca_02_island01_enemy01.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ca\ca_02\umap\ca_02_island01_enemy01.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ca\ca_02\umap\ca_02_island01_mission_bigfishbattle.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ca\ca_02\umap\ca_02_island01_mission_bigfishbattle.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ca\ca_02\umap\ca_02_island02_enemy.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ca\ca_02\umap\ca_02_island02_enemy.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ca\ca_02\umap\ca_02_island03_enemy.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ca\ca_02\umap\ca_02_island03_enemy.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ca\ca_02\umap\ca_02_island04_enemy.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ca\ca_02\umap\ca_02_island04_enemy.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ca\ca_02\umap\ca_02_island05_enemy.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ca\ca_02\umap\ca_02_island05_enemy.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ca\ca_02\umap\ca_02_island06_enemy.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ca\ca_02\umap\ca_02_island06_enemy.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ca\ca_02\umap\ca_02_island08_enemy.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ca\ca_02\umap\ca_02_island08_enemy.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ca\ca_02\umap\ca_02_island10_enemy.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ca\ca_02\umap\ca_02_island10_enemy.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ca\ca_02\umap\ca_02_island11_enemy.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ca\ca_02\umap\ca_02_island11_enemy.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ca\ca_02\umap\ca_02_mission_flyingbattle.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ca\ca_02\umap\ca_02_mission_flyingbattle.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ca\ca_03\umap\ca_03_enemy02.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ca\ca_03\umap\ca_03_enemy02.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ca\ca_04\umap\ca_04_enemy.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ca\ca_04\umap\ca_04_enemy.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\dw\dw_21\umap\dw_21_enemy_03.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\dw\dw_21\umap\dw_21_enemy_03.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\dw_DLC\dw_22\umap\dw_22_enemy_03.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\dw_DLC\dw_22\umap\dw_22_enemy_03.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ew\ew_01\umap\ew_01_enemy.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ew\ew_01\umap\ew_01_enemy.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ew\ew_21\umap\ew_21_enemy_01.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ew\ew_21\umap\ew_21_enemy_01.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ew\ew_21\umap\ew_21_enemy_02.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ew\ew_21\umap\ew_21_enemy_02.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ew\ew_22\umap\ew_22_enemy_01.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ew\ew_22\umap\ew_22_enemy_01.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ew\ew_22\umap\ew_22_enemy_02.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ew\ew_22\umap\ew_22_enemy_02.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ew\ew_23\umap\ew_23_enemy_01.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ew\ew_23\umap\ew_23_enemy_01.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ew\ew_23\umap\ew_23_enemy_02.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ew\ew_23\umap\ew_23_enemy_02.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ew\ew_24\umap\ew_24_enemy_01.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ew\ew_24\umap\ew_24_enemy_01.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ew\ew_24\umap\ew_24_enemy_02.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ew\ew_24\umap\ew_24_enemy_02.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ew\ew_25\umap\ew_25_enemy_01.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ew\ew_25\umap\ew_25_enemy_01.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ew\ew_25\umap\ew_25_enemy_02.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ew\ew_25\umap\ew_25_enemy_02.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ew\ew_26\umap\ew_26_enemy_01.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ew\ew_26\umap\ew_26_enemy_01.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ew\ew_26\umap\ew_26_enemy_02.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ew\ew_26\umap\ew_26_enemy_02.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ew\ew_27\umap\ew_27_enemy_01.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ew\ew_27\umap\ew_27_enemy_01.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ew\ew_27\umap\ew_27_enemy_02.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ew\ew_27\umap\ew_27_enemy_02.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ex\ex_21\umap\ex_21_enemy_01.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ex\ex_21\umap\ex_21_enemy_01.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ex\ex_22\umap\ex_22_enemy_01.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ex\ex_22\umap\ex_22_enemy_01.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ex\ex_23\umap\ex_23_enemy_01.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ex\ex_23\umap\ex_23_enemy_01.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ex\ex_24\umap\ex_24_enemy_01.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ex\ex_24\umap\ex_24_enemy_01.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ex\ex_25\umap\ex_25_enemy_01.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ex\ex_25\umap\ex_25_enemy_01.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ex\ex_26\umap\ex_26_enemy_01.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ex\ex_26\umap\ex_26_enemy_01.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ex\ex_27\umap\ex_27_enemy_01.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ex\ex_27\umap\ex_27_enemy_01.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ex\ex_29\umap\ex_29_enemy_01.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ex\ex_29\umap\ex_29_enemy_01.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ex\ex_31\umap\ex_31_enemy_01.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ex\ex_31\umap\ex_31_enemy_01.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ex\ex_33\umap\ex_33_enemy_01.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ex\ex_33\umap\ex_33_enemy_01.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ex\ex_34\umap\ex_34_enemy_01.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ex\ex_34\umap\ex_34_enemy_01.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ex\ex_35\umap\ex_35_enemy_01.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ex\ex_35\umap\ex_35_enemy_01.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ex\ex_37\umap\ex_37_enemy_01.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ex\ex_37\umap\ex_37_enemy_01.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ex\ex_38\umap\ex_38_enemy_01.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ex\ex_38\umap\ex_38_enemy_01.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ex\ex_39\umap\ex_39_enemy_01.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ex\ex_39\umap\ex_39_enemy_01.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\fz\fz_01\umap\fz_01_enemy_01.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\fz\fz_01\umap\fz_01_enemy_01.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\fz\fz_01\umap\fz_01_enemy_02.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\fz\fz_01\umap\fz_01_enemy_02.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\fz\fz_01\umap\fz_01_enemy_03.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\fz\fz_01\umap\fz_01_enemy_03.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\fz\fz_01\umap\fz_01_enemy_04.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\fz\fz_01\umap\fz_01_enemy_04.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\fz\fz_01\umap\fz_01_enemy_05.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\fz\fz_01\umap\fz_01_enemy_05.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\fz\fz_01\umap\fz_01_enemy_06.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\fz\fz_01\umap\fz_01_enemy_06.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\fz\fz_01\umap\fz_01_enemy_07.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\fz\fz_01\umap\fz_01_enemy_07.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\fz\fz_01\umap\fz_01_enemy_08.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\fz\fz_01\umap\fz_01_enemy_08.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\fz\fz_01\umap\fz_01_enemy_09.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\fz\fz_01\umap\fz_01_enemy_09.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\fz\fz_01\umap\fz_01_enemy_11.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\fz\fz_01\umap\fz_01_enemy_11.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\fz\fz_01\umap\fz_01_enemy_13.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\fz\fz_01\umap\fz_01_enemy_13.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\fz\fz_01\umap\fz_01_enemy_14.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\fz\fz_01\umap\fz_01_enemy_14.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\fz\fz_01\umap\fz_01_enemy_15.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\fz\fz_01\umap\fz_01_enemy_15.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\fz\fz_01\umap\fz_01_enemy_16.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\fz\fz_01\umap\fz_01_enemy_16.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\fz\fz_01\umap\fz_01_enemy_17.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\fz\fz_01\umap\fz_01_enemy_17.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\fz\fz_01\umap\fz_01_enemy_51.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\fz\fz_01\umap\fz_01_enemy_51.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\fz\fz_01\umap\fz_01_enemy_54.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\fz\fz_01\umap\fz_01_enemy_54.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\fz\fz_01\umap\fz_01_enemy_65.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\fz\fz_01\umap\fz_01_enemy_65.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\fz\fz_02\umap\fz_02_enemy_01.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\fz\fz_02\umap\fz_02_enemy_01.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\fz\fz_02\umap\fz_02_enemy_02.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\fz\fz_02\umap\fz_02_enemy_02.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\fz\fz_02\umap\fz_02_enemy_03.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\fz\fz_02\umap\fz_02_enemy_03.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\fz\fz_02\umap\fz_02_enemy_09.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\fz\fz_02\umap\fz_02_enemy_09.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\fz\fz_02\umap\fz_02_enemy_11.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\fz\fz_02\umap\fz_02_enemy_11.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\fz\fz_02\umap\fz_02_enemy_12.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\fz\fz_02\umap\fz_02_enemy_12.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\fz\fz_02\umap\fz_02_enemy_13.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\fz\fz_02\umap\fz_02_enemy_13.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\fz\fz_02\umap\fz_02_enemy_14.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\fz\fz_02\umap\fz_02_enemy_14.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\fz\fz_02\umap\fz_02_enemy_15.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\fz\fz_02\umap\fz_02_enemy_15.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\fz\fz_02\umap\fz_02_enemy_16.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\fz\fz_02\umap\fz_02_enemy_16.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\fz\fz_02\umap\fz_02_enemy_17.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\fz\fz_02\umap\fz_02_enemy_17.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\fz\fz_02\umap\fz_02_enemy_21.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\fz\fz_02\umap\fz_02_enemy_21.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\fz\fz_02\umap\fz_02_enemy_22.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\fz\fz_02\umap\fz_02_enemy_22.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\fz\fz_02\umap\fz_02_enemy_23.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\fz\fz_02\umap\fz_02_enemy_23.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\fz\fz_02\umap\fz_02_enemy_icicle_01.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\fz\fz_02\umap\fz_02_enemy_icicle_01.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\fz\fz_02\umap\fz_02_enemy_icicle_02.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\fz\fz_02\umap\fz_02_enemy_icicle_02.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\fz\fz_02\umap\fz_02_enemy_icicle_03.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\fz\fz_02\umap\fz_02_enemy_icicle_03.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\fz\fz_02\umap\fz_02_enemy_icicle_04.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\fz\fz_02\umap\fz_02_enemy_icicle_04.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\fz\fz_03\umap\fz_03_enemy_01.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\fz\fz_03\umap\fz_03_enemy_01.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\fz\fz_03\umap\fz_03_enemy_02.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\fz\fz_03\umap\fz_03_enemy_02.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Content\Levels\fz\fz_03\umap\fz_03_gimmick_Avalanche.uexp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Content\Levels\fz\fz_03\umap\fz_03_gimmick_Avalanche.umap">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Content\Levels\fz\fz_04\umap\fz_04_enemy_01.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\fz\fz_04\umap\fz_04_enemy_01.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\fz\fz_04\umap\fz_04_enemy_02.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\fz\fz_04\umap\fz_04_enemy_02.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\fz\fz_04\umap\fz_04_enemy_04.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\fz\fz_04\umap\fz_04_enemy_04.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\fz\fz_04\umap\fz_04_enemy_05.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\fz\fz_04\umap\fz_04_enemy_05.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\fz\fz_04\umap\fz_04_enemy_06.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\fz\fz_04\umap\fz_04_enemy_06.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\fz\fz_04\umap\fz_04_enemy_07.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\fz\fz_04\umap\fz_04_enemy_07.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\fz\fz_04\umap\fz_04_enemy_08.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\fz\fz_04\umap\fz_04_enemy_08.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\fz\fz_04\umap\fz_04_enemy_09.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\fz\fz_04\umap\fz_04_enemy_09.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\fz\fz_04\umap\fz_04_enemy_10.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\fz\fz_04\umap\fz_04_enemy_10.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\fz\fz_04\umap\fz_04_enemy_11.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\fz\fz_04\umap\fz_04_enemy_11.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\fz\fz_04\umap\fz_04_enemy_52.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\fz\fz_04\umap\fz_04_enemy_52.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\fz\fz_04\umap\fz_04_enemy_57.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\fz\fz_04\umap\fz_04_enemy_57.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\fz\fz_04\umap\fz_04_enemy_60.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\fz\fz_04\umap\fz_04_enemy_60.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\fz\fz_06\umap\fz_06_enemy.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\fz\fz_06\umap\fz_06_enemy.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\he\he_01\umap\he_01_enemy_01.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\he\he_01\umap\he_01_enemy_01.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\he\he_01\umap\he_01_enemy_02.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\he\he_01\umap\he_01_enemy_02.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\he\he_01\umap\he_01_enemy_03.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\he\he_01\umap\he_01_enemy_03.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\he\he_01\umap\he_01_enemy_04.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\he\he_01\umap\he_01_enemy_04.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\he\he_01\umap\he_01_enemy_05.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\he\he_01\umap\he_01_enemy_05.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\he\he_01\umap\he_01_enemy_06.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\he\he_01\umap\he_01_enemy_06.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\he\he_01\umap\he_01_enemy_08.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\he\he_01\umap\he_01_enemy_08.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\he\he_01\umap\he_01_enemy_09.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\he\he_01\umap\he_01_enemy_09.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\he\he_01\umap\he_01_enemy_10.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\he\he_01\umap\he_01_enemy_10.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\he\he_01\umap\he_01_enemy_11.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\he\he_01\umap\he_01_enemy_11.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\he\he_01\umap\he_01_enemy_12.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\he\he_01\umap\he_01_enemy_12.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\he\he_02\umap\he_02_enemy_01.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\he\he_02\umap\he_02_enemy_01.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\he\he_02\umap\he_02_enemy_02.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\he\he_02\umap\he_02_enemy_02.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\he\he_02\umap\he_02_enemy_03.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\he\he_02\umap\he_02_enemy_03.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\he\he_02\umap\he_02_enemy_04.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\he\he_02\umap\he_02_enemy_04.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\he\he_02\umap\he_02_enemy_05.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\he\he_02\umap\he_02_enemy_05.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\he\he_02\umap\he_02_enemy_06.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\he\he_02\umap\he_02_enemy_06.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\he\he_02\umap\he_02_enemy_07.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\he\he_02\umap\he_02_enemy_07.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\he\he_02\umap\he_02_enemy_07_1.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\he\he_02\umap\he_02_enemy_07_1.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\he\he_02\umap\he_02_enemy_08.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\he\he_02\umap\he_02_enemy_08.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\he\he_02\umap\he_02_enemy_09.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\he\he_02\umap\he_02_enemy_09.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\he\he_02\umap\he_02_enemy_10.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\he\he_02\umap\he_02_enemy_10.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\he\he_02\umap\he_02_enemy_11.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\he\he_02\umap\he_02_enemy_11.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\he\he_02\umap\he_02_enemy_12.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\he\he_02\umap\he_02_enemy_12.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\he\he_02\umap\he_02_enemy_13.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\he\he_02\umap\he_02_enemy_13.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\he\he_02\umap\he_02_enemy_14.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\he\he_02\umap\he_02_enemy_14.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\he\he_02\umap\he_02_enemy_15.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\he\he_02\umap\he_02_enemy_15.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\he\he_02\umap\he_02_enemy_16.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\he\he_02\umap\he_02_enemy_16.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\he\he_02\umap\he_02_enemy_17.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\he\he_02\umap\he_02_enemy_17.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\he\he_02\umap\he_02_enemy_18.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\he\he_02\umap\he_02_enemy_18.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\he\he_02\umap\he_02_enemy_19.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\he\he_02\umap\he_02_enemy_19.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\he\he_02\umap\he_02_enemy_20.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\he\he_02\umap\he_02_enemy_20.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\he\he_02\umap\he_02_enemy_21.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\he\he_02\umap\he_02_enemy_21.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\he\he_02\umap\he_02_enemy_rocktitan.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\he\he_02\umap\he_02_enemy_rocktitan.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\he\he_03\umap\he_03_enemy_01.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\he\he_03\umap\he_03_enemy_01.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\he\he_03\umap\he_03_enemy_02.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\he\he_03\umap\he_03_enemy_02.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\he\he_03\umap\he_03_enemy_03.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\he\he_03\umap\he_03_enemy_03.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\he\he_03\umap\he_03_enemy_04.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\he\he_03\umap\he_03_enemy_04.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\he\he_03\umap\he_03_enemy_05.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\he\he_03\umap\he_03_enemy_05.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\he\he_03\umap\he_03_enemy_07.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\he\he_03\umap\he_03_enemy_07.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\he\he_03\umap\he_03_enemy_08.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\he\he_03\umap\he_03_enemy_08.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\he\he_03\umap\he_03_enemy_09.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\he\he_03\umap\he_03_enemy_09.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\he\he_04\umap\he_04_enemy_01.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\he\he_04\umap\he_04_enemy_01.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\he\he_04\umap\he_04_enemy_02.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\he\he_04\umap\he_04_enemy_02.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\he\he_04\umap\he_04_enemy_03.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\he\he_04\umap\he_04_enemy_03.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\he\he_05\umap\he_05_enemy_01.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\he\he_05\umap\he_05_enemy_01.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\he\he_06\umap\he_06_enemy_01.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\he\he_06\umap\he_06_enemy_01.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\kg\kg_01\umap\kg_01_enemy_01.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\kg\kg_01\umap\kg_01_enemy_01.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\kg\kg_01\umap\kg_01_enemy_02.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\kg\kg_01\umap\kg_01_enemy_02.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\kg\kg_01\umap\kg_01_enemy_03.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\kg\kg_01\umap\kg_01_enemy_03.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\kg\kg_02\umap\kg_02_enemy_Area_A.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\kg\kg_02\umap\kg_02_enemy_Area_A.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\kg\kg_02\umap\kg_02_enemy_Area_B.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\kg\kg_02\umap\kg_02_enemy_Area_B.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\kg\kg_02\umap\kg_02_enemy_Area_C.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\kg\kg_02\umap\kg_02_enemy_Area_C.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\kg\kg_02\umap\kg_02_enemy_Area_D.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\kg\kg_02\umap\kg_02_enemy_Area_D.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\kg\kg_02\umap\kg_02_enemy_Area_E.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\kg\kg_02\umap\kg_02_enemy_Area_E.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\kg_DLC\kg_04\umap\kg_04_enemy_01.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\kg_DLC\kg_04\umap\kg_04_enemy_01.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\kg_DLC\kg_05\umap\kg_05_enemy_Area_A.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\kg_DLC\kg_05\umap\kg_05_enemy_Area_A.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\kg_DLC\kg_05\umap\kg_05_enemy_Area_B.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\kg_DLC\kg_05\umap\kg_05_enemy_Area_B.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\kg_DLC\kg_05\umap\kg_05_enemy_Area_C.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\kg_DLC\kg_05\umap\kg_05_enemy_Area_C.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\kg_DLC\kg_05\umap\kg_05_enemy_Area_D.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\kg_DLC\kg_05\umap\kg_05_enemy_Area_D.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\kg_DLC\kg_05\umap\kg_05_enemy_Area_E.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\kg_DLC\kg_05\umap\kg_05_enemy_Area_E.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\kg_DLC\kg_06\umap\kg_06_enemy_03.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\kg_DLC\kg_06\umap\kg_06_enemy_03.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\kg_DLC\kg_08\umap\kg_08_enemy_01.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\kg_DLC\kg_08\umap\kg_08_enemy_01.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\mi\mi_01\umap\mi_01_enemy_01.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\mi\mi_01\umap\mi_01_enemy_01.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\mi\mi_01\umap\mi_01_enemy_02.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\mi\mi_01\umap\mi_01_enemy_02.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\mi\mi_01\umap\mi_01_enemy_03.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\mi\mi_01\umap\mi_01_enemy_03.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\mi\mi_01\umap\mi_01_enemy_04.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\mi\mi_01\umap\mi_01_enemy_04.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\mi\mi_02\umap\mi_02_enemy_01.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\mi\mi_02\umap\mi_02_enemy_01.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\mi\mi_02\umap\mi_02_enemy_02.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\mi\mi_02\umap\mi_02_enemy_02.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\mi\mi_02\umap\mi_02_enemy_03.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\mi\mi_02\umap\mi_02_enemy_03.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\mi\mi_02\umap\mi_02_enemy_04.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\mi\mi_02\umap\mi_02_enemy_04.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\mi\mi_02\umap\mi_02_enemy_05.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\mi\mi_02\umap\mi_02_enemy_05.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\mi\mi_02\umap\mi_02_enemy_06.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\mi\mi_02\umap\mi_02_enemy_06.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\mi\mi_02\umap\mi_02_enemy_07.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\mi\mi_02\umap\mi_02_enemy_07.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\mi\mi_02\umap\mi_02_enemy_08.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\mi\mi_02\umap\mi_02_enemy_08.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\mi\mi_02\umap\mi_02_enemy_09.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\mi\mi_02\umap\mi_02_enemy_09.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\mi\mi_02\umap\mi_02_enemy_10.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\mi\mi_02\umap\mi_02_enemy_10.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\mi\mi_03\umap\mi_03_enemy_01.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\mi\mi_03\umap\mi_03_enemy_01.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\mi\mi_03\umap\mi_03_enemy_02.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\mi\mi_03\umap\mi_03_enemy_02.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\mi\mi_03\umap\mi_03_enemy_03.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\mi\mi_03\umap\mi_03_enemy_03.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\mi\mi_03\umap\mi_03_enemy_04.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\mi\mi_03\umap\mi_03_enemy_04.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\mi\mi_03\umap\mi_03_enemy_05.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\mi\mi_03\umap\mi_03_enemy_05.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\mi\mi_03\umap\mi_03_enemy_06.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\mi\mi_03\umap\mi_03_enemy_06.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\mi\mi_03\umap\mi_03_enemy_07.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\mi\mi_03\umap\mi_03_enemy_07.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\mi\mi_03\umap\mi_03_enemy_08.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\mi\mi_03\umap\mi_03_enemy_08.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\mi\mi_03\umap\mi_03_enemy_09.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\mi\mi_03\umap\mi_03_enemy_09.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\mi\mi_03\umap\mi_03_enemy_10.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\mi\mi_03\umap\mi_03_enemy_10.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\mi\mi_03\umap\mi_03_enemy_11.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\mi\mi_03\umap\mi_03_enemy_11.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\mi\mi_03\umap\mi_03_enemy_12.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\mi\mi_03\umap\mi_03_enemy_12.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\mi\mi_03\umap\mi_03_enemy_13.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\mi\mi_03\umap\mi_03_enemy_13.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\mi\mi_03\umap\mi_03_enemy_14.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\mi\mi_03\umap\mi_03_enemy_14.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\mi\mi_04\umap\mi_04_enemy_01.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\mi\mi_04\umap\mi_04_enemy_01.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\mi\mi_04\umap\mi_04_enemy_02.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\mi\mi_04\umap\mi_04_enemy_02.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\mi\mi_04\umap\mi_04_enemy_03.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\mi\mi_04\umap\mi_04_enemy_03.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\mi\mi_04\umap\mi_04_enemy_06.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\mi\mi_04\umap\mi_04_enemy_06.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\mi\mi_04\umap\mi_04_enemy_07.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\mi\mi_04\umap\mi_04_enemy_07.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ra\ra_01\umap\ra_01_enemy.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ra\ra_01\umap\ra_01_enemy.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ra\ra_01\umap\ra_01_enemy_01.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ra\ra_01\umap\ra_01_enemy_01.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ra\ra_01\umap\ra_01_enemy_05.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ra\ra_01\umap\ra_01_enemy_05.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ra\ra_01\umap\ra_01_enemy_09.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ra\ra_01\umap\ra_01_enemy_09.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ra\ra_01\umap\ra_01_enemy_11.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ra\ra_01\umap\ra_01_enemy_11.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ra\ra_01\umap\ra_01_enemy_15.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ra\ra_01\umap\ra_01_enemy_15.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ra\ra_01\umap\ra_01_enemy_20.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ra\ra_01\umap\ra_01_enemy_20.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ra\ra_01\umap\ra_01_enemy_24.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ra\ra_01\umap\ra_01_enemy_24.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ra\ra_01\umap\ra_01_enemy_41.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ra\ra_01\umap\ra_01_enemy_41.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ra\ra_01\umap\ra_01_enemy_50.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ra\ra_01\umap\ra_01_enemy_50.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ra\ra_01\umap\ra_01_enemy_60.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ra\ra_01\umap\ra_01_enemy_60.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ra\ra_01\umap\ra_01_enemy_70.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ra\ra_01\umap\ra_01_enemy_70.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ra\ra_01\umap\ra_01_enemy_Boss.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ra\ra_01\umap\ra_01_enemy_Boss.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ra\ra_01\umap\ra_01_enemy_Kando_Rabbit.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ra\ra_01\umap\ra_01_enemy_Kando_Rabbit.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ra\ra_01\umap\ra_01_enemy_To_the_Tower.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ra\ra_01\umap\ra_01_enemy_To_the_Tower.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ra\ra_02\umap\ra_02_enemy.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ra\ra_02\umap\ra_02_enemy.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\rg_DLC\rg_10\umap\rg_10_enemy_01.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\rg_DLC\rg_10\umap\rg_10_enemy_01.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\rg_DLC\rg_11\umap\rg_11_enemy_01.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\rg_DLC\rg_11\umap\rg_11_enemy_01.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\rg_DLC\rg_12\umap\rg_12_enemy_01.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\rg_DLC\rg_12\umap\rg_12_enemy_01.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\rg_DLC\rg_13\umap\rg_13_enemy_01.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\rg_DLC\rg_13\umap\rg_13_enemy_01.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\rg_DLC\rg_14\umap\rg_14_enemy_01.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\rg_DLC\rg_14\umap\rg_14_enemy_01.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\rg_DLC\rg_15\umap\rg_15_enemy_01.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\rg_DLC\rg_15\umap\rg_15_enemy_01.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\rg_DLC\rg_16\umap\rg_16_enemy_01.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\rg_DLC\rg_16\umap\rg_16_enemy_01.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\rg_DLC\rg_17\umap\rg_17_enemy_01.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\rg_DLC\rg_17\umap\rg_17_enemy_01.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\rg_DLC\rg_18\umap\rg_18_enemy_01.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\rg_DLC\rg_18\umap\rg_18_enemy_01.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\rg_DLC\rg_19\umap\rg_19_enemy_01.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\rg_DLC\rg_19\umap\rg_19_enemy_01.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\rg_DLC\rg_20\umap\rg_20_enemy_01.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\rg_DLC\rg_20\umap\rg_20_enemy_01.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\rg_DLC\rg_21\umap\rg_21_enemy_01.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\rg_DLC\rg_21\umap\rg_21_enemy_01.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\rg_DLC\rg_22\umap\rg_22_enemy_01.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\rg_DLC\rg_22\umap\rg_22_enemy_01.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ss_DLC\ss_01\umap\ss_01_enemy_01.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ss_DLC\ss_01\umap\ss_01_enemy_01.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ts\ts_01\umap\ts_01_enemy.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ts\ts_01\umap\ts_01_enemy.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ts\ts_01\umap\ts_01_enemy_01.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ts\ts_01\umap\ts_01_enemy_01.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ts\ts_01\umap\ts_01_enemy_02.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ts\ts_01\umap\ts_01_enemy_02.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ts\ts_01\umap\ts_01_enemy_03.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ts\ts_01\umap\ts_01_enemy_03.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ts\ts_02\umap\ts_02_enemy.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ts\ts_02\umap\ts_02_enemy.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ts\ts_02\umap\ts_02_enemy_01.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ts\ts_02\umap\ts_02_enemy_01.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ts\ts_02\umap\ts_02_enemy_02.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ts\ts_02\umap\ts_02_enemy_02.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ts\ts_02\umap\ts_02_enemy_03.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ts\ts_02\umap\ts_02_enemy_03.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ts\ts_02\umap\ts_02_enemy_04.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ts\ts_02\umap\ts_02_enemy_04.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ts\ts_02\umap\ts_02_enemy_04_Amber.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ts\ts_02\umap\ts_02_enemy_04_Amber.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ts\ts_02\umap\ts_02_enemy_05.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ts\ts_02\umap\ts_02_enemy_05.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ts\ts_02\umap\ts_02_enemy_06.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ts\ts_02\umap\ts_02_enemy_06.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ts\ts_02\umap\ts_02_enemy_07.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ts\ts_02\umap\ts_02_enemy_07.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ts\ts_02\umap\ts_02_enemy_08.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ts\ts_02\umap\ts_02_enemy_08.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ts\ts_02\umap\ts_02_enemy_09.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ts\ts_02\umap\ts_02_enemy_09.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ts\ts_02\umap\ts_02_enemy_UFOMission.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ts\ts_02\umap\ts_02_enemy_UFOMission.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ts\ts_03\umap\ts_03_enemy.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ts\ts_03\umap\ts_03_enemy.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ts\ts_04\umap\ts_04_enemy.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\ts\ts_04\umap\ts_04_enemy.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\tt\tt_01\umap\tt_01_enemy_01.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\tt\tt_01\umap\tt_01_enemy_01.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Content\Levels\tt\tt_01\umap\tt_01_enemy_02.uexp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Content\Levels\tt\tt_01\umap\tt_01_enemy_02.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\tt\tt_01\umap\tt_01_enemy_03.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\tt\tt_01\umap\tt_01_enemy_03.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\tt\tt_01\umap\tt_01_enemy_04.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\tt\tt_01\umap\tt_01_enemy_04.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\tt\tt_01\umap\tt_01_enemy_05.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\tt\tt_01\umap\tt_01_enemy_05.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\tt\tt_01\umap\tt_01_enemy_06.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\tt\tt_01\umap\tt_01_enemy_06.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\tt\tt_01\umap\tt_01_enemy_07.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Levels\tt\tt_01\umap\tt_01_enemy_07.umap">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Content\Load\Tres\QualityOfLifeTable.uasset">
@@ -1832,10 +3554,28 @@
     <None Update="Content\Load\Tres\SecretReportInfoTable.uexp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Content\Load\Tres\TresBossData.uasset">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Load\Tres\TresBossData.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Load\Tres\TresCompletionData.uasset">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Load\Tres\TresCompletionData.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Content\Load\Tres\TresFoodItemEffectData.uasset">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Content\Load\Tres\TresFoodItemEffectData.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Load\Tres\TresPartyData.uasset">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Load\Tres\TresPartyData.uexp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Content\Maps\ew\umap\ew_01\QoL_BigSix.uexp">
@@ -1848,6 +3588,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Content\Maps\ew\umap\ew_01\QoL_Maps.umap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Maps\ew\umap\ew_02\QoL_SoraCollection.uexp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Maps\ew\umap\ew_02\QoL_SoraCollection.umap">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Content\Maps\ew\umap\ew_28\ew_28_ENV.uexp">

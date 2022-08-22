@@ -101,8 +101,9 @@ namespace UE4DataTableInterpreter.DataTables
 
         public long m_NeedReactionSameTeamZeroDmgAtk { get; set; }
         public long NeedReactionSameTeamZeroDmgAtk_BoolProperty { get; set; }
-        public List<byte> Unk19 { get; set; } // 9 bytes
+        public List<byte> Unk19 { get; set; } // 8 bytes
         public byte NeedReactionSameTeamZeroDmgAtkValue { get; set; }
+        public byte ExtraUnk1 { get; set; }
 
         public long m_RevengeLimit { get; set; }
         public long RevengeLimit_FloatProperty { get; set; }
@@ -211,128 +212,153 @@ namespace UE4DataTableInterpreter.DataTables
 
         public long m_AttrWeekPointPhysical { get; set; }
         public long AttrWeekPointPhysical_BoolProperty { get; set; }
-        public List<byte> Unk41 { get; set; } // 9 bytes
+        public List<byte> Unk41 { get; set; } // 8 bytes
         public byte AttrWeekPointPhysicalValue { get; set; }
+        public byte ExtraUnk2 { get; set; }
 
         public long m_AttrWeekPointFire { get; set; }
         public long AttrWeekPointFire_BoolProperty { get; set; }
-        public List<byte> Unk42 { get; set; } // 9 bytes
+        public List<byte> Unk42 { get; set; } // 8 bytes
         public byte AttrWeekPointFireValue { get; set; }
+        public byte ExtraUnk3 { get; set; }
 
         public long m_AttrWeekPointBlizzard { get; set; }
         public long AttrWeekPointBlizzard_BoolProperty { get; set; }
-        public List<byte> Unk43 { get; set; } // 9 bytes
+        public List<byte> Unk43 { get; set; } // 8 bytes
         public byte AttrWeekPointBlizzardValue { get; set; }
+        public byte ExtraUnk4 { get; set; }
 
         public long m_AttrWeekPointThunder { get; set; }
         public long AttrWeekPointThunder_BoolProperty { get; set; }
-        public List<byte> Unk44 { get; set; } // 9 bytes
+        public List<byte> Unk44 { get; set; } // 8 bytes
         public byte AttrWeekPointThunderValue { get; set; }
+        public byte ExtraUnk5 { get; set; }
 
         public long m_AttrWeekPointWater { get; set; }
         public long AttrWeekPointWater_BoolProperty { get; set; }
-        public List<byte> Unk45 { get; set; } // 9 bytes
+        public List<byte> Unk45 { get; set; } // 8 bytes
         public byte AttrWeekPointWaterValue { get; set; }
+        public byte ExtraUnk6 { get; set; }
 
         public long m_AttrWeekPointAero { get; set; }
         public long AttrWeekPointAero_BoolProperty { get; set; }
-        public List<byte> Unk46 { get; set; } // 9 bytes
+        public List<byte> Unk46 { get; set; } // 8 bytes
         public byte AttrWeekPointAeroValue { get; set; }
+        public byte ExtraUnk7 { get; set; }
 
         public long m_AttrWeekPointDark { get; set; }
         public long AttrWeekPointDark_BoolProperty { get; set; }
-        public List<byte> Unk47 { get; set; } // 9 bytes
+        public List<byte> Unk47 { get; set; } // 8 bytes
         public byte AttrWeekPointDarkValue { get; set; }
+        public byte ExtraUnk8 { get; set; }
 
         public long m_AttrWeekPointNoType { get; set; }
         public long AttrWeekPointNoType_BoolProperty { get; set; }
-        public List<byte> Unk48 { get; set; } // 9 bytes
+        public List<byte> Unk48 { get; set; } // 8 bytes
         public byte AttrWeekPointNoTypeValue { get; set; }
+        public byte ExtraUnk9 { get; set; }
 
         public long m_bResistEffectFreeFlow { get; set; }
         public long ResistEffectFreeFlow_BoolProperty { get; set; }
-        public List<byte> Unk49 { get; set; } // 9 bytes
+        public List<byte> Unk49 { get; set; } // 8 bytes
         public byte ResistEffectFreeFlowValue { get; set; }
+        public byte ExtraUnk10 { get; set; }
 
         public long m_bResistEffectDeath { get; set; }
         public long ResistEffectDeath_BoolProperty { get; set; }
-        public List<byte> Unk50 { get; set; } // 9 bytes
+        public List<byte> Unk50 { get; set; } // 8 bytes
         public byte ResistEffectDeathValue { get; set; }
+        public byte ExtraUnk11 { get; set; }
 
         public long m_bResistEffectCatch { get; set; }
         public long ResistEffectCatch_BoolProperty { get; set; }
-        public List<byte> Unk51 { get; set; } // 9 bytes
+        public List<byte> Unk51 { get; set; } // 8 bytes
         public byte ResistEffectCatchValue { get; set; }
+        public byte ExtraUnk12 { get; set; }
 
         public long m_bResistEffectDrillBind { get; set; }
         public long ResistEffectDrillBind_BoolProperty { get; set; }
-        public List<byte> Unk52 { get; set; } // 9 bytes
+        public List<byte> Unk52 { get; set; } // 8 bytes
         public byte ResistEffectDrillBindValue { get; set; }
+        public byte ExtraUnk13 { get; set; }
 
         public long m_bResistEffectYoBind { get; set; }
         public long ResistEffectYoBind_BoolProperty { get; set; }
-        public List<byte> Unk53 { get; set; } // 9 bytes
+        public List<byte> Unk53 { get; set; } // 8 bytes
         public byte ResistEffectYoBindValue { get; set; }
+        public byte ExtraUnk14 { get; set; }
 
         public long m_bResistEffectRalphBind { get; set; }
         public long ResistEffectRalphBind_BoolProperty { get; set; }
-        public List<byte> Unk54 { get; set; } // 9 bytes
+        public List<byte> Unk54 { get; set; } // 8 bytes
         public byte ResistEffectRalphBindValue { get; set; }
+        public byte ExtraUnk15 { get; set; }
 
         public long m_bResistEffectEnergyBurst { get; set; }
         public long ResistEffectEnergyBurst_BoolProperty { get; set; }
-        public List<byte> Unk55 { get; set; } // 9 bytes
+        public List<byte> Unk55 { get; set; } // 8 bytes
         public byte ResistEffectEnergyBurstValue { get; set; }
+        public byte ExtraUnk16 { get; set; }
 
         public long m_bResistEffectFreeze { get; set; }
         public long ResistEffectFreeze_BoolProperty { get; set; }
-        public List<byte> Unk56 { get; set; } // 9 bytes
+        public List<byte> Unk56 { get; set; } // 8 bytes
         public byte ResistEffectFreezeValue { get; set; }
+        public byte ExtraUnk17 { get; set; }
 
         public long m_bResistEffectStop { get; set; }
         public long ResistEffectStop_BoolProperty { get; set; }
-        public List<byte> Unk57 { get; set; } // 9 bytes
+        public List<byte> Unk57 { get; set; } // 8 bytes
         public byte ResistEffectStopValue { get; set; }
+        public byte ExtraUnk18 { get; set; }
 
         public long m_bResistEffectMagnet { get; set; }
         public long ResistEffectMagnet_BoolProperty { get; set; }
-        public List<byte> Unk58 { get; set; } // 9 bytes
+        public List<byte> Unk58 { get; set; } // 8 bytes
         public byte ResistEffectMagnetValue { get; set; }
+        public byte ExtraUnk19 { get; set; }
 
         public long m_bResistEffectStun { get; set; }
         public long ResistEffectStun_BoolProperty { get; set; }
-        public List<byte> Unk59 { get; set; } // 9 bytes
+        public List<byte> Unk59 { get; set; } // 8 bytes
         public byte ResistEffectStunValue { get; set; }
+        public byte ExtraUnk20 { get; set; }
 
         public long m_bResistEffectSneeze { get; set; }
         public long ResistEffectSneeze_BoolProperty { get; set; }
-        public List<byte> Unk60 { get; set; } // 9 bytes
+        public List<byte> Unk60 { get; set; } // 8 bytes
         public byte ResistEffectSneezeValue { get; set; }
+        public byte ExtraUnk21 { get; set; }
 
         public long m_bResistEffectHoney { get; set; }
         public long ResistEffectHoney_BoolProperty { get; set; }
-        public List<byte> Unk61 { get; set; } // 9 bytes
+        public List<byte> Unk61 { get; set; } // 8 bytes
         public byte ResistEffectHoneyValue { get; set; }
+        public byte ExtraUnk22 { get; set; }
 
         public long m_bResistEffectCloud { get; set; }
         public long ResistEffectCloud_BoolProperty { get; set; }
-        public List<byte> Unk62 { get; set; } // 9 bytes
+        public List<byte> Unk62 { get; set; } // 8 bytes
         public byte ResistEffectCloudValue { get; set; }
+        public byte ExtraUnk23 { get; set; }
 
         public long m_bResistEffectDischarge { get; set; }
         public long ResistEffectDischarge_BoolProperty { get; set; }
-        public List<byte> Unk63 { get; set; } // 9 bytes
+        public List<byte> Unk63 { get; set; } // 8 bytes
         public byte ResistEffectDischargeValue { get; set; }
+        public byte ExtraUnk24 { get; set; }
 
         public long m_bResistEffectBurn { get; set; }
         public long ResistEffectBurn_BoolProperty { get; set; }
-        public List<byte> Unk64 { get; set; } // 9 bytes
+        public List<byte> Unk64 { get; set; } // 8 bytes
         public byte ResistEffectBurnValue { get; set; }
+        public byte ExtraUnk25 { get; set; }
 
         public long m_bResistEffectPoleSpinTurn { get; set; }
         public long ResistEffectPoleSpinTurn_BoolProperty { get; set; }
-        public List<byte> Unk65 { get; set; } // 9 bytes
+        public List<byte> Unk65 { get; set; } // 8 bytes
         public byte ResistEffectPoleSpinTurnValue { get; set; }
+        public byte ExtraUnk26 { get; set; }
 
         public long m_DropPrize1 { get; set; }
         public long DropPrize1_EnumProperty { get; set; }
@@ -489,8 +515,9 @@ namespace UE4DataTableInterpreter.DataTables
 
             this.m_NeedReactionSameTeamZeroDmgAtk = BitConverter.ToInt64(reader.ReadBytesFromFileStream(8).ToArray());
             this.NeedReactionSameTeamZeroDmgAtk_BoolProperty = BitConverter.ToInt64(reader.ReadBytesFromFileStream(8).ToArray());
-            this.Unk19 = reader.ReadBytesFromFileStream(9);
+            this.Unk19 = reader.ReadBytesFromFileStream(8);
             this.NeedReactionSameTeamZeroDmgAtkValue = (byte)reader.ReadByte();
+            this.ExtraUnk1 = (byte)reader.ReadByte();
 
             this.m_RevengeLimit = BitConverter.ToInt64(reader.ReadBytesFromFileStream(8).ToArray());
             this.RevengeLimit_FloatProperty = BitConverter.ToInt64(reader.ReadBytesFromFileStream(8).ToArray());
@@ -599,128 +626,153 @@ namespace UE4DataTableInterpreter.DataTables
 
             this.m_AttrWeekPointPhysical = BitConverter.ToInt64(reader.ReadBytesFromFileStream(8).ToArray());
             this.AttrWeekPointPhysical_BoolProperty = BitConverter.ToInt64(reader.ReadBytesFromFileStream(8).ToArray());
-            this.Unk41 = reader.ReadBytesFromFileStream(9);
+            this.Unk41 = reader.ReadBytesFromFileStream(8);
             this.AttrWeekPointPhysicalValue = (byte)reader.ReadByte();
+            this.ExtraUnk2 = (byte)reader.ReadByte();
 
             this.m_AttrWeekPointFire = BitConverter.ToInt64(reader.ReadBytesFromFileStream(8).ToArray());
             this.AttrWeekPointFire_BoolProperty = BitConverter.ToInt64(reader.ReadBytesFromFileStream(8).ToArray());
-            this.Unk42 = reader.ReadBytesFromFileStream(9);
+            this.Unk42 = reader.ReadBytesFromFileStream(8);
             this.AttrWeekPointFireValue = (byte)reader.ReadByte();
+            this.ExtraUnk3 = (byte)reader.ReadByte();
 
             this.m_AttrWeekPointBlizzard = BitConverter.ToInt64(reader.ReadBytesFromFileStream(8).ToArray());
             this.AttrWeekPointBlizzard_BoolProperty = BitConverter.ToInt64(reader.ReadBytesFromFileStream(8).ToArray());
-            this.Unk43 = reader.ReadBytesFromFileStream(9);
+            this.Unk43 = reader.ReadBytesFromFileStream(8);
             this.AttrWeekPointBlizzardValue = (byte)reader.ReadByte();
+            this.ExtraUnk4 = (byte)reader.ReadByte();
 
             this.m_AttrWeekPointThunder = BitConverter.ToInt64(reader.ReadBytesFromFileStream(8).ToArray());
             this.AttrWeekPointThunder_BoolProperty = BitConverter.ToInt64(reader.ReadBytesFromFileStream(8).ToArray());
-            this.Unk44 = reader.ReadBytesFromFileStream(9);
+            this.Unk44 = reader.ReadBytesFromFileStream(8);
             this.AttrWeekPointThunderValue = (byte)reader.ReadByte();
+            this.ExtraUnk5 = (byte)reader.ReadByte();
 
             this.m_AttrWeekPointWater = BitConverter.ToInt64(reader.ReadBytesFromFileStream(8).ToArray());
             this.AttrWeekPointWater_BoolProperty = BitConverter.ToInt64(reader.ReadBytesFromFileStream(8).ToArray());
-            this.Unk45 = reader.ReadBytesFromFileStream(9);
+            this.Unk45 = reader.ReadBytesFromFileStream(8);
             this.AttrWeekPointWaterValue = (byte)reader.ReadByte();
+            this.ExtraUnk6 = (byte)reader.ReadByte();
 
             this.m_AttrWeekPointAero = BitConverter.ToInt64(reader.ReadBytesFromFileStream(8).ToArray());
             this.AttrWeekPointAero_BoolProperty = BitConverter.ToInt64(reader.ReadBytesFromFileStream(8).ToArray());
-            this.Unk46 = reader.ReadBytesFromFileStream(9);
+            this.Unk46 = reader.ReadBytesFromFileStream(8);
             this.AttrWeekPointAeroValue = (byte)reader.ReadByte();
+            this.ExtraUnk7 = (byte)reader.ReadByte();
 
             this.m_AttrWeekPointDark = BitConverter.ToInt64(reader.ReadBytesFromFileStream(8).ToArray());
             this.AttrWeekPointDark_BoolProperty = BitConverter.ToInt64(reader.ReadBytesFromFileStream(8).ToArray());
-            this.Unk47 = reader.ReadBytesFromFileStream(9);
+            this.Unk47 = reader.ReadBytesFromFileStream(8);
             this.AttrWeekPointDarkValue = (byte)reader.ReadByte();
+            this.ExtraUnk8 = (byte)reader.ReadByte();
 
             this.m_AttrWeekPointNoType = BitConverter.ToInt64(reader.ReadBytesFromFileStream(8).ToArray());
             this.AttrWeekPointNoType_BoolProperty = BitConverter.ToInt64(reader.ReadBytesFromFileStream(8).ToArray());
-            this.Unk48 = reader.ReadBytesFromFileStream(9);
+            this.Unk48 = reader.ReadBytesFromFileStream(8);
             this.AttrWeekPointNoTypeValue = (byte)reader.ReadByte();
+            this.ExtraUnk9 = (byte)reader.ReadByte();
 
             this.m_bResistEffectFreeFlow = BitConverter.ToInt64(reader.ReadBytesFromFileStream(8).ToArray());
             this.ResistEffectFreeFlow_BoolProperty = BitConverter.ToInt64(reader.ReadBytesFromFileStream(8).ToArray());
-            this.Unk49 = reader.ReadBytesFromFileStream(9);
+            this.Unk49 = reader.ReadBytesFromFileStream(8);
             this.ResistEffectFreeFlowValue = (byte)reader.ReadByte();
+            this.ExtraUnk10 = (byte)reader.ReadByte();
 
             this.m_bResistEffectDeath = BitConverter.ToInt64(reader.ReadBytesFromFileStream(8).ToArray());
             this.ResistEffectDeath_BoolProperty = BitConverter.ToInt64(reader.ReadBytesFromFileStream(8).ToArray());
-            this.Unk50 = reader.ReadBytesFromFileStream(9);
+            this.Unk50 = reader.ReadBytesFromFileStream(8);
             this.ResistEffectDeathValue = (byte)reader.ReadByte();
+            this.ExtraUnk11 = (byte)reader.ReadByte();
 
             this.m_bResistEffectCatch = BitConverter.ToInt64(reader.ReadBytesFromFileStream(8).ToArray());
             this.ResistEffectCatch_BoolProperty = BitConverter.ToInt64(reader.ReadBytesFromFileStream(8).ToArray());
-            this.Unk51 = reader.ReadBytesFromFileStream(9);
+            this.Unk51 = reader.ReadBytesFromFileStream(8);
             this.ResistEffectCatchValue = (byte)reader.ReadByte();
+            this.ExtraUnk12 = (byte)reader.ReadByte();
 
             this.m_bResistEffectDrillBind = BitConverter.ToInt64(reader.ReadBytesFromFileStream(8).ToArray());
             this.ResistEffectDrillBind_BoolProperty = BitConverter.ToInt64(reader.ReadBytesFromFileStream(8).ToArray());
-            this.Unk52 = reader.ReadBytesFromFileStream(9);
+            this.Unk52 = reader.ReadBytesFromFileStream(8);
             this.ResistEffectDrillBindValue = (byte)reader.ReadByte();
+            this.ExtraUnk13 = (byte)reader.ReadByte();
 
             this.m_bResistEffectYoBind = BitConverter.ToInt64(reader.ReadBytesFromFileStream(8).ToArray());
             this.ResistEffectYoBind_BoolProperty = BitConverter.ToInt64(reader.ReadBytesFromFileStream(8).ToArray());
-            this.Unk53 = reader.ReadBytesFromFileStream(9);
+            this.Unk53 = reader.ReadBytesFromFileStream(8);
             this.ResistEffectYoBindValue = (byte)reader.ReadByte();
+            this.ExtraUnk14 = (byte)reader.ReadByte();
 
             this.m_bResistEffectRalphBind = BitConverter.ToInt64(reader.ReadBytesFromFileStream(8).ToArray());
             this.ResistEffectRalphBind_BoolProperty = BitConverter.ToInt64(reader.ReadBytesFromFileStream(8).ToArray());
-            this.Unk54 = reader.ReadBytesFromFileStream(9);
+            this.Unk54 = reader.ReadBytesFromFileStream(8);
             this.ResistEffectRalphBindValue = (byte)reader.ReadByte();
+            this.ExtraUnk15 = (byte)reader.ReadByte();
 
             this.m_bResistEffectEnergyBurst = BitConverter.ToInt64(reader.ReadBytesFromFileStream(8).ToArray());
             this.ResistEffectEnergyBurst_BoolProperty = BitConverter.ToInt64(reader.ReadBytesFromFileStream(8).ToArray());
-            this.Unk55 = reader.ReadBytesFromFileStream(9);
+            this.Unk55 = reader.ReadBytesFromFileStream(8);
             this.ResistEffectEnergyBurstValue = (byte)reader.ReadByte();
+            this.ExtraUnk16 = (byte)reader.ReadByte();
 
             this.m_bResistEffectFreeze = BitConverter.ToInt64(reader.ReadBytesFromFileStream(8).ToArray());
             this.ResistEffectFreeze_BoolProperty = BitConverter.ToInt64(reader.ReadBytesFromFileStream(8).ToArray());
-            this.Unk56 = reader.ReadBytesFromFileStream(9);
+            this.Unk56 = reader.ReadBytesFromFileStream(8);
             this.ResistEffectFreezeValue = (byte)reader.ReadByte();
+            this.ExtraUnk17 = (byte)reader.ReadByte();
 
             this.m_bResistEffectStop = BitConverter.ToInt64(reader.ReadBytesFromFileStream(8).ToArray());
             this.ResistEffectStop_BoolProperty = BitConverter.ToInt64(reader.ReadBytesFromFileStream(8).ToArray());
-            this.Unk57 = reader.ReadBytesFromFileStream(9);
+            this.Unk57 = reader.ReadBytesFromFileStream(8);
             this.ResistEffectStopValue = (byte)reader.ReadByte();
+            this.ExtraUnk18 = (byte)reader.ReadByte();
 
             this.m_bResistEffectMagnet = BitConverter.ToInt64(reader.ReadBytesFromFileStream(8).ToArray());
             this.ResistEffectMagnet_BoolProperty = BitConverter.ToInt64(reader.ReadBytesFromFileStream(8).ToArray());
-            this.Unk58 = reader.ReadBytesFromFileStream(9);
+            this.Unk58 = reader.ReadBytesFromFileStream(8);
             this.ResistEffectMagnetValue = (byte)reader.ReadByte();
+            this.ExtraUnk19 = (byte)reader.ReadByte();
 
             this.m_bResistEffectStun = BitConverter.ToInt64(reader.ReadBytesFromFileStream(8).ToArray());
             this.ResistEffectStun_BoolProperty = BitConverter.ToInt64(reader.ReadBytesFromFileStream(8).ToArray());
-            this.Unk59 = reader.ReadBytesFromFileStream(9);
+            this.Unk59 = reader.ReadBytesFromFileStream(8);
             this.ResistEffectStunValue = (byte)reader.ReadByte();
+            this.ExtraUnk20 = (byte)reader.ReadByte();
 
             this.m_bResistEffectSneeze = BitConverter.ToInt64(reader.ReadBytesFromFileStream(8).ToArray());
             this.ResistEffectSneeze_BoolProperty = BitConverter.ToInt64(reader.ReadBytesFromFileStream(8).ToArray());
-            this.Unk60 = reader.ReadBytesFromFileStream(9);
+            this.Unk60 = reader.ReadBytesFromFileStream(8);
             this.ResistEffectSneezeValue = (byte)reader.ReadByte();
+            this.ExtraUnk21 = (byte)reader.ReadByte();
 
             this.m_bResistEffectHoney = BitConverter.ToInt64(reader.ReadBytesFromFileStream(8).ToArray());
             this.ResistEffectHoney_BoolProperty = BitConverter.ToInt64(reader.ReadBytesFromFileStream(8).ToArray());
-            this.Unk61 = reader.ReadBytesFromFileStream(9);
+            this.Unk61 = reader.ReadBytesFromFileStream(8);
             this.ResistEffectHoneyValue = (byte)reader.ReadByte();
+            this.ExtraUnk22 = (byte)reader.ReadByte();
 
             this.m_bResistEffectCloud = BitConverter.ToInt64(reader.ReadBytesFromFileStream(8).ToArray());
             this.ResistEffectCloud_BoolProperty = BitConverter.ToInt64(reader.ReadBytesFromFileStream(8).ToArray());
-            this.Unk62 = reader.ReadBytesFromFileStream(9);
+            this.Unk62 = reader.ReadBytesFromFileStream(8);
             this.ResistEffectCloudValue = (byte)reader.ReadByte();
+            this.ExtraUnk23 = (byte)reader.ReadByte();
 
             this.m_bResistEffectDischarge = BitConverter.ToInt64(reader.ReadBytesFromFileStream(8).ToArray());
             this.ResistEffectDischarge_BoolProperty = BitConverter.ToInt64(reader.ReadBytesFromFileStream(8).ToArray());
-            this.Unk63 = reader.ReadBytesFromFileStream(9);
+            this.Unk63 = reader.ReadBytesFromFileStream(8);
             this.ResistEffectDischargeValue = (byte)reader.ReadByte();
+            this.ExtraUnk24 = (byte)reader.ReadByte();
 
             this.m_bResistEffectBurn = BitConverter.ToInt64(reader.ReadBytesFromFileStream(8).ToArray());
             this.ResistEffectBurn_BoolProperty = BitConverter.ToInt64(reader.ReadBytesFromFileStream(8).ToArray());
-            this.Unk64 = reader.ReadBytesFromFileStream(9);
+            this.Unk64 = reader.ReadBytesFromFileStream(8);
             this.ResistEffectBurnValue = (byte)reader.ReadByte();
+            this.ExtraUnk25 = (byte)reader.ReadByte();
 
             this.m_bResistEffectPoleSpinTurn = BitConverter.ToInt64(reader.ReadBytesFromFileStream(8).ToArray());
             this.ResistEffectPoleSpinTurn_BoolProperty = BitConverter.ToInt64(reader.ReadBytesFromFileStream(8).ToArray());
-            this.Unk65 = reader.ReadBytesFromFileStream(9);
+            this.Unk65 = reader.ReadBytesFromFileStream(8);
             this.ResistEffectPoleSpinTurnValue = (byte)reader.ReadByte();
+            this.ExtraUnk26 = (byte)reader.ReadByte();
 
             this.m_DropPrize1 = BitConverter.ToInt64(reader.ReadBytesFromFileStream(8).ToArray());
             this.DropPrize1_EnumProperty = BitConverter.ToInt64(reader.ReadBytesFromFileStream(8).ToArray());
@@ -881,6 +933,7 @@ namespace UE4DataTableInterpreter.DataTables
             data.AddRange(BitConverter.GetBytes(this.NeedReactionSameTeamZeroDmgAtk_BoolProperty));
             data.AddRange(this.Unk19);
             data.Add(this.NeedReactionSameTeamZeroDmgAtkValue);
+            data.Add(this.ExtraUnk1);
 
             data.AddRange(BitConverter.GetBytes(this.m_RevengeLimit));
             data.AddRange(BitConverter.GetBytes(this.RevengeLimit_FloatProperty));
@@ -991,126 +1044,151 @@ namespace UE4DataTableInterpreter.DataTables
             data.AddRange(BitConverter.GetBytes(this.AttrWeekPointPhysical_BoolProperty));
             data.AddRange(this.Unk41);
             data.Add(this.AttrWeekPointPhysicalValue);
+            data.Add(this.ExtraUnk2);
 
             data.AddRange(BitConverter.GetBytes(this.m_AttrWeekPointFire));
             data.AddRange(BitConverter.GetBytes(this.AttrWeekPointFire_BoolProperty));
             data.AddRange(this.Unk42);
             data.Add(this.AttrWeekPointFireValue);
+            data.Add(this.ExtraUnk3);
 
             data.AddRange(BitConverter.GetBytes(this.m_AttrWeekPointBlizzard));
             data.AddRange(BitConverter.GetBytes(this.AttrWeekPointBlizzard_BoolProperty));
             data.AddRange(this.Unk43);
             data.Add(this.AttrWeekPointBlizzardValue);
+            data.Add(this.ExtraUnk4);
 
             data.AddRange(BitConverter.GetBytes(this.m_AttrWeekPointThunder));
             data.AddRange(BitConverter.GetBytes(this.AttrWeekPointThunder_BoolProperty));
             data.AddRange(this.Unk44);
             data.Add(this.AttrWeekPointThunderValue);
+            data.Add(this.ExtraUnk5);
 
             data.AddRange(BitConverter.GetBytes(this.m_AttrWeekPointWater));
             data.AddRange(BitConverter.GetBytes(this.AttrWeekPointWater_BoolProperty));
             data.AddRange(this.Unk45);
             data.Add(this.AttrWeekPointWaterValue);
+            data.Add(this.ExtraUnk6);
 
             data.AddRange(BitConverter.GetBytes(this.m_AttrWeekPointAero));
             data.AddRange(BitConverter.GetBytes(this.AttrWeekPointAero_BoolProperty));
             data.AddRange(this.Unk46);
             data.Add(this.AttrWeekPointAeroValue);
+            data.Add(this.ExtraUnk7);
 
             data.AddRange(BitConverter.GetBytes(this.m_AttrWeekPointDark));
             data.AddRange(BitConverter.GetBytes(this.AttrWeekPointDark_BoolProperty));
             data.AddRange(this.Unk47);
             data.Add(this.AttrWeekPointDarkValue);
+            data.Add(this.ExtraUnk8);
 
             data.AddRange(BitConverter.GetBytes(this.m_AttrWeekPointNoType));
             data.AddRange(BitConverter.GetBytes(this.AttrWeekPointNoType_BoolProperty));
             data.AddRange(this.Unk48);
             data.Add(this.AttrWeekPointNoTypeValue);
+            data.Add(this.ExtraUnk9);
 
             data.AddRange(BitConverter.GetBytes(this.m_bResistEffectFreeFlow));
             data.AddRange(BitConverter.GetBytes(this.ResistEffectFreeFlow_BoolProperty));
             data.AddRange(this.Unk49);
             data.Add(this.ResistEffectFreeFlowValue);
+            data.Add(this.ExtraUnk10);
 
             data.AddRange(BitConverter.GetBytes(this.m_bResistEffectDeath));
             data.AddRange(BitConverter.GetBytes(this.ResistEffectDeath_BoolProperty));
             data.AddRange(this.Unk50);
             data.Add(this.ResistEffectDeathValue);
+            data.Add(this.ExtraUnk11);
 
             data.AddRange(BitConverter.GetBytes(this.m_bResistEffectCatch));
             data.AddRange(BitConverter.GetBytes(this.ResistEffectCatch_BoolProperty));
             data.AddRange(this.Unk51);
             data.Add(this.ResistEffectCatchValue);
+            data.Add(this.ExtraUnk12);
 
             data.AddRange(BitConverter.GetBytes(this.m_bResistEffectDrillBind));
             data.AddRange(BitConverter.GetBytes(this.ResistEffectDrillBind_BoolProperty));
             data.AddRange(this.Unk52);
             data.Add(this.ResistEffectDrillBindValue);
+            data.Add(this.ExtraUnk13);
 
             data.AddRange(BitConverter.GetBytes(this.m_bResistEffectYoBind));
             data.AddRange(BitConverter.GetBytes(this.ResistEffectYoBind_BoolProperty));
             data.AddRange(this.Unk53);
             data.Add(this.ResistEffectYoBindValue);
+            data.Add(this.ExtraUnk14);
 
             data.AddRange(BitConverter.GetBytes(this.m_bResistEffectRalphBind));
             data.AddRange(BitConverter.GetBytes(this.ResistEffectRalphBind_BoolProperty));
             data.AddRange(this.Unk54);
             data.Add(this.ResistEffectRalphBindValue);
+            data.Add(this.ExtraUnk15);
 
             data.AddRange(BitConverter.GetBytes(this.m_bResistEffectEnergyBurst));
             data.AddRange(BitConverter.GetBytes(this.ResistEffectEnergyBurst_BoolProperty));
             data.AddRange(this.Unk55);
             data.Add(this.ResistEffectEnergyBurstValue);
+            data.Add(this.ExtraUnk16);
 
             data.AddRange(BitConverter.GetBytes(this.m_bResistEffectFreeze));
             data.AddRange(BitConverter.GetBytes(this.ResistEffectFreeze_BoolProperty));
             data.AddRange(this.Unk56);
             data.Add(this.ResistEffectFreezeValue);
+            data.Add(this.ExtraUnk17);
 
             data.AddRange(BitConverter.GetBytes(this.m_bResistEffectStop));
             data.AddRange(BitConverter.GetBytes(this.ResistEffectStop_BoolProperty));
             data.AddRange(this.Unk57);
             data.Add(this.ResistEffectStopValue);
+            data.Add(this.ExtraUnk18);
 
             data.AddRange(BitConverter.GetBytes(this.m_bResistEffectMagnet));
             data.AddRange(BitConverter.GetBytes(this.ResistEffectMagnet_BoolProperty));
             data.AddRange(this.Unk58);
             data.Add(this.ResistEffectMagnetValue);
+            data.Add(this.ExtraUnk19);
 
             data.AddRange(BitConverter.GetBytes(this.m_bResistEffectStun));
             data.AddRange(BitConverter.GetBytes(this.ResistEffectStun_BoolProperty));
             data.AddRange(this.Unk59);
             data.Add(this.ResistEffectStunValue);
+            data.Add(this.ExtraUnk20);
 
             data.AddRange(BitConverter.GetBytes(this.m_bResistEffectSneeze));
             data.AddRange(BitConverter.GetBytes(this.ResistEffectSneeze_BoolProperty));
             data.AddRange(this.Unk60);
             data.Add(this.ResistEffectSneezeValue);
+            data.Add(this.ExtraUnk21);
 
             data.AddRange(BitConverter.GetBytes(this.m_bResistEffectHoney));
             data.AddRange(BitConverter.GetBytes(this.ResistEffectHoney_BoolProperty));
             data.AddRange(this.Unk61);
             data.Add(this.ResistEffectHoneyValue);
+            data.Add(this.ExtraUnk22);
 
             data.AddRange(BitConverter.GetBytes(this.m_bResistEffectCloud));
             data.AddRange(BitConverter.GetBytes(this.ResistEffectCloud_BoolProperty));
             data.AddRange(this.Unk62);
             data.Add(this.ResistEffectCloudValue);
+            data.Add(this.ExtraUnk23);
 
             data.AddRange(BitConverter.GetBytes(this.m_bResistEffectDischarge));
             data.AddRange(BitConverter.GetBytes(this.ResistEffectDischarge_BoolProperty));
             data.AddRange(this.Unk63);
             data.Add(this.ResistEffectDischargeValue);
+            data.Add(this.ExtraUnk24);
 
             data.AddRange(BitConverter.GetBytes(this.m_bResistEffectBurn));
             data.AddRange(BitConverter.GetBytes(this.ResistEffectBurn_BoolProperty));
             data.AddRange(this.Unk64);
             data.Add(this.ResistEffectBurnValue);
+            data.Add(this.ExtraUnk25);
 
             data.AddRange(BitConverter.GetBytes(this.m_bResistEffectPoleSpinTurn));
             data.AddRange(BitConverter.GetBytes(this.ResistEffectPoleSpinTurn_BoolProperty));
             data.AddRange(this.Unk65);
             data.Add(this.ResistEffectPoleSpinTurnValue);
+            data.Add(this.ExtraUnk26);
 
             data.AddRange(BitConverter.GetBytes(this.m_DropPrize1));
             data.AddRange(BitConverter.GetBytes(this.DropPrize1_EnumProperty));

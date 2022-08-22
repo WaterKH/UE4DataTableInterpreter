@@ -25,8 +25,9 @@ namespace UE4DataTableInterpreter.DataTables
 
         public long CompleteRewardFlag { get; set; }
         public long BoolProperty { get; set; }
-        public List<byte> Unk3 { get; set; } // 9 bytes
+        public List<byte> Unk3 { get; set; } // 8 bytes
         public byte Flag { get; set; }
+        public byte ExtraUnk1 { get; set; }
 
         public long RewardTreasureName { get; set; }
         public long NameProperty { get; set; }
@@ -51,8 +52,9 @@ namespace UE4DataTableInterpreter.DataTables
 
             this.CompleteRewardFlag = BitConverter.ToInt64(reader.ReadBytesFromFileStream(8).ToArray());
             this.BoolProperty = BitConverter.ToInt64(reader.ReadBytesFromFileStream(8).ToArray());
-            this.Unk3 = reader.ReadBytesFromFileStream(9);
+            this.Unk3 = reader.ReadBytesFromFileStream(8);
             this.Flag = (byte)reader.ReadByte();
+            this.ExtraUnk1 = (byte)reader.ReadByte();
 
             this.RewardTreasureName = BitConverter.ToInt64(reader.ReadBytesFromFileStream(8).ToArray());
             this.NameProperty = BitConverter.ToInt64(reader.ReadBytesFromFileStream(8).ToArray());
@@ -84,6 +86,7 @@ namespace UE4DataTableInterpreter.DataTables
             data.AddRange(BitConverter.GetBytes(this.BoolProperty));
             data.AddRange(this.Unk3);
             data.Add(this.Flag);
+            data.Add(this.ExtraUnk1);
 
             data.AddRange(BitConverter.GetBytes(this.RewardTreasureName));
             data.AddRange(BitConverter.GetBytes(this.NameProperty));

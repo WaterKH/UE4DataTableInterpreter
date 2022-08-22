@@ -9,7 +9,9 @@ namespace UE4DataTableInterpreter.Models
     public class Enemy
     {
         public string FilePath { get; set; }
+        public string[] Addresses { get; set; }
         public string EnemyPath { get; set; }
-        public long Address { get; set; }
+        public bool SpawnOriginal { get; set; }
+        public string Key { get; set; }
     }
 }
